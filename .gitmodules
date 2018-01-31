@@ -1,6 +1,6 @@
 [submodule "glaive"]
 	path = glaive
-	url = https://github.com/glaivelang/glaive.git
-[submodule "atomicburst"]
-	path = atomicburst
-	url = https://github.com/w3esoft/atomicburst.git
+	url = https://github.com/w3esoft/glaive.git 
+[submodule "craft"]
+	path = craft
+	url = https://github.com/w3esoft/craft.git
