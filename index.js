@@ -3,6 +3,14 @@ let p = "";
 const path = require('path');
 const fs = require('fs');
 const Tool = require('@w3esoft/tool');
+
+
+const HtmlInputString =Tool.html.HtmlInputString;
+const HtmlLexer =Tool.html.HtmlLexer;
+const findFiles =Tool.findFiles;
+const HtmlParser =Tool.html.HtmlParser;
+
+
 const map = {
     "@atomicburst/breadcrumb": p + "atomicburst/packages/breadcrumb",
     "@atomicburst/button": p + "atomicburst/packages/button",
@@ -42,8 +50,8 @@ for (let key  in map) {
 }
 
 
-let rootDir = path.resolve("../../desenvolvimento3/dam-online/angular/packages/");
-files =Tool.findFiles(
+let rootDir = path.resolve("F://desenvolvimento/damonline2/angular/packages/");
+files =findFiles(
         {
             rootDir:rootDir,
             files: files,
@@ -54,9 +62,17 @@ files =Tool.findFiles(
 for (let file of files){
    let d1  =path.resolve(rootDir,file);
    let d2  =path.resolve("test",file);
-   Tool.mkdirSync(path.dirname(d2));   
+   Tool.mkdirSync(path.dirname(d2));
    let  v=fs.readFileSync(d1);
    let c = v.toString();
-   new Tool.HtmlParser(c);
+
+   // console.log("\n\n\n\n");
+   // console.log(c);
+   // console.log("\n\n\n\n");
+
+   const input =new HtmlInputString(c);
+   const lexer = new  HtmlLexer(input);
+   const parser =  new HtmlParser(lexer);
+   parser.parse();
    fs.writeFileSync(d2,c);
 }
