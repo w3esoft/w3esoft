@@ -58,7 +58,11 @@ files =findFiles(
             excludes: ["**/node_modules"]
         }
 );
-
+let ii=0;
+files.shift();
+files.shift();
+files.shift();
+files.shift();
 for (let file of files){
    let d1  =path.resolve(rootDir,file);
    let d2  =path.resolve("test",file);
@@ -66,10 +70,11 @@ for (let file of files){
    let  v=fs.readFileSync(d1);
    let c = v.toString();
 
-   // console.log("\n\n\n\n");
-   // console.log(c);
-   // console.log("\n\n\n\n");
-
+   console.log("\n\n\n\n");
+   console.log(d1)
+   console.log((ii++))
+   console.log(c);
+   console.log("\n\n\n\n");
    const input =new HtmlInputString(c);
    const lexer = new  HtmlLexer(input);
    const parser =  new HtmlParser(lexer);
