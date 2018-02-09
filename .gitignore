@@ -3,3 +3,7 @@ nbproject
 /x64
 /test
 /node_modules
+/java/.gradle
+/java/gradle
+/.idea
+/node/package-lock.json

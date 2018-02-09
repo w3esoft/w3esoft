@@ -1,6 +1,6 @@
 const tokenConst = require("./token_const");
 let TOKEN_ID= 1;
-const HtmlToken = function (tokenIndex,value){
+const Token = function (tokenIndex,value){
     let me = this;
     me.id=100+(TOKEN_ID++);
     me.tokenIndex = tokenIndex;
@@ -50,9 +50,9 @@ const HtmlToken = function (tokenIndex,value){
     me.name= tokenConst.NAMES[tokenIndex];
     me.toString =function () {
         if (value){
-            return "HtmlToken."+me.name+"("+ JSON.stringify(value)+");"
+            return "Token."+me.name+"("+ JSON.stringify(value)+");"
         }else {
-            return "HtmlToken."+me.name+"();"
+            return "Token."+me.name+"();"
         }
     };
 
@@ -61,6 +61,6 @@ const HtmlToken = function (tokenIndex,value){
 
 
 module.exports = {
-    HtmlToken
+    Token
 };
 

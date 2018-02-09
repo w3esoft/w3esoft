@@ -3,8 +3,8 @@ let p = "";
 const path = require('path');
 const fs = require('fs');
 const {findFiles,mkdirSync} = require('@w3esoft/tool');
-const {HtmlInputString} = require('@w3esoft/glaive');
-const {HtmlParser,HtmlLexer} = require('@w3esoft/oz.ozhtml');
+const {InputString} = require('@w3esoft/glaive');
+const {Parser,Lexer} = require('@w3esoft/oz.ozhtml');
 
 
 const map = {
@@ -65,9 +65,9 @@ for (let file of files){
     mkdirSync(path.dirname(d2));
     let  v=fs.readFileSync(d1);
     let c = v.toString();
-    const input =new HtmlInputString(c);
-    const lexer = new  HtmlLexer(input);
-    const parser =  new HtmlParser(lexer);
+    const input =new InputString(c);
+    const lexer = new  Lexer(input);
+    const parser =  new Parser(lexer);
 
 
     console.log("\n\n\n\n");

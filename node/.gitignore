@@ -1,0 +1,5 @@
+nbproject
+/.vs
+/x64
+/test
+/node_modules
