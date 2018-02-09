@@ -2,13 +2,9 @@ let p = "";
 
 const path = require('path');
 const fs = require('fs');
-const Tool = require('@w3esoft/tool');
-
-
-const HtmlInputString =Tool.html.HtmlInputString;
-const HtmlLexer =Tool.html.HtmlLexer;
-const findFiles =Tool.findFiles;
-const HtmlParser =Tool.html.HtmlParser;
+const {findFiles,mkdirSync} = require('@w3esoft/tool');
+const {HtmlInputString} = require('@w3esoft/glaive');
+const {HtmlParser,HtmlLexer} = require('@w3esoft/oz.ozhtml');
 
 
 const map = {
@@ -64,20 +60,24 @@ files.shift();
 files.shift();
 files.shift();
 for (let file of files){
-   let d1  =path.resolve(rootDir,file);
-   let d2  =path.resolve("test",file);
-   Tool.mkdirSync(path.dirname(d2));
-   let  v=fs.readFileSync(d1);
-   let c = v.toString();
+    let d1  =path.resolve(rootDir,file);
+    let d2  =path.resolve("test",file);
+    mkdirSync(path.dirname(d2));
+    let  v=fs.readFileSync(d1);
+    let c = v.toString();
+    const input =new HtmlInputString(c);
+    const lexer = new  HtmlLexer(input);
+    const parser =  new HtmlParser(lexer);
 
-   console.log("\n\n\n\n");
-   console.log(d1)
-   console.log((ii++))
-   console.log(c);
-   console.log("\n\n\n\n");
-   const input =new HtmlInputString(c);
-   const lexer = new  HtmlLexer(input);
-   const parser =  new HtmlParser(lexer);
-   parser.parse();
-   fs.writeFileSync(d2,c);
+
+    console.log("\n\n\n\n");
+    console.log(d1)
+    console.log((ii++))
+    console.log(c);
+    console.log("\n\n\n\n");
+
+
+    let ee=parser.parse().toData();
+    console.log(JSON.stringify(ee, null, "\t"))
+    fs.writeFileSync(d2,c);
 }
