@@ -1,6 +1,10 @@
-export  class InputString {
-    pos=0;
-    read=function(){
+export  class InputString { 
+   
+    constructor()
+	{
+    	this.pos=0;
+	}
+    read(){
         let me = this;
         let char = str[me.pos++];
         if (!char)

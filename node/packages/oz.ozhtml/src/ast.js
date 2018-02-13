@@ -1,16 +1,11 @@
 const astConst = require("./ast_const");
 
-export class As {
-    private astIndex;
-    private value;
-    private name;
-
-    public constructor(value, astIndex) {
+export class Ast {
+    constructor(value, astIndex) {
         this.astIndex = astIndex;
         this.value = value;
         this.name = astConst.NAMES[astIndex];
     }
-
     is(astIndex, value) {
         let me = this;
         if (Array.isArray(astIndex)) {
@@ -27,12 +22,10 @@ export class As {
 
         return (me.astIndex === astIndex);
     }
-
     isNot(astIndex, value) {
         let me = this;
         return !me.is.apply(me, arguments);
     }
-
     expected(astIndex, value) {
         let me = this;
         let b = me.is.apply(me, arguments);
@@ -41,7 +34,6 @@ export class As {
         }
         return b;
     }
-
     unexpected(astIndex, value) {
         let me = this;
         let b = me.isNot.apply(me, arguments);
@@ -50,7 +42,6 @@ export class As {
         }
         return b;
     }
-
     toString() {
         let me = this;
         if (value) {
@@ -59,7 +50,6 @@ export class As {
             return "Ast." + me.name + "();";
         }
     }
-
     toData() {
         let me = this;
         if (me.astIndex === astConst.ATTRKEY) {

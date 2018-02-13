@@ -2,7 +2,7 @@ const  astConst = require("./ast_const");
 const  tokenConst = require("./token_const");
 const {Ast} = require("./ast");
 class Parser {
-    public contructor (lexer){
+    contructor (lexer){
         let me =this;
         me.lexer = lexer;
     }

@@ -2,9 +2,10 @@ import * as tokenConst from "./token_const";
 import * as charConst from "./char_const";
 import {Token} from  "./token";
 export class Lexer {
-    CHAR=-1;
-    tokens=[];
     constructor(input){
+        this.CHAR=-1;
+        this.input = input;
+        this.tokens=[];
     }
     static isWord(char){
         return ( 96 < char && 123 > char) || ( 64 < char && 91 > char || char === charConst.MINUS || char === 95 || char === 35);
@@ -15,7 +16,7 @@ export class Lexer {
     static isWhiteSpace(char){
         return char === 32 || char === 13 || char === 10;
     };
-    public tokenize () {
+    tokenize () {
         let me = this;
         if (me.tokens.length)
             return me.tokens.pop();
@@ -24,19 +25,19 @@ export class Lexer {
             char = me.CHAR;
             me.CHAR=-1;
         }else {
-            char = input.read();
+            char = me.input.read();
         }
         if (char===charConst.GREATER){
-            char = input.read();
+            char = me.input.read();
             if (char===charConst.BACKSLASH){
                 return new Token(tokenConst.TAGHEADCLOSE)
             }else if (char===charConst.BANG){
-                 input.read();
-                 input.read();
+            	me.input.read();
+                me.input.read();
                 let ii=0;
                 let value="";
                 while(true){
-                    char= input.read();
+                    char= me.input.read();
                     value+= String.fromCharCode(char);
                     if (char===charConst.EOF){
                         break;

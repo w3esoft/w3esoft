@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node tools/index.js build"
   },
   "repository": {
     "type": "git",
@@ -17,11 +17,14 @@
   },
   "homepage": "https://github.com/w3esoft/w3esoft#readme",
   "dependencies": {
-    "@w3esoft/craft": "file:packages/craft",
-    "@w3esoft/glaive": "file:packages/glaive",
-    "@w3esoft/oz": "file:packages/oz",
-    "@w3esoft/ozcss": "file:packages/oz.ozcss",
-    "@w3esoft/ozhtml": "file:packages/oz.ozhtml",
-    "@w3esoft/tool": "file:packages/tool"
+	    "@w3esoft/craft": "file:packages/craft",
+	    "@w3esoft/glaive": "file:packages/glaive",
+	    "@w3esoft/oz": "file:packages/oz",
+	    "@w3esoft/oz.ozcss": "file:packages/oz.ozcss",
+	    "@w3esoft/oz.ozhtml": "file:packages/oz.ozhtml",
+	    "@w3esoft/tool": "file:packages/tool",
+	    "@babel/cli": "^7.0.0-beta.40",
+	    "@babel/core": "^7.0.0-beta.40",
+	    "@babel/preset-env": "^7.0.0-beta.40"
   }
 }
