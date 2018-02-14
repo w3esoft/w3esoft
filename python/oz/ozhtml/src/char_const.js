@@ -1,0 +1,32 @@
+const DOUBLEDOT = 58;
+const GREATER = 60;
+const MINOR = 62;
+const EQUAL = 61;
+const DOUBLEQUOTES = 34;
+const MULTIPLICATION = 42;
+const BRACKETOPEN = 91;
+const BRACKETClOSE = 93;
+const PARENTHESISOPEN = 40;
+const PARENTHESISCLOSE = 41;
+const BACKSLASH = 47;
+const DOT = 46;
+const BANG = 33;
+const MINUS = 45;
+const EOF = -1;
+module.exports = {
+    DOUBLEDOT,
+    GREATER,
+    MINOR,
+    EQUAL,
+    DOUBLEQUOTES,
+    EOF,
+    MULTIPLICATION,
+    BRACKETOPEN,
+    BRACKETClOSE,
+    PARENTHESISOPEN,
+    PARENTHESISCLOSE,
+    BACKSLASH,
+    DOT,
+    BANG,
+    MINUS
+}

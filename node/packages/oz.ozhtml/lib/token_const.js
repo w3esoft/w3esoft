@@ -53,3 +53,4 @@ module.exports = {
   TAGCOMMENT: TAGCOMMENT,
   NUMERIC: NUMERIC
 };
+//# sourceMappingURL=token_const.js.map

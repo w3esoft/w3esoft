@@ -19,7 +19,7 @@ module.exports = function(){
 		let babelJs=path.resolve("./node_modules/@babel/cli/bin/babel.js");
 		if(fs.existsSync(p+"/src")&&fs.existsSync(p+"/.babelrc")){
 			files.push(p+"/src/**.js");
-			child_process.fork(babelJs,[p+"/src/**.js","--config-file", p +"/.babelrc" ,"-d",p+"/lib"]);
+			child_process.fork(babelJs,[p+"/src/**.js","--config-file", p +"/.babelrc" ,"-d",p+"/lib","--source-maps"]);
 		}
 		
 	}

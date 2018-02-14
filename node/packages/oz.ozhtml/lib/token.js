@@ -95,3 +95,4 @@ var Token = function Token(tokenIndex, value) {
 module.exports = {
   Token: Token
 };
+//# sourceMappingURL=token.js.map

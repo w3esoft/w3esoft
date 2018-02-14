@@ -7,3 +7,4 @@ nbproject
 /java/gradle
 /.idea
 /node/package-lock.json
+/python/venv
