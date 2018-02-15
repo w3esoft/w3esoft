@@ -1,30 +1,30 @@
 package lexer
 
 import (
-	"github.com/w3esoft/oz/ozhtml/token"
-	"github.com/w3esoft/glaive/input"
 	"errors"
+	"github.com/w3esoft/glaive/input"
+	"github.com/w3esoft/oz/ozhtml/token"
 )
 
 type Lexer struct {
 	CHAR   int
 	Input  input.Input
-	Tokens [] token.Token
+	Tokens []token.Token
 }
 
-func New( input [] input.Input, value string) Lexer {
+func New(input []input.Input, value string) Lexer {
 	lexer := Lexer{}
 	lexer.CHAR = -1
 	lexer.Input = input
 	// lexer.tokens
-	return  lexer
+	return lexer
 }
 
 func (lexer *Lexer) Tokenize() (r *token.Token, err error) {
-	if len(lexer.Tokens)>0{
+	if len(lexer.Tokens) > 0 {
 		r = lexer.Tokens[len(lexer.Tokens)-1:][0]
-		lexer.Tokens= lexer.Tokens[:len(lexer.Tokens)-1]
-		return r , nil
+		lexer.Tokens = lexer.Tokens[:len(lexer.Tokens)-1]
+		return r, nil
 	}
 	var char int
 	if lexer.CHAR != -1 {
@@ -93,44 +93,44 @@ func (lexer *Lexer) Tokenize() (r *token.Token, err error) {
 	case char == DOUBLEDOT:
 		return token.New(token.DOUBLEDOT, nil), nil
 	case char == DOUBLEQUOTES:
-		value:=""
+		value := ""
 		char = lexer.Input.Read()
-		for char != DOUBLEQUOTES && char != EOF{
+		for char != DOUBLEQUOTES && char != EOF {
 			value = value + string(char)
 			char = lexer.Input.Read()
 		}
 		return token.New(token.STRING, nil), nil
-	case char== EOF :
+	case char == EOF:
 		return token.New(token.EOF, nil), nil
 
 	case IsWhiteSpace(char):
-		for IsWhiteSpace(char){
+		for IsWhiteSpace(char) {
 			char = lexer.Input.Read()
 		}
 		lexer.CHAR = char
 		return token.New(token.WHITESPACE, nil), nil
 	case IsWord(char):
-		value:=""
-		for IsWord(char)||IsNumeric(char){
+		value := ""
+		for IsWord(char) || IsNumeric(char) {
 			value = value + string(char)
 			char = lexer.Input.Read()
 		}
 		lexer.CHAR = char
-		return  token.New(token.WORD,&value), nil
+		return token.New(token.WORD, &value), nil
 	case IsNumeric(char):
-		value:=""
-		for IsNumeric(char){
+		value := ""
+		for IsNumeric(char) {
 			value = value + string(char)
 			char = lexer.Input.Read()
 		}
 		lexer.CHAR = char
-		return token.New(token.NUMERIC,&value), nil
+		return token.New(token.NUMERIC, &value), nil
 	default:
 		return nil, errors.New("unexpected char " + char)
 	}
 }
 func IsWord(char int) bool {
-	return ( 96 < char && 123 > char) || ( 64 < char && 91 > char || char == MINUS || char == 95 || char == 35)
+	return (96 < char && 123 > char) || (64 < char && 91 > char || char == MINUS || char == 95 || char == 35)
 }
 func IsNumeric(char int) bool {
 	return 47 < char && 58 > char

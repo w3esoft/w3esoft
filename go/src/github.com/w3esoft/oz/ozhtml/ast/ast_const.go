@@ -1,4 +1,5 @@
 package ast
+
 const (
 	TAG         = 1
 	VALUE       = 2
