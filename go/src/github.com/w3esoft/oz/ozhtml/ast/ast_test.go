@@ -2,16 +2,14 @@ package ast
 
 import "testing"
 
-func TestAverage(t *testing.T) {
-	var ast Ast = New(TAG,"dfsdfsdf");
-	b1, _ := ast.Expected([]int{TAG},nil);
-	t.Log(" Expected ",b1)
-	b2, _ := ast.Expected([]int{TAG},nil);
-	t.Log(" Expected ",b2)
-	b3, _ := ast.Expected([]int{TAG},nil);
-	t.Log(" Expected ",b3)
-	b4, _ := ast.Expected([]int{TAG},nil);
-	t.Log(" Expected ",b4)
-	b5, _ := ast.Expected([]int{TAG},nil);
-	t.Log(" Expected ",b5,)
+func Test(t *testing.T) {
+	var ast = New(TAG,"123");
+	b1 := ast.Is([]int{TAG},"123");
+	t.Log("Is",b1)
+	b2 := ast.IsNot([]int{TAG},nil);
+	t.Log("IsNot",b2)
+	b3, e1 := ast.Expected([]int{TAG},nil);
+	t.Log("Expected",b3,e1)
+	b4, e2 := ast.Unexpected([]int{TAG},nil);
+	t.Log("Unexpected",b4,e2)
 }

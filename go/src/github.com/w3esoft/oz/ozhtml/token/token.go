@@ -6,23 +6,24 @@ import (
 
 type Token struct {
 	Index int
-	Value *string
+	Value interface{}
 	Name  string
 }
 
-func New(index int, value *string) *Token {
+func New(tokenIndex int, value interface{}) *Token {
 	var token Token = Token{}
-	token.Index = index
+	token.Index = tokenIndex
 	token.Value = value
-	//token.name = name;
+	token.Name = NAMES[tokenIndex]
 	return &token
 }
-func (token Token) Is(indexs []int, value *string) bool {
-	for index := range indexs {
-		b1 := token.Index == index
-		b2 := true
-		if value != nil {
-			b2 = token.Value == value
+
+func (token *Token) Is(tokenIndexs []int, value interface{}) bool {
+	for _,tokenIndex := range tokenIndexs {
+		b1 := token.Index == tokenIndex
+		b2 := true;
+		if value!=nil{
+			b2 =token.Value == value
 		}
 		if b1 && b2 {
 			return true
@@ -30,27 +31,20 @@ func (token Token) Is(indexs []int, value *string) bool {
 	}
 	return false
 }
-func (token Token) IsNot(indexs []int, value *string) bool {
-	return !token.Is(indexs, value)
+func (token *Token) IsNot(tokenIndexs []int, value interface{}) bool {
+	return !token.Is(tokenIndexs, value)
 }
-func (token Token) Expected(indexs []int, value *string) (r bool, err error) {
-	b := token.Is(indexs, value)
-	if b {
+func (token *Token) Expected(tokenIndexs []int, value interface{}) (r bool, err error) {
+	b := token.Is(tokenIndexs, value)
+	if !b {
 		return b, errors.New("unexpected token " + token.Name)
 	}
 	return b, nil
 }
-func (token Token) Unexpected(indexs []int, value *string) (r bool, err error) {
-	b := token.IsNot(indexs, value)
-	if b {
+func (token *Token) Unexpected(tokenIndexs []int, value interface{}) (r bool, err error) {
+	b := token.IsNot(tokenIndexs, value)
+	if !b {
 		return b, errors.New("unexpected token " + token.Name)
 	}
 	return b, nil
-}
-func (token Token) ToString() string {
-	if token.Value == nil {
-		return "Token." + token.Name + "();"
-	} else {
-		return "Token." + token.Name + "();"
-	}
 }

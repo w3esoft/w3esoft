@@ -1,29 +1,29 @@
 package string
 
-//import "github.com/w3esoft/glaive/input"
-//
-//type InputFile struct {
-//	*input.Input
-//	Value string
-//}
-//
-//func  New(value string) *InputFile {
-//	i := InputFile{}
-//	i.Input.Pos := 0
-//	i.value=value;
-//	return &i
-//}
-//
-//func read (i *InputFile )  {
-//	i.Input
-//	let char = str[me.pos++];
-//}
-//
-//
-//func read(){
-//	let me = this;
-//	if (!char)
-//	return -1;
-//	else
-//	return char.charCodeAt(0);
-//}
+
+type InputString struct {
+	value string
+	pos   int
+}
+func  New(value string) *InputString {
+	i := InputString{}
+	i.pos = 0
+	i.value=value;
+	return &i
+}
+func (input *InputString ) Read() uint8{
+	if (input.pos> len(input.value)){
+		return 0;
+	} else{
+		i:=input.pos
+		input.pos =input.pos+1;
+		return input.value[i];
+	}
+}
+func (input *InputString ) GetPosition() int{
+	if !(input.pos> len(input.value)){
+		return len(input.value);
+	} else{
+		return input.pos;
+	}
+}

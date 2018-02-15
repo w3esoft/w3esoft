@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/w3esoft/glaive/input"
 	"github.com/w3esoft/oz/ozhtml/token"
+	"fmt"
 )
 
 type Lexer struct {
@@ -12,23 +13,22 @@ type Lexer struct {
 	Tokens []token.Token
 }
 
-func New(input []input.Input, value string) Lexer {
+func New(input input.Input) Lexer {
 	lexer := Lexer{}
 	lexer.CHAR = -1
 	lexer.Input = input
-	// lexer.tokens
 	return lexer
 }
 
 func (lexer *Lexer) Tokenize() (r *token.Token, err error) {
 	if len(lexer.Tokens) > 0 {
-		r = lexer.Tokens[len(lexer.Tokens)-1:][0]
+		r = &lexer.Tokens[len(lexer.Tokens)-1:][0]
 		lexer.Tokens = lexer.Tokens[:len(lexer.Tokens)-1]
 		return r, nil
 	}
-	var char int
+	var char uint8
 	if lexer.CHAR != -1 {
-		char = lexer.CHAR
+		char = uint8(lexer.CHAR)
 		lexer.CHAR = -1
 	} else {
 		char = lexer.Input.Read()
@@ -62,6 +62,7 @@ func (lexer *Lexer) Tokenize() (r *token.Token, err error) {
 			}
 			return token.New(token.TAGCOMMENT, &value), nil
 		default:
+			lexer.CHAR = int(char)
 			return token.New(token.TAGHEADOPEN, nil), nil
 		}
 	case char == BACKSLASH:
@@ -73,7 +74,7 @@ func (lexer *Lexer) Tokenize() (r *token.Token, err error) {
 			value = value + string(char)
 			char = lexer.Input.Read()
 		}
-		lexer.CHAR = char
+		lexer.CHAR = int(char)
 		return token.New(token.TAGBODY, &value), nil
 	case char == PARENTHESISOPEN:
 		return token.New(token.PARENTHESISOPEN, nil), nil
@@ -107,7 +108,7 @@ func (lexer *Lexer) Tokenize() (r *token.Token, err error) {
 		for IsWhiteSpace(char) {
 			char = lexer.Input.Read()
 		}
-		lexer.CHAR = char
+		lexer.CHAR = int(char)
 		return token.New(token.WHITESPACE, nil), nil
 	case IsWord(char):
 		value := ""
@@ -115,7 +116,7 @@ func (lexer *Lexer) Tokenize() (r *token.Token, err error) {
 			value = value + string(char)
 			char = lexer.Input.Read()
 		}
-		lexer.CHAR = char
+		lexer.CHAR = int(char)
 		return token.New(token.WORD, &value), nil
 	case IsNumeric(char):
 		value := ""
@@ -123,19 +124,19 @@ func (lexer *Lexer) Tokenize() (r *token.Token, err error) {
 			value = value + string(char)
 			char = lexer.Input.Read()
 		}
-		lexer.CHAR = char
+		lexer.CHAR = int(char)
 		return token.New(token.NUMERIC, &value), nil
 	default:
-		return nil, errors.New("unexpected char " + char)
+		return nil, errors.New(fmt.Sprintf("%s %s ", "unexpected char ", int(char)))
 	}
 }
-func IsWord(char int) bool {
+func IsWord(char uint8) bool {
 	return (96 < char && 123 > char) || (64 < char && 91 > char || char == MINUS || char == 95 || char == 35)
 }
-func IsNumeric(char int) bool {
+func IsNumeric(char uint8) bool {
 	return 47 < char && 58 > char
 }
 
-func IsWhiteSpace(char int) bool {
-	return char == 32 || char == 13 || char == 10
+func IsWhiteSpace(char uint8) bool {
+	return char == 32 || char == 13 || char == 10||char == 9
 }

@@ -15,5 +15,5 @@ const (
 	DOT              = 46
 	BANG             = 33
 	MINUS            = 45
-	EOF              = -1
+	EOF              = 0
 )

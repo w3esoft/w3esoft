@@ -8,3 +8,4 @@ nbproject
 /.idea
 /node/package-lock.json
 /python/venv
+/go/pkg

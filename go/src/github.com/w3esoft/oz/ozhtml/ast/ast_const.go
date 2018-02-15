@@ -8,3 +8,11 @@ const (
 	DOCUMENT    = 5
 	ATTR        = 6
 )
+var NAMES = map[int]string{
+	TAG         :"TAG",
+	VALUE       :"VALUE",
+	ATTR_KEY    :"ATTR_KEY",
+	TAG_COMMENT :"TAG_COMMENT",
+	DOCUMENT    :"DOCUMENT",
+	ATTR        :"ATTR",
+}

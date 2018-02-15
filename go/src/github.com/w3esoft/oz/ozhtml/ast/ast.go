@@ -10,16 +10,16 @@ type Ast struct {
 	Name  string
 }
 
-func New(astIndex int, value interface{}) Ast {
+func New(astIndex int, value interface{}) *Ast {
 	var ast Ast = Ast{}
 	ast.Index = astIndex
 	ast.Value = value
-	ast.Name = ""
-	return ast
+	ast.Name = NAMES[astIndex]
+	return &ast
 }
 
-func (ast Ast) Is(astIndexs []int, value interface{}) bool {
-	for astIndex := range astIndexs {
+func (ast *Ast) Is(astIndexs []int, value interface{}) bool {
+	for _,astIndex := range astIndexs {
 		b1 := ast.Index == astIndex
 		b2 := true;
 		if value!=nil{
@@ -31,17 +31,17 @@ func (ast Ast) Is(astIndexs []int, value interface{}) bool {
 	}
 	return false
 }
-func (ast Ast) IsNot(astIndexs []int, value interface{}) bool {
+func (ast *Ast) IsNot(astIndexs []int, value interface{}) bool {
 	return !ast.Is(astIndexs, value)
 }
-func (ast Ast) Expected(astIndexs []int, value interface{}) (r bool, err error) {
+func (ast *Ast) Expected(astIndexs []int, value interface{}) (r bool, err error) {
 	b := ast.Is(astIndexs, value)
 	if !b {
 		return b, errors.New("unexpected ast " + ast.Name)
 	}
 	return b, nil
 }
-func (ast Ast) Unexpected(astIndexs []int, value interface{}) (r bool, err error) {
+func (ast *Ast) Unexpected(astIndexs []int, value interface{}) (r bool, err error) {
 	b := ast.IsNot(astIndexs, value)
 	if !b {
 		return b, errors.New("unexpected ast " + ast.Name)
