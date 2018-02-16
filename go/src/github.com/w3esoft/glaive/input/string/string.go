@@ -12,18 +12,20 @@ func  New(value string) *InputString {
 	return &i
 }
 func (input *InputString ) Read() uint8{
-	if (input.pos> len(input.value)){
-		return 0;
+	l :=len(input.value)
+	if l > input.pos {
+		value  :=  input.value[input.pos]
+		input.pos =input.pos+1
+		return value;
 	} else{
-		i:=input.pos
-		input.pos =input.pos+1;
-		return input.value[i];
+		return 0;
 	}
 }
 func (input *InputString ) GetPosition() int{
-	if !(input.pos> len(input.value)){
-		return len(input.value);
-	} else{
+	l :=len(input.value)
+	if l > input.pos{
 		return input.pos;
+	} else{
+		return l;
 	}
 }

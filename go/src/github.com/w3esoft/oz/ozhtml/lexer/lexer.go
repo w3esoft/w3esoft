@@ -11,11 +11,13 @@ type Lexer struct {
 	CHAR   int
 	Input  input.Input
 	Tokens []token.Token
+	pos int
 }
 
 func New(input input.Input) Lexer {
 	lexer := Lexer{}
 	lexer.CHAR = -1
+	lexer.pos = 0
 	lexer.Input = input
 	return lexer
 }
@@ -38,7 +40,8 @@ func (lexer *Lexer) Tokenize() (r *token.Token, err error) {
 		char = lexer.Input.Read()
 		switch char {
 		case BACKSLASH:
-			return token.New(token.TAGHEADCLOSE, nil), nil
+			lexer.pos++;
+			return token.New(token.TAGHEADCLOSE, nil ), nil
 		case BANG:
 			char = lexer.Input.Read()
 			char = lexer.Input.Read()
