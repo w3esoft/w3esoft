@@ -3,13 +3,14 @@ package token
 import "testing"
 
 func Test(t *testing.T) {
-	var token = New(TAGHEADOPEN,"123");
-	b1 := token.Is([]int{TAGHEADOPEN},"123");
+	p := &Position{}
+	var token = New(TAG_OPEN,"123",p,true);
+	b1 := token.Is([]int{TAG_OPEN},"123");
 	t.Log("Is",b1)
-	b2 := token.IsNot([]int{TAGHEADOPEN},nil);
+	b2 := token.IsNot([]int{TAG_OPEN},nil);
 	t.Log("IsNot",b2)
-	b3, e1 := token.Expected([]int{TAGHEADOPEN},nil);
+	b3, e1 := token.Expected([]int{TAG_OPEN},nil);
 	t.Log("Expected",b3,e1)
-	b4, e2 := token.Unexpected([]int{TAGHEADOPEN},nil);
+	b4, e2 := token.Unexpected([]int{TAG_OPEN},nil);
 	t.Log("Unexpected",b4,e2)
 }

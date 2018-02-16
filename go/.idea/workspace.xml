@@ -10,54 +10,74 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="lexer_test.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/lexer/lexer_test.go">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="findFiles.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/tool/findFiles.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+            <state relative-caret-position="383">
+              <caret line="42" column="46" lean-forward="false" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="46" />
               <folding>
-                <element signature="e#15#117#0" expanded="true" />
+                <element signature="e#14#60#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="token.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token.go">
+      <file leaf-file-name="findFiles.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/tool/src/findFiles.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="20" column="14" lean-forward="false" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+            <state relative-caret-position="136">
+              <caret line="116" column="21" lean-forward="false" selection-start-line="116" selection-start-column="21" selection-end-line="116" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lexer.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/lexer/lexer.go">
+      <file leaf-file-name="list.go" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Go/src/container/list/list.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="49" column="4" lean-forward="false" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
+            <state relative-caret-position="116">
+              <caret line="136" column="15" lean-forward="false" selection-start-line="136" selection-start-column="15" selection-end-line="136" selection-end-column="15" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="char_const.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/lexer/char_const.go">
+      <file leaf-file-name="builtin.go" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Go/src/builtin/builtin.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+            <state relative-caret-position="-1822">
+              <caret line="133" column="5" lean-forward="false" selection-start-line="133" selection-start-column="5" selection-end-line="133" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="string.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/glaive/input/string/string.go">
+      <file leaf-file-name="panic.go" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Go/src/runtime/panic.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="18" column="21" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+            <state relative-caret-position="116">
+              <caret line="490" column="0" lean-forward="false" selection-start-line="490" selection-start-column="0" selection-end-line="490" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testing.go" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Go/src/testing/testing.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="116">
+              <caret line="710" column="0" lean-forward="false" selection-start-line="710" selection-start-column="0" selection-end-line="710" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="regexp.go" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Go/src/regexp/regexp.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="124">
+              <caret line="478" column="18" lean-forward="false" selection-start-line="478" selection-start-column="18" selection-end-line="478" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -74,21 +94,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>MINOR</find>
-      <find>tokenIndex</find>
       <find>NUMERIC</find>
-      <find>;</find>
       <find>Ast</find>
       <find>ast</find>
       <find>WHITESPACE</find>
-      <find>lexer.CHAR</find>
       <find>{Len:offset -lexer.pos,Offset:offset}</find>
       <find>lexer.pos</find>
       <find>token.Position{Len: len, Offset: offset}</find>
-      <find>token.Position</find>
       <find>var va</find>
-      <find>TAGBODY</find>
       <find>:= &quot;&quot;</find>
+      <find>token.Position</find>
+      <find>lexer.Input.Read</find>
+      <find>lexer.pos++</find>
+      <find>TAGHEADCLOSE</find>
+      <find>TAGBODY</find>
+      <find>TAGCOMMENT</find>
+      <find>TAG_OPEN</find>
+      <find>BACKSLASH</find>
+      <find>MINOR</find>
+      <find>TAG_END_CLOSE</find>
+      <find>TAG_STRING</find>
+      <find>TEXT</find>
+      <find>token.EOF</find>
+      <find>lexer.CHAR</find>
+      <find>S</find>
+      <find>copyFileSync</find>
+      <find>for</find>
+      <find>range</find>
+      <find>PB_RECURSIVEEXTENSION</find>
+      <find>;</find>
+      <find>createBuild</find>
     </findStrings>
     <replaceStrings>
       <replace>index</replace>
@@ -97,8 +132,9 @@
       <replace>{Len:lexer.pos  - offset ,Offset:offset}</replace>
       <replace>len</replace>
       <replace>position</replace>
-      <replace>&amp;token.Position</replace>
       <replace>value</replace>
+      <replace>&amp;token.Position</replace>
+      <replace>lexer.Read</replace>
     </replaceStrings>
   </component>
   <component name="GOROOT" path="C:\Go" />
@@ -128,16 +164,21 @@
         <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/main.go" />
         <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast/ast_testing.go" />
         <option value="$PROJECT_DIR$/src/github.com/w3esoft/glaive/input/input.go" />
-        <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/lexer/char_const.go" />
-        <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token_test.go" />
         <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast/ast_test.go" />
         <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast/ast_const.go" />
         <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast/ast.go" />
-        <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token_const.go" />
         <option value="$PROJECT_DIR$/src/github.com/w3esoft/glaive/input/string/string.go" />
+        <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/lexer/char_const.go" />
+        <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token.go" />
+        <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token_const.go" />
         <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/lexer/lexer_test.go" />
         <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/lexer/lexer.go" />
-        <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token.go" />
+        <option value="$PROJECT_DIR$/src/github.com/w3esoft/tool/tool.go" />
+        <option value="$PROJECT_DIR$/src/github.com/w3esoft/tool/mkdirSync.go" />
+        <option value="$PROJECT_DIR$/src/github.com/w3esoft/tool/deleteFolderRecursive.go" />
+        <option value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token_test.go" />
+        <option value="$PROJECT_DIR$/src/github.com/w3esoft/tool/tool_test.go" />
+        <option value="$PROJECT_DIR$/src/github.com/w3esoft/tool/findFiles.go" />
       </list>
     </option>
   </component>
@@ -175,6 +216,51 @@
             <path>
               <item name="go" type="b2602c69:ProjectViewProjectNode" />
               <item name="go" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="go" type="b2602c69:ProjectViewProjectNode" />
+              <item name="go" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="go" type="b2602c69:ProjectViewProjectNode" />
+              <item name="go" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="windows_amd64" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="go" type="b2602c69:ProjectViewProjectNode" />
+              <item name="go" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="windows_amd64" type="462c0819:PsiDirectoryNode" />
+              <item name="github.com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="go" type="b2602c69:ProjectViewProjectNode" />
+              <item name="go" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="windows_amd64" type="462c0819:PsiDirectoryNode" />
+              <item name="github.com" type="462c0819:PsiDirectoryNode" />
+              <item name="w3esoft" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="go" type="b2602c69:ProjectViewProjectNode" />
+              <item name="go" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="windows_amd64" type="462c0819:PsiDirectoryNode" />
+              <item name="github.com" type="462c0819:PsiDirectoryNode" />
+              <item name="w3esoft" type="462c0819:PsiDirectoryNode" />
+              <item name="oz" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="go" type="b2602c69:ProjectViewProjectNode" />
+              <item name="go" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="windows_amd64" type="462c0819:PsiDirectoryNode" />
+              <item name="github.com" type="462c0819:PsiDirectoryNode" />
+              <item name="w3esoft" type="462c0819:PsiDirectoryNode" />
+              <item name="oz" type="462c0819:PsiDirectoryNode" />
+              <item name="ozhtml" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="go" type="b2602c69:ProjectViewProjectNode" />
@@ -236,6 +322,15 @@
               <item name="github.com" type="462c0819:PsiDirectoryNode" />
               <item name="w3esoft" type="462c0819:PsiDirectoryNode" />
               <item name="oz" type="462c0819:PsiDirectoryNode" />
+              <item name="ozcss" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="go" type="b2602c69:ProjectViewProjectNode" />
+              <item name="go" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="github.com" type="462c0819:PsiDirectoryNode" />
+              <item name="w3esoft" type="462c0819:PsiDirectoryNode" />
+              <item name="oz" type="462c0819:PsiDirectoryNode" />
               <item name="ozhtml" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -288,6 +383,15 @@
             </path>
             <path>
               <item name="go" type="b2602c69:ProjectViewProjectNode" />
+              <item name="go" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="github.com" type="462c0819:PsiDirectoryNode" />
+              <item name="w3esoft" type="462c0819:PsiDirectoryNode" />
+              <item name="tool" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="go" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -307,18 +411,19 @@
     <property name="DefaultGoTemplateProperty" value="Go File" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\oz\ozhtml\lexer" />
-      <recent name="E:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\oz\ozhtml\token" />
-      <recent name="F:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\glaive\input" />
-      <recent name="F:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\oz\ozhtml\ast" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\glaive\input" />
       <recent name="F:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\glaive\input_string" />
       <recent name="F:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\glaive\input_file" />
       <recent name="F:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\glaive" />
       <recent name="F:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\oz\ozhtml\token" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\tool" />
+      <recent name="E:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\oz\ozhtml\lexer" />
+      <recent name="E:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\oz\ozhtml\token" />
+      <recent name="F:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\glaive\input" />
+      <recent name="F:\desenvolvimento\w3esoft\go\src\github.com\w3esoft\oz\ozhtml\ast" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -333,7 +438,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.Test in lexer_test.go">
+  <component name="RunManager" selected="Go Test.Test in tool_test.go">
     <configuration name="go build ast_testing.go" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="go" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -360,13 +465,13 @@
       <package value="github.com/w3esoft/oz/ozhtml/lexer" />
       <pattern value="^Test$" />
     </configuration>
-    <configuration name="Test in token_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
+    <configuration name="Test in tool_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
       <module name="go" />
-      <working_directory value="$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token" />
+      <working_directory value="$PROJECT_DIR$/src/github.com/w3esoft/tool" />
       <go_parameters value="-i" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/w3esoft/oz/ozhtml/token" />
+      <package value="github.com/w3esoft/tool" />
       <pattern value="^Test$" />
     </configuration>
     <configuration name="ast_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
@@ -390,17 +495,17 @@
       <item index="0" class="java.lang.String" itemvalue="Go Build.go build ast_testing.go" />
       <item index="1" class="java.lang.String" itemvalue="Go Test.ast_test.go" />
       <item index="2" class="java.lang.String" itemvalue="Go Test.Test in lexer_test.go" />
-      <item index="3" class="java.lang.String" itemvalue="Go Test.Test in token_test.go" />
-      <item index="4" class="java.lang.String" itemvalue="Go Test.lexer_test.go" />
-      <item index="5" class="java.lang.String" itemvalue="Go Test.Test in ast_test.go" />
+      <item index="3" class="java.lang.String" itemvalue="Go Test.lexer_test.go" />
+      <item index="4" class="java.lang.String" itemvalue="Go Test.Test in ast_test.go" />
+      <item index="5" class="java.lang.String" itemvalue="Go Test.Test in tool_test.go" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Go Test.Test in lexer_test.go" />
-        <item index="1" class="java.lang.String" itemvalue="Go Test.lexer_test.go" />
-        <item index="2" class="java.lang.String" itemvalue="Go Test.Test in ast_test.go" />
-        <item index="3" class="java.lang.String" itemvalue="Go Test.ast_test.go" />
-        <item index="4" class="java.lang.String" itemvalue="Go Test.Test in token_test.go" />
+        <item index="0" class="java.lang.String" itemvalue="Go Test.Test in tool_test.go" />
+        <item index="1" class="java.lang.String" itemvalue="Go Test.Test in lexer_test.go" />
+        <item index="2" class="java.lang.String" itemvalue="Go Test.lexer_test.go" />
+        <item index="3" class="java.lang.String" itemvalue="Go Test.Test in ast_test.go" />
+        <item index="4" class="java.lang.String" itemvalue="Go Test.ast_test.go" />
       </list>
     </recent_temporary>
   </component>
@@ -408,35 +513,35 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TestHistory">
-    <history-entry file="Test_in_lexer_test_go - 2018.02.16 at 11h 47m 27s.xml">
-      <configuration name="Test in lexer_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_in_tool_test_go - 2018.02.16 at 17h 12m 45s.xml">
+      <configuration name="Test in tool_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_in_lexer_test_go - 2018.02.16 at 11h 48m 52s.xml">
-      <configuration name="Test in lexer_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_in_tool_test_go - 2018.02.16 at 17h 13m 19s.xml">
+      <configuration name="Test in tool_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_in_lexer_test_go - 2018.02.16 at 11h 54m 52s.xml">
-      <configuration name="Test in lexer_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_in_tool_test_go - 2018.02.16 at 17h 14m 49s.xml">
+      <configuration name="Test in tool_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_in_lexer_test_go - 2018.02.16 at 11h 55m 06s.xml">
-      <configuration name="Test in lexer_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_in_tool_test_go - 2018.02.16 at 17h 26m 39s.xml">
+      <configuration name="Test in tool_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_in_lexer_test_go - 2018.02.16 at 11h 57m 46s.xml">
-      <configuration name="Test in lexer_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_in_tool_test_go - 2018.02.16 at 17h 26m 58s.xml">
+      <configuration name="Test in tool_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_in_lexer_test_go - 2018.02.16 at 12h 00m 03s.xml">
-      <configuration name="Test in lexer_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_in_tool_test_go - 2018.02.16 at 17h 32m 58s.xml">
+      <configuration name="Test in tool_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_in_lexer_test_go - 2018.02.16 at 12h 01m 50s.xml">
-      <configuration name="Test in lexer_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_in_tool_test_go - 2018.02.16 at 17h 35m 44s.xml">
+      <configuration name="Test in tool_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_in_lexer_test_go - 2018.02.16 at 12h 05m 48s.xml">
-      <configuration name="Test in lexer_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_in_tool_test_go - 2018.02.16 at 17h 41m 57s.xml">
+      <configuration name="Test in tool_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_in_lexer_test_go - 2018.02.16 at 12h 06m 00s.xml">
-      <configuration name="Test in lexer_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_in_tool_test_go - 2018.02.16 at 17h 51m 22s.xml">
+      <configuration name="Test in tool_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_in_lexer_test_go - 2018.02.16 at 12h 06m 02s.xml">
-      <configuration name="Test in lexer_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_in_tool_test_go - 2018.02.16 at 17h 51m 34s.xml">
+      <configuration name="Test in tool_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -449,19 +554,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="82" y="-8" width="1366" height="916" extended-state="6" />
+    <frame x="54" y="-8" width="1320" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2362963" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24444444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908162" sideWeight="0.49693722" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908162" sideWeight="0.50918835" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908162" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283767" sideWeight="0.49081165" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32668713" sideWeight="0.49081165" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908162" sideWeight="0.49693722" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38785625" sideWeight="0.49081165" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38650307" sideWeight="0.49081165" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908162" sideWeight="0.49693722" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -473,7 +579,6 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908162" sideWeight="0.49693722" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23619632" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908162" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -489,91 +594,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="111" />
+      <option name="time" value="180" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast_const.go" />
-    <entry file="file://$PROJECT_DIR$/oz/ozhtml/src/ast.js" />
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast_const.go" />
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/char_const.go" />
-    <entry file="file://C:/Go/src/container/list/list.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2543">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/glaive/input/file/file.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="4" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Go/src/builtin/builtin.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="23" column="5" lean-forward="false" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast/ast.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="30" lean-forward="true" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast/ast_const.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="9" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token_const.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="18" column="14" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast/ast_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Go/src/runtime/panic.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="576" column="0" lean-forward="false" selection-start-line="576" selection-start-column="0" selection-end-line="576" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/glaive/input/input.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -618,9 +643,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="12" column="23" lean-forward="false" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
-          <folding>
-            <element signature="e#15#117#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -628,7 +651,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="43" column="26" lean-forward="true" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
-          <folding />
+          <folding>
+            <element signature="e#15#98#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -652,7 +677,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
           <caret line="43" column="26" lean-forward="true" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
-          <folding />
+          <folding>
+            <element signature="e#15#98#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -699,13 +726,6 @@
     <entry file="file://$PROJECT_DIR$/oz/ozhtml/src/ast.js" />
     <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast_const.go" />
     <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/char_const.go" />
-    <entry file="file://C:/Go/src/container/list/list.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2543">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/glaive/input/file/file.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -714,56 +734,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/main.go" />
-    <entry file="file://C:/Go/src/builtin/builtin.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="23" column="5" lean-forward="false" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast/ast.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="30" lean-forward="true" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast/ast_const.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="9" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token_const.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="18" column="14" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast/ast_test.go" />
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token_test.go" />
-    <entry file="file://C:/Go/src/runtime/panic.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="576" column="0" lean-forward="false" selection-start-line="576" selection-start-column="0" selection-end-line="576" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/glaive/input/input.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Go/src/testing/testing.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="710" column="0" lean-forward="false" selection-start-line="710" selection-start-column="0" selection-end-line="710" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -786,35 +761,219 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/lexer/char_const.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="20" column="14" lean-forward="false" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+        <state relative-caret-position="34">
+          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/lexer/lexer_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state relative-caret-position="26">
+          <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/tool/src/copyFileSync.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="18" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/io/ioutil/ioutil.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="92" column="50" lean-forward="false" selection-start-line="92" selection-start-column="45" selection-end-line="92" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/tool/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding>
-            <element signature="e#15#117#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/path/path.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-241">
+          <caret line="73" column="22" lean-forward="false" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/lexer/lexer.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="49" column="4" lean-forward="false" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
+        <state relative-caret-position="119">
+          <caret line="67" column="9" lean-forward="false" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
+          <folding>
+            <element signature="e#15#98#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast/ast_const.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="26" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/tool/tool_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="42" column="7" lean-forward="false" selection-start-line="42" selection-start-column="7" selection-end-line="42" selection-end-column="7" />
+          <folding>
+            <element signature="e#13#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-433">
+          <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <folding>
+            <element signature="e#15#35#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token_const.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/token/token_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/tool/mkdirSync.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/tool/tool.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/strings/strings.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="293" column="5" lean-forward="false" selection-start-line="293" selection-start-column="5" selection-end-line="293" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/tool/deleteFolderRecursive.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/tool/src/deleteFolderRecursive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="11" lean-forward="true" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/oz/ozhtml/ast/ast.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" column="9" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/tool/src/mkdirSync.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="27" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/regexp/regexp.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="478" column="18" lean-forward="false" selection-start-line="478" selection-start-column="18" selection-end-line="478" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/testing/testing.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="710" column="0" lean-forward="false" selection-start-line="710" selection-start-column="0" selection-end-line="710" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/runtime/panic.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="490" column="0" lean-forward="false" selection-start-line="490" selection-start-column="0" selection-end-line="490" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/builtin/builtin.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1822">
+          <caret line="133" column="5" lean-forward="false" selection-start-line="133" selection-start-column="5" selection-end-line="133" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/container/list/list.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="136" column="15" lean-forward="false" selection-start-line="136" selection-start-column="15" selection-end-line="136" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/tool/src/findFiles.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="116" column="21" lean-forward="false" selection-start-line="116" selection-start-column="21" selection-end-line="116" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/github.com/w3esoft/tool/findFiles.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="42" column="46" lean-forward="false" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="46" />
+          <folding>
+            <element signature="e#14#60#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

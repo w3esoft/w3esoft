@@ -9,6 +9,7 @@ type Token struct {
 	Value interface{}
 	Name  string
 	Position * Position
+	Valid bool
 }
 
 
@@ -17,12 +18,13 @@ type Position struct {
 	Offset int
 }
 
-func New(tokenIndex int, value interface{} , position * Position) *Token {
+func New(tokenIndex int, value interface{} , position * Position , Valid bool) *Token {
 	var token = Token{}
 	token.Index = tokenIndex
 	token.Value = value
 	token.Position = position
 	token.Name = NAMES[tokenIndex]
+	token.Valid = Valid
 	return &token
 }
 

@@ -7,17 +7,17 @@ import (
 )
 
 func Test(t *testing.T) {
-	i :=string.New(`<html></html>`);
+	i :=string.New(`123456789`);
 	l:= New(i);
 	for{
-		tk1,e1:=l.Tokenize()
-		if e1!=nil{
-			t.Log(e1);
-		}else {
+		tk1:=l.Tokenize()
+		if !tk1.Valid {
 			t.Log(tk1);
-			if (tk1.Is([]int{token.EOF},nil)){
-				break;
-			}
+		}else {
+			t.Log(tk1.Name,tk1.Value,tk1.Position.Offset,tk1.Position.Len)
+		}
+		if (tk1.Is([]int{token.EOF},nil)){
+			break
 		}
 	}
 }
