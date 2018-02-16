@@ -48,22 +48,24 @@ func (lexer *Lexer) Tokenize() (r *token.Token, err error) {
 		return r, nil
 	}
 	offset := lexer.Pos()
-	var char uint8 = lexer.Read();
+	var value *string = nil
+	char:= lexer.Read();
 	switch {
 	case char == GREATER:
 		char = lexer.Input.Read()
 		switch char {
 		case BACKSLASH:
 			len:=lexer.Pos() - offset
-			tok:=token.New(token.TAGHEADCLOSE, nil, token.Position{Len: len , Offset: offset})
+			position := &token.Position{Len: len , Offset: offset}
+			tok:=token.New(token.TAGHEADCLOSE, value, position)
 			return tok, nil
 		case BANG:
 			char = lexer.Input.Read()
 			char = lexer.Input.Read()
 			var ii = 0
-			var value = ""
+			var v = ""
 			for {
-				value = value + string(char)
+				v = v + string(char)
 				char = lexer.Input.Read()
 				lexer.pos++
 				switch {
@@ -80,63 +82,78 @@ func (lexer *Lexer) Tokenize() (r *token.Token, err error) {
 				}
 			}
 			len:=lexer.Pos() - offset
-			return token.New(token.TAGCOMMENT, &value, token.Position{Len: len, Offset: offset}), nil
+			position := &token.Position{Len: len , Offset: offset}
+			return token.New(token.TAGCOMMENT, value, position), nil
 		default:
 			lexer.CHAR = int(char)
 			len:=lexer.Pos() - offset
-			return token.New(token.TAGHEADOPEN, nil, token.Position{Len: len, Offset: offset}), nil
+			position := &token.Position{Len: len , Offset: offset}
+			return token.New(token.TAGHEADOPEN, value, position), nil
 		}
 	case char == BACKSLASH:
 		len:=lexer.Pos() - offset
-		return token.New(token.TAGHEADCLOSE, nil, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		return token.New(token.TAGHEADCLOSE, value, position), nil
 	case char == MINOR:
-		var value = ""
+		var v = ""
 		char = lexer.Input.Read()
 		for char != GREATER && char != EOF {
-			value = value + string(char)
+			v = v + string(char)
 			char = lexer.Input.Read()
 			lexer.pos++
 		}
 		lexer.CHAR = int(char)
-
 		len:=lexer.Pos() - offset
-		return token.New(token.TAGBODY, &value, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		value = &v
+		return token.New(token.TAGBODY, value, position), nil
 	case char == PARENTHESISOPEN:
 		len:=lexer.Pos() - offset
-		return token.New(token.PARENTHESISOPEN, nil, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		return token.New(token.PARENTHESISOPEN, value, position), nil
 	case char == PARENTHESISCLOSE:
 		len:=lexer.Pos() - offset
-		return token.New(token.PARENTHESISCLOSE, nil, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		return token.New(token.PARENTHESISCLOSE, value, position), nil
 	case char == EQUAL:
 		len:=lexer.Pos() - offset
-		return token.New(token.EQUAL, nil, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		return token.New(token.EQUAL, value, position), nil
 	case char == MULTIPLICATION:
 		len:=lexer.Pos() - offset
-		return token.New(token.MULTIPLICATION, nil, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		return token.New(token.MULTIPLICATION, value, position), nil
 	case char == BRACKETOPEN:
 		len:=lexer.Pos() - offset
-		return token.New(token.BRACKETOPEN, nil, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		return token.New(token.BRACKETOPEN, value, position), nil
 	case char == BRACKETClOSE:
 		len:=lexer.Pos() - offset
-		return token.New(token.BRACKETCLOSE, nil, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		return token.New(token.BRACKETCLOSE, value, position), nil
 	case char == DOT:
 		len:=lexer.Pos() - offset
-		return token.New(token.DOT, nil, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		return token.New(token.DOT, value, position), nil
 	case char == DOUBLEDOT:
 		len:=lexer.Pos() - offset
-		return token.New(token.DOUBLEDOT, nil, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		return token.New(token.DOUBLEDOT, value, position), nil
 	case char == DOUBLEQUOTES:
-		value := ""
+		v := ""
 		char = lexer.Input.Read()
 		for char != DOUBLEQUOTES && char != EOF {
-			value = value + string(char)
+			v = v + string(char)
 			char = lexer.Input.Read()
 		}
 		len:=lexer.Pos() - offset
-		return token.New(token.STRING, nil, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		value = &v
+		return token.New(token.STRING, value, position), nil
 	case char == EOF:
 		len:=lexer.Pos() - offset
-		return token.New(token.EOF, nil, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		return token.New(token.EOF, value, position), nil
 
 	case IsWhiteSpace(char):
 		for IsWhiteSpace(char) {
@@ -144,25 +161,30 @@ func (lexer *Lexer) Tokenize() (r *token.Token, err error) {
 		}
 		lexer.CHAR = int(char)
 		len:=lexer.Pos() - offset
-		return token.New(token.WHITESPACE, nil, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		return token.New(token.WHITESPACE, value, position), nil
 	case IsWord(char):
-		value := ""
+		v := ""
 		for IsWord(char) || IsNumeric(char) {
-			value = value + string(char)
+			v = v + string(char)
 			char = lexer.Input.Read()
 		}
 		lexer.CHAR = int(char)
 		len:=lexer.Pos() - offset
-		return token.New(token.WORD, &value, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		value = &v
+		return token.New(token.WORD, value, position), nil
 	case IsNumeric(char):
-		value := ""
+		v := ""
 		for IsNumeric(char) {
-			value = value + string(char)
+			v = v + string(char)
 			char = lexer.Input.Read()
 		}
 		lexer.CHAR = int(char)
 		len:=lexer.Pos() - offset
-		return token.New(token.NUMERIC, &value, token.Position{Len: len, Offset: offset}), nil
+		position := &token.Position{Len: len , Offset: offset}
+		value = &v
+		return token.New(token.NUMERIC, value, position), nil
 	default:
 		return nil, errors.New(fmt.Sprintf("%s %s ", "unexpected char ", int(char)))
 	}

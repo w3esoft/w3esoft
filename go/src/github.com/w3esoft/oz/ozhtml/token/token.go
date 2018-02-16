@@ -8,7 +8,7 @@ type Token struct {
 	Index int
 	Value interface{}
 	Name  string
-	Position Position
+	Position * Position
 }
 
 
@@ -17,8 +17,8 @@ type Position struct {
 	Offset int
 }
 
-func New(tokenIndex int, value interface{} , position Position) *Token {
-	var token Token = Token{}
+func New(tokenIndex int, value interface{} , position * Position) *Token {
+	var token = Token{}
 	token.Index = tokenIndex
 	token.Value = value
 	token.Position = position
