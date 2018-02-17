@@ -33,12 +33,17 @@ func Test(t *testing.T) {
 			"@atomicburst/toolbar": p + "atomicburst/packages/toolbar",
 			"@damsistemas/core": p + "damsistemas/packages/core",
 			"@damsistemas/crm": p + "damsistemas/packages/crm",
+			"@damsistemas/damcloud": p + "damsistemas/packages/damcloud",
+			"@damsistemas/damgerenciador": p + "damsistemas/packages/damgerenciador",
+			"@damsistemas/damonline": p + "damsistemas/packages/damonline",
+			"@damsistemas/site": p + "damsistemas/packages/site",
 	};
 	files :=[]string{}
 	for _,k :=range ps  {
 		files =append(files,k+ "/**.html")
 	}
-	rootDir:="F:\\desenvolvimento\\damonline2\\angular"
-	exclude :=[]string{}
+	rootDir:="E:\\desenvolvimento3\\dam-online\\angular"
+
+	exclude :=[]string{"**/node_modules","**/*.component.html"}
 	FindFiles(rootDir,files,exclude)
 }
