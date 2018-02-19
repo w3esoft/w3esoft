@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"github.com/w3esoft/oz/ozhtml/ast"
 	"github.com/w3esoft/oz/ozhtml/lexer"
+	"github.com/w3esoft/oz/ozhtml/ast"
 	"github.com/w3esoft/oz/ozhtml/token"
 )
 
@@ -10,200 +10,129 @@ type Parser struct {
 	lexer *lexer.Lexer
 }
 
-func (p Parser) Tokenize() (r *token.Token, err error) {
-	for {
-		tk, err := p.lexer.Tokenize()
-		if tk.Is([]int{token.WHITESPACE}, nil) {
-			return tk, err
+
+func New(lex *lexer.Lexer) *Parser {
+	par := Parser{}
+	par.lexer=lex;
+	return &par
+}
+func (par *Parser ) Tokenize() *token.Token{
+	for{
+		tok :=par.lexer.Tokenize()
+		if tok.IsNot([]int{token.TAG_WHITESPACE},nil,true){
+			return  tok
 		}
+
 	}
-}
-func PushToken(p *Parser, tk token.Token) {
-	p.lexer.Tokens = append(p.lexer.Tokens, tk)
-	return
-}
-func TokenToAstValue(tk *token.Token) *ast.Ast {
-	if tk.Is([]int{token.TAGCOMMENT}, nil) {
-		return ast.New(ast.TAG_COMMENT, tk.Value)
-	} else {
-		return ast.New(ast.VALUE, tk.Value)
-	}
-}
-func (p Parser) attrValue() *ast.Ast {
-	tk, _ := p.Tokenize()
-	tk.Expected([]int{token.NUMERIC, token.STRING}, nil)
-	return TokenToAstValue(tk)
 }
 
-//func (p Parser ) attrKey() *ast.Ast {
-//	tk, _ := p.Tokenize()
-//	var fields [] *ast.Ast
-//	isTemplate := false
-//	isGlobal := false
-//	closeAttr := []int{}
-//	if (tk.Is([]int{token.MULTIPLICATION}, nil)) {
-//		isTemplate = true
-//		tk, _ = p.Tokenize()
-//	}
-//	operation := []string{}
-//	for {
-//		if (tk.Is([]int{token.PARENTHESISOPEN}, nil)) {
-//			closeAttr = append(closeAttr, token.PARENTHESISCLOSE)
-//			operation = append(operation, "OUTPUT")
-//			tk, _ = p.Tokenize()
-//		} else if (tk.Is([]int{token.BRACKETOPEN}, nil)) {
-//			closeAttr = append(closeAttr, token.BRACKETCLOSE)
-//			operation = append(operation, "INPUT")
-//			tk, _ = p.Tokenize()
-//		} else {
-//			break
-//		}
-//	}
-//	value := tk
-//	tk.Expected([]int{token.WORD}, nil)
-//	tk, _ = p.Tokenize()
-//	if (tk.Is([]int{token.DOUBLEDOT}, nil)) {
-//		isGlobal = true
-//		tk, _ = p.Tokenize()
-//		tk.Expected([]int{token.WORD}, nil)
-//		fields = append(fields, TokenToAstValue(tk))
-//		tk, _ = p.Tokenize()
-//	}
-//	for (tk.Is([]int{token.DOT}, nil)) {
-//		tk, _ = p.Tokenize()
-//		tk.Expected([]int{token.WORD}, nil)
-//		fields = append(fields, TokenToAstValue(tk))
-//		tk, _ = p.Tokenize()
-//	}
-//
-//}
-//attrKey() {
-//let me =this;
-//let tk = tokenize();
-//let fields = [];
-//let isTemplate=false;
-//let isGlobal=false;
-//let closeAttr=[];
-//if (tk.is(tokenConst.MULTIPLICATION)){
-//isTemplate=true;
-//tk = tokenize();
-//}
-//let operation=[];
-//while (true){
-//if (tk.is(tokenConst.PARENTHESISOPEN)){
-//closeAttr.push(tokenConst.PARENTHESISCLOSE);
-//operation.push("OUTPUT");
-//tk = tokenize();
-//}else if (tk.is(tokenConst.BRACKETOPEN)){
-//operation.push("INPUT");
-//closeAttr.push(tokenConst.BRACKETCLOSE);
-//tk = tokenize();
-//}else {
-//break;
-//}
-//}
-//let  value = tk;
-//tk.expected(tokenConst.WORD);
-//tk = tokenize();
-//if (tk.is(tokenConst.DOUBLEDOT)){
-//isGlobal=true;
-//tk = tokenize();
-//tk.expected(tokenConst.WORD);
-//fields.push(me.tokenToAstValue(tk));
-//tk = tokenize();
-//
-//}
-//while (tk.is(tokenConst.DOT)){
-//tk = tokenize();
-//tk.expected(tokenConst.WORD);
-//fields.push(  me.tokenToAstValue(tk));
-//tk = tokenize();
-//}
-//while (closeAttr.length){
-//let index =closeAttr.pop();
-//tk.expected(index);
-//tk = tokenize();
-//}
-//me.pushToken(tk);
-//
-//return new Ast(astConst.ATTRKEY,{
-//value: me.tokenToAstValue(value),
-//fields:fields,
-//isGlobal:isGlobal,
-//isTemplate:isTemplate,
-//operation:operation
-//});
-//};
-//tagBody () {
-//let me =this
-//let tk = tokenize()
-//if (tk.is(tokenConst.TAGHEADOPEN)){
-//let tkName = tokenize()
-//tkName.expected(tokenConst.WORD)
-//let attrs =[]
-//let body =[]
-//while (true){
-//let tk = tokenize()
-//while(tk.is([tokenConst.WORD,tokenConst.MULTIPLICATION,tokenConst.PARENTHESISOPEN,tokenConst.BRACKETOPEN])){
-//let _attr ={}
-//me. pushToken(tk)
-//_attr.key =me.attrKey()
-//tk = tokenize()
-//if (tk.is(tokenConst.EQUAL)){
-//_attr.value =me.attrValue()
-//tk = tokenize()
-//}
-//attrs.push(new Ast(astConst.ATTR,_attr))
-//}
-//if (tk.expected([tokenConst.TAGBODY,tokenConst.TAGHEADOPEN])){
-//me.pushToken(tk)
-//break
-//}
-//}
-//while (true){
-//tk = tokenize()
-//if (tk.is(tokenConst.TAGHEADCLOSE)){
-//let tk1 =tk
-//tk.toString()
-//let tk2 = tk = tokenize()
-//tk.expected(tokenConst.WORD)
-//if (!tk.is(tokenConst.WORD,tkName.value)){
-//me.pushToken(tk2)
-//me.pushToken(tk1)
-//}
-//break
-//}
-//me.pushToken(tk)
-//let b = me.tagBody()
-//body.push(b)
-//}
-//return new Ast(astConst.TAG,{
-//name: me.tokenToAstValue(tkName),
-//attrs:attrs,
-//body:body
-//})
-//
-//}else if (tk.is(tokenConst.TAGBODY)){
-//return   me.tokenToAstValue(tk)
-//}else if (tk.is(tokenConst.TAGCOMMENT)){
-//return   me.tokenToAstValue(tk)
-//}else {
-//tk.unexpected(tk.tokenIndex)
-//}
-//}
-//parse() {
-//let me =this
-//let items = []
-//while (true){
-//let tk = me.tokenize()
-//if (tk.is(tokenConst.EOF)){
-//console.log("Token.......................")
-//break
-//}else {
-//me.pushToken(tk)
-//let  b=   me.tagBody()
-//items.push(b)
-//}
-//}
-//return new Ast(astConst.DOCUMENT,items)
-//}
+func (par *Parser ) ParseAttrKey()  ( a *ast.AstNode, err error) {
+	tk1:=par.Tokenize()
+	if _ , err =tk1.Expected([]int{
+		token.KEY,
+		token.TAG_KEY_INPUT,
+		token.TAG_KEY_OUTPUT,
+		token.TAG_KEY_TEMPLATE,
+	},nil,true);err!=nil{
+		return nil,err
+	}
+	operators:=[]int{}
+	if (tk1.Is([]int{token.TAG_KEY_TEMPLATE},nil,true)){
+		operators =append(operators,ast.AST_TAG_ATTR_OP_TEMPLATE)
+	}else {
+		for {
+			if (tk1.Is([]int{token.TAG_KEY_INPUT},nil,true)){
+				operators =append(operators,ast.AST_TAG_ATTR_OP_INPUT)
+				tk1=par.Tokenize()
+			}else if (tk1.Is([]int{token.TAG_KEY_OUTPUT},nil,true)){
+				operators =append(operators,ast.AST_TAG_ATTR_OP_OUTPUT)
+				tk1=par.Tokenize()
+			}else {
+				break
+			}
+		}
+
+	}
+	_,err =tk1.Expected([]int{token.KEY},nil,true)
+	if err!=nil {
+		return nil,err
+	}
+	var nameTok = tk1
+
+}
+
+func (par *Parser ) ParseAttrValue()  ( a *ast.AstNode, err error) {
+
+
+}
+func (par *Parser ) ParseAttr()  ( a *ast.AstNode, err error) {
+	tk1:=par.Tokenize()
+	var tk2= tk1;
+	par.TokenPush(tk1)
+	par.ParseChild();
+	var key * ast.AstNode;
+	var value * ast.AstNode;
+	if (tk1.Is([]int{token.TAG_EQUAL},nil,true)){
+
+	}else {
+		par.TokenPush(tk1)
+	}
+	var tk3=par.Tokenize()
+	par.TokenPush(tk3)
+	return ast.NewAstTagAttr(key,value,&ast.Position{
+		Len:tk3.Position.Offset+tk3.Position.Len-tk2.Position.Offset,
+		Offset:tk2.Position.Offset,
+	}),nil
+}
+func (par *Parser ) ParseChild()  ( a *ast.AstNode, err error) {
+	tk1:=par.Tokenize()
+	if (tk1.Is([]int{token.COMMENT},nil,true)){
+		return ast.NewAstCOMMENT(tk1),nil;
+	}else if (tk1.Is([]int{token.TEXT},nil,true)){
+		return ast.NewAstTEXT(tk1),nil;
+	}else if (tk1.Is([]int{token.TAG_OPEN},nil,true)){
+		tk1:=par.Tokenize()
+		for{
+			if (tk1.IsNot([]int{
+					token.KEY,
+					token.TAG_KEY_INPUT,
+					token.TAG_KEY_OUTPUT,
+					token.TAG_KEY_TEMPLATE,
+				},nil,true)){
+				break;
+			}
+			par.TokenPush(tk1);
+			par.ParseAttr()
+		}
+
+		_,err=tk1.Unexpected([]int{tk1.Index},nil,true)
+		return nil,err
+	}else {
+		_,err=tk1.Unexpected([]int{tk1.Index},nil,true)
+		return nil,err
+	}
+}
+
+
+func (par *Parser ) TokenPush( tok *token.Token ){
+	par.lexer.TokenPush(tok);
+}
+
+func (par *Parser ) Parse()  ( a *ast.AstNode, err error) {
+	var value  =[]*ast.AstNode{};
+	var position =ast.Position{};
+	for{
+		tk1:=par.Tokenize()
+		if (tk1.Is([]int{token.EOF},nil,true)){
+			break
+		}
+		par.TokenPush(tk1)
+		var child,err = par.ParseChild()
+		if (err!=nil){
+			return  nil,err;
+		}
+		value =append(value,child)
+	}
+	ast:=ast.NewAstDOCUMENT(value,&position);
+	return ast,nil;
+}

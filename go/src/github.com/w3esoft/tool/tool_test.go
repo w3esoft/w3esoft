@@ -19,7 +19,7 @@ func Test(t *testing.T) {
 			"@atomicburst/form.field.checkbox": p + "atomicburst/packages/form.field.checkbox",
 			"@atomicburst/form.field.combo": p + "atomicburst/packages/form.field.combo",
 			"@atomicburst/form.field.date": p + "atomicburst/packages/form.field.date",
-			"@atomicburst/form.field.file": p + "atomicburst/packages/form.field.file",
+			"@atomicburst/form.field.inputfile": p + "atomicburst/packages/form.field.inputfile",
 			"@atomicburst/form.field.picker.date": p + "atomicburst/packages/form.field.picker.date",
 			"@atomicburst/form.field.range": p + "atomicburst/packages/form.field.range",
 			"@atomicburst/form.field.text": p + "atomicburst/packages/form.field.text",
@@ -43,7 +43,6 @@ func Test(t *testing.T) {
 		files =append(files,k+ "/**.html")
 	}
 	rootDir:="E:\\desenvolvimento3\\dam-online\\angular"
-
-	exclude :=[]string{"**/node_modules","**/*.component.html"}
-	FindFiles(rootDir,files,exclude)
+	exclude :=[]string{"**/node_modules"}
+	Find(rootDir,files,exclude)
 }

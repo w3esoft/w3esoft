@@ -4,7 +4,6 @@ import (
 	"path/filepath"
 	"strings"
 	"regexp"
-	"fmt"
 	"os"
 	"io/ioutil"
 )
@@ -96,7 +95,7 @@ func ignore(test string, bExcludes [][]*PathBuild) bool {
 	return c;
 }
 
-func FindFiles(ROOTDIR string, _files []string, _excludes []string) {
+func Find(ROOTDIR string, _files []string, _excludes []string) []string{
 	ROOTDIR = filepath.Clean(ROOTDIR)
 	bFiles := createBuild(_files);
 	bExcludes := createBuild(_excludes);
@@ -193,10 +192,10 @@ func FindFiles(ROOTDIR string, _files []string, _excludes []string) {
 		}
 		fn("", bFile, bExcludes);
 	}
-	for _, file := range files {
-		fmt.Println(file)
-	}
+	return  files
 }
+
+
 func createBuild(files []string) [][]*PathBuild {
 	itemX := [][]*PathBuild{}
 	for _, file := range files {

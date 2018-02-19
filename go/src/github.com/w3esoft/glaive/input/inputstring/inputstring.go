@@ -1,4 +1,4 @@
-package string
+package inputstring
 
 
 type InputString struct {
@@ -11,7 +11,7 @@ func  New(value string) *InputString {
 	i.value=value;
 	return &i
 }
-func (input *InputString ) Read() uint8{
+func (input *InputString ) Read() byte{
 	l :=len(input.value)
 	if l > input.pos {
 		value  :=  input.value[input.pos]
