@@ -21,8 +21,8 @@ const (
 	DOT              = 46
 	BANG             = 33
 	MINUS            = 45
-	UNDERSCORE		 = 95
-	HASH			 = 35
+	UNDERSCORE       = 95
+	HASH             = 35
 	EOF              = 0
 )
 const (
@@ -87,13 +87,13 @@ func (lexer *Lexer) Tokenize() *token.Token {
 			switch char {
 			case BANG:
 				char = lexer.Read()
-				if (IsWord(char)) && char !=MINUS{
+				if (IsWord(char)) && char != MINUS {
 					var v = ""
 					for IsWord(char) {
 						v = v + string(char)
 						char = lexer.Read()
 					}
-					if strings.Compare(strings.ToLower(v),"doctype")!=0{
+					if strings.Compare(strings.ToLower(v), "doctype") != 0 {
 						len := lexer.Pos() - offset
 						position := &token.Position{Len: len, Offset: offset}
 						return token.New(token.DOCTYPE_OPEN, value, position, false)
@@ -144,14 +144,18 @@ func (lexer *Lexer) Tokenize() *token.Token {
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
 				return token.New(token.COMMENT, value, position, true)
+			case BACKSLASH:
+				len := lexer.Pos() - offset
+				position := &token.Position{Len: len, Offset: offset}
+				lexer.mode = MODE_TAG;
+				return token.New(token.TAG_END_OPEN, value, position, true)
 			default:
-				if char != BACKSLASH {
-					lexer.CHAR = int(char)
-				}
+				lexer.CHAR = int(char)
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
 				lexer.mode = MODE_TAG;
 				return token.New(token.TAG_OPEN, value, position, true)
+
 			}
 		case char == EOF:
 			position := &token.Position{Len: 0, Offset: offset}
@@ -192,7 +196,7 @@ func (lexer *Lexer) Tokenize() *token.Token {
 			}
 		case IsWord(char) || char == UNDERSCORE || HASH == char:
 			v := ""
-			if  !(IsWord(char) || char == UNDERSCORE || HASH == char){
+			if !(IsWord(char) || char == UNDERSCORE || HASH == char) {
 				lexer.CHAR = int(char)
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
@@ -200,7 +204,7 @@ func (lexer *Lexer) Tokenize() *token.Token {
 			}
 			v = v + string(char)
 			char = lexer.Read()
-			for IsWord(char) || char == MINUS || char == UNDERSCORE ||char ==DOT|| char ==DOUBLEDOT|| IsNumeric(char){
+			for IsWord(char) || char == MINUS || char == UNDERSCORE || char == DOT || char == DOUBLEDOT || IsNumeric(char) {
 				v = v + string(char)
 				char = lexer.Read()
 			}
@@ -212,7 +216,7 @@ func (lexer *Lexer) Tokenize() *token.Token {
 		case char == MULTIPLICATION:
 			char = lexer.Read()
 			v := ""
-			if  !(IsWord(char) || char == UNDERSCORE || HASH == char ){
+			if !(IsWord(char) || char == UNDERSCORE || HASH == char ) {
 				lexer.CHAR = int(char)
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
@@ -220,7 +224,7 @@ func (lexer *Lexer) Tokenize() *token.Token {
 			}
 			v = v + string(char)
 			char = lexer.Read()
-			for IsWord(char) || char == MINUS || char == UNDERSCORE ||char ==DOT|| char ==DOUBLEDOT|| IsNumeric(char) {
+			for IsWord(char) || char == MINUS || char == UNDERSCORE || char == DOT || char == DOUBLEDOT || IsNumeric(char) {
 				v = v + string(char)
 				char = lexer.Read()
 			}
@@ -232,7 +236,7 @@ func (lexer *Lexer) Tokenize() *token.Token {
 		case char == BRACKETOPEN:
 			v := ""
 			char = lexer.Read()
-			if  !(IsWord(char) || char == UNDERSCORE || HASH == char){
+			if !(IsWord(char) || char == UNDERSCORE || HASH == char) {
 				lexer.CHAR = int(char)
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
@@ -240,11 +244,11 @@ func (lexer *Lexer) Tokenize() *token.Token {
 			}
 			v = v + string(char)
 			char = lexer.Read()
-			for  IsWord(char)||char == MINUS || char == UNDERSCORE ||char ==DOT|| char ==DOUBLEDOT|| IsNumeric(char)||IsWhiteSpace(char){
+			for IsWord(char) || char == MINUS || char == UNDERSCORE || char == DOT || char == DOUBLEDOT || IsNumeric(char) || IsWhiteSpace(char) {
 				v = v + string(char)
 				char = lexer.Read()
 			}
-			if char  != BRACKETClOSE{
+			if char != BRACKETClOSE {
 				lexer.CHAR = int(char)
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
@@ -257,7 +261,7 @@ func (lexer *Lexer) Tokenize() *token.Token {
 		case char == PARENTHESISOPEN:
 			v := ""
 			char = lexer.Read()
-			if  !(IsWord(char)|| char == UNDERSCORE || HASH == char){
+			if !(IsWord(char) || char == UNDERSCORE || HASH == char) {
 				lexer.CHAR = int(char)
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
@@ -265,11 +269,11 @@ func (lexer *Lexer) Tokenize() *token.Token {
 			}
 			v = v + string(char)
 			char = lexer.Read()
-			for IsWord(char)||char == MINUS || char == UNDERSCORE ||char ==DOT|| char ==DOUBLEDOT|| IsNumeric(char)||IsWhiteSpace(char){
+			for IsWord(char) || char == MINUS || char == UNDERSCORE || char == DOT || char == DOUBLEDOT || IsNumeric(char) || IsWhiteSpace(char) {
 				v = v + string(char)
 				char = lexer.Read()
 			}
-			if char  != PARENTHESISCLOSE{
+			if char != PARENTHESISCLOSE {
 				lexer.CHAR = int(char)
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
@@ -292,7 +296,7 @@ func (lexer *Lexer) Tokenize() *token.Token {
 					len := lexer.Pos() - offset
 					position := &token.Position{Len: len, Offset: offset}
 					value = &v
-					return token.New(token.TAG_STRING, value, position, false)
+					return token.New(token.TAG_VALUE_STRING, value, position, false)
 				}
 				v = v + string(char)
 				char = lexer.Read()
@@ -301,7 +305,7 @@ func (lexer *Lexer) Tokenize() *token.Token {
 			len := lexer.Pos() - offset
 			position := &token.Position{Len: len, Offset: offset}
 			value = &v
-			return token.New(token.TAG_STRING, value, position, true)
+			return token.New(token.TAG_VALUE_STRING, value, position, true)
 		case IsWhiteSpace(char):
 			for IsWhiteSpace(char) {
 				char = lexer.Read()
@@ -320,7 +324,7 @@ func (lexer *Lexer) Tokenize() *token.Token {
 			len := lexer.Pos() - offset
 			position := &token.Position{Len: len, Offset: offset}
 			value = &v
-			return token.New(token.TAG_NUMERIC, value, position, true)
+			return token.New(token.TAG_VALUE_NUMERIC, value, position, true)
 
 		default:
 		}
@@ -332,7 +336,7 @@ func (lexer *Lexer) Tokenize() *token.Token {
 	return token.New(token.INVALID, value, position, false)
 }
 func (l *Lexer) TokenPush(i2 *token.Token) {
-	l.Tokens =append(l.Tokens,i2)
+	l.Tokens = append(l.Tokens, i2)
 }
 
 func IsWord(char uint8) bool {

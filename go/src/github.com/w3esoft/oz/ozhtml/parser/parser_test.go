@@ -8,6 +8,7 @@ import (
 	"github.com/w3esoft/glaive/input/inputfile"
 	"github.com/w3esoft/oz/ozhtml/lexer"
 	"github.com/w3esoft/oz/ozhtml/ast"
+	"fmt"
 )
 func TestAll(t *testing.T) {
 	files :=[]string{}
@@ -17,14 +18,18 @@ func TestAll(t *testing.T) {
 	exclude :=[]string{"**/node_modules"}
 	files =tool.Find(damsistemas.RootDir,files,exclude)
 	for  _ , file :=range files{
-		inputFile ,_ :=inputfile.New(filepath.Join(damsistemas.RootDir,file))
+		d:=filepath.Join(damsistemas.RootDir,file)
+		fmt.Println(d)
+		inputFile ,_ :=inputfile.New(d)
 		l:=lexer.New(inputFile)
 		build(l);
 	}
 }
 
 func Test(t *testing.T) {
-	inputFile ,_ :=inputfile.New(filepath.Join(damsistemas.RootDir,"packages/atomicburst/packages/calendar/src/view_week.component.html"))
+	d:=filepath.Join(damsistemas.RootDir,"packages/atomicburst/packages/breadcrumb/src/component.html")
+	fmt.Println(d)
+	inputFile ,_ :=inputfile.New(d)
 	l:=lexer.New(inputFile)
 	build(l);
 }

@@ -21,14 +21,14 @@ type Position struct {
 
 var Id =0
 
-func New(tokenIndex int, value *string , position * Position , valid bool) *Token {
+func New(index int, value *string , position * Position , valid bool) *Token {
 	var token = Token{}
-	token.Index = tokenIndex
+	token.Index = index
 	token.Id = Id ;
 	Id++
 	token.Value = value
 	token.Position = position
-	token.Name = NAMES[tokenIndex]
+	token.Name = NAMES[index]
 	token.Valid = valid
 	return &token
 }

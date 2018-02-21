@@ -6,39 +6,31 @@ import (
 )
 
 type AstNode struct {
-	Index int
-	Value interface{}
-	Name  string
-	Position * Position
-	Valid bool
-	Id int
+	Index    int
+	Value    interface{}
+	Name     string
+	Position *Position
+	Valid    bool
+	Id       int
 }
 
-
-const (
-	AST_TAG_ATTR_OP_INPUT              = 1
-	AST_TAG_ATTR_OP_TEMPLATE           = 2
-	AST_TAG_ATTR_OP_OUTPUT             = 3
-)
 type AstTag struct {
-	Attrs[]*AstNode
-	Items[]*AstNode
+	Name  *AstNode
+	Attrs []*AstNode
+	Items []*AstNode
+	NoItems bool
 }
 type AstTagAttr struct {
-	Key*AstNode
-	Value*AstNode
+	Key   *AstNode
+	Value *AstNode
 }
 type AstTagAttrKey struct {
-	value*string
+	Value string
 }
 type AstTagAttrValue struct {
-	key*AstNode
-	value*AstNode
+	Value string
 }
 
-type Ast interface {
-
-}
 type AstDOCUMENT struct {
 	Items []*AstNode
 }
@@ -49,64 +41,79 @@ type AstTEXT struct {
 	Value *string
 }
 
-
-
-
+type AstTagName struct {
+	Value *string
+}
 type AstUnexpected struct {
 	items []*token.Token
 }
 
-
-
 type Position struct {
-	Len int
+	Len    int
 	Offset int
 }
-var Id =0
-func New(astIndex int, value *Ast, position * Position ) *AstNode {
+type Ast interface {
+}
+var Id = 0
+
+func New(Index int, value interface{}, position *Position,Valid bool) *AstNode {
 	var ast = AstNode{}
-	ast.Index = astIndex
+	ast.Index = Index
 	ast.Value = value
+	ast.Id = Id
+	ast.Valid = Valid
+	ast.Name = NAMES[Index]
+	Id++
 	ast.Position = position
-	ast.Name = NAMES[astIndex]
 	return &ast
 }
 
-func NewAstDOCUMENT(value []*AstNode, position * Position ) *AstNode {
-	var astDOCUMENT  = AstDOCUMENT{}
-	astDOCUMENT.Items=value
-	var ast Ast = astDOCUMENT
-	return  New(DOCUMENT , &ast , position  )
+func NewAstDOCUMENT(Items []*AstNode, position *Position,Valid bool) *AstNode {
+	return New(DOCUMENT, &AstDOCUMENT{Items:Items},  position,Valid)
 }
-func NewAstCOMMENT(tk *token.Token) *AstNode {
-	var astCOMMENT  = AstCOMMENT{}
-	astCOMMENT.Value=tk.Value
-	var ast Ast = astCOMMENT
-	return  New(COMMENT , &ast , &Position{Len:tk.Position.Len,Offset:tk.Position.Offset} )
+func NewAstCOMMENT(tk *token.Token,Valid bool) *AstNode {
+	return New(COMMENT, &AstCOMMENT{Value:tk.Value}, &Position{Len: tk.Position.Len, Offset: tk.Position.Offset},Valid)
 }
-func NewAstTEXT(tk *token.Token) *AstNode {
-	var astTEXT  = AstTEXT{}
-	astTEXT.Value=tk.Value
-	var ast Ast = astTEXT
-	return New(COMMENT , &ast , &Position{Len:tk.Position.Len,Offset:tk.Position.Offset} )
+func NewAstTEXT(tk *token.Token,Valid bool) *AstNode {
+	return New(TEXT, &AstTEXT{Value:tk.Value},  &Position{Len: tk.Position.Len, Offset: tk.Position.Offset},Valid)
+}
+func  NewAstTagName(tk *token.Token,Valid bool) *AstNode {
+	return New(TAG_NAME, &AstTagName{Value:tk.Value},  &Position{Len: tk.Position.Len, Offset: tk.Position.Offset},Valid)
 }
 
-func NewAstTagAttr(key * AstNode,value * AstNode, position * Position ) *AstNode {
-	var astTagAttr  = AstTagAttr{}
-	astTagAttr.Key = key
-	astTagAttr.Value=value
-	var ast Ast = astTagAttr
-	return  New(TAG_ATTR , &ast , position )
+func NewAstTagAttr(Key *AstNode, Value  *AstNode, position *Position,Valid bool) *AstNode {
+	return New(TAG_ATTR, &AstTagAttr{Key:Key,Value:Value},  position,Valid)
+}
+func NewAstTag(Name *AstNode,Items []*AstNode, Attrs []*AstNode,NoItems bool, position *Position,Valid bool) *AstNode {
+	return New(TAG, &AstTag{Name:Name,Items:Items,Attrs:Attrs,NoItems:NoItems}, position, Valid)
 }
 
+func NewAstTagAttrKeyInput(Value *string, position *Position,Valid bool) *AstNode {
+	return New(TAG_ATTR_KEY_INPUT, &AstTagAttrKey{Value:*Value},  position,Valid)
+}
+func NewAstTagAttrKeyOutput(Value *string, position *Position,Valid bool) *AstNode {
+	return New(TAG_ATTR_KEY_OUTPUT, &AstTagAttrKey{Value:*Value},  position,Valid)
+}
+func NewAstTagAttrKeyNormal(Value *string, position *Position,Valid bool) *AstNode {
+	return New(TAG_ATTR_KEY_NORMAL, &AstTagAttrKey{Value:*Value},  position,Valid)
+}
+func NewAstTagAttrValueString(Value *string, position *Position,Valid bool) *AstNode {
+	return New(TAG_ATTR_VALUE_STRING, &AstTagAttrValue{Value:*Value},  position,Valid)
+}
+func NewAstTagAttrValueNumeric(Value *string, position *Position,Valid bool) *AstNode {
+	return New(TAG_ATTR_VALUE_NUMERIC, &AstTagAttrValue{Value:*Value},  position,Valid)
+}
 
+func NewAstTagAttrKeyTemplate(Value *string, position *Position,Valid bool) *AstNode {
+	return New(TAG_ATTR_KEY_TEMPLATE, &AstTagAttrKey{Value:*Value},  position,Valid)
+}
 
-func (ast *AstNode) Is(astIndexs []int,value *Ast) bool {
-	for _,astIndex := range astIndexs {
-		b1 := ast.Index == astIndex
+func (ast *AstNode) Is(indexs []int, value *Ast) bool {
+	for _, index := range indexs {
+		b1 := ast.Index==index
 		b2 := true;
-		if value!=nil{
-			b2 =ast.Value == value
+		if value != nil {
+			b2 = ast.Value == value
 		}
 		if b1 && b2 {
 			return true
