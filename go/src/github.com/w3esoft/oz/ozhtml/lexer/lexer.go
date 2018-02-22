@@ -144,7 +144,7 @@ func (lexer *Lexer) Tokenize() *token.Token {
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
 				return token.New(token.COMMENT, value, position, true)
-			case BACKSLASH:
+			case  BACKSLASH:
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
 				lexer.mode = MODE_TAG;
@@ -186,7 +186,7 @@ func (lexer *Lexer) Tokenize() *token.Token {
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
 				lexer.mode = MODE_BODY
-				return token.New(token.TAG_END_CLOSE, value, position, true)
+				return token.New(token.TAG_END_CLOSE_NOCHILD, value, position, true)
 			} else {
 				lexer.CHAR = int(char)
 				len := lexer.Pos() - offset

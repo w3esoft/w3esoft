@@ -20,6 +20,11 @@ type AstTag struct {
 	Items []*AstNode
 	NoItems bool
 }
+type AstDoctype struct {
+	Values  []*AstNode
+}
+
+
 type AstTagAttr struct {
 	Key   *AstNode
 	Value *AstNode
@@ -68,6 +73,24 @@ func New(Index int, value interface{}, position *Position,Valid bool) *AstNode {
 	return &ast
 }
 
+func NewAstDoctypeValueKey(Value *string, position *Position,Valid bool) *AstNode {
+	return New(DOCTYPE_VALUE_KEY, &AstTagAttrValue{Value:*Value},  position,Valid)
+}
+
+func NewAstDoctype( Values []*AstNode,position *Position,Valid bool) *AstNode {
+	return New(DOCTYPE, &AstDoctype{Values:Values}, position, Valid)
+}
+
+func NewAstDoctypeValueNumeric(Value *string, position *Position,Valid bool) *AstNode {
+	return New(DOCTYPE_VALUE_NUMERIC, &AstTagAttrKey{Value:*Value},  position,Valid)
+}
+
+
+func NewAstDoctypeValueString(Value *string, position *Position,Valid bool) *AstNode {
+	return New(DOCTYPE_VALUE_STRING, &AstTagAttrKey{Value:*Value},  position,Valid)
+}
+
+
 func NewAstDOCUMENT(Items []*AstNode, position *Position,Valid bool) *AstNode {
 	return New(DOCUMENT, &AstDOCUMENT{Items:Items},  position,Valid)
 }
@@ -87,6 +110,8 @@ func NewAstTagAttr(Key *AstNode, Value  *AstNode, position *Position,Valid bool)
 func NewAstTag(Name *AstNode,Items []*AstNode, Attrs []*AstNode,NoItems bool, position *Position,Valid bool) *AstNode {
 	return New(TAG, &AstTag{Name:Name,Items:Items,Attrs:Attrs,NoItems:NoItems}, position, Valid)
 }
+
+
 
 func NewAstTagAttrKeyInput(Value *string, position *Position,Valid bool) *AstNode {
 	return New(TAG_ATTR_KEY_INPUT, &AstTagAttrKey{Value:*Value},  position,Valid)

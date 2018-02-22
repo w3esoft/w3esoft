@@ -20,6 +20,7 @@ const (
 	TAG_EQUAL         = 112
 	TAG_END_OPEN      = 114
 	TAG_END_CLOSE     = 115
+	TAG_END_CLOSE_NOCHILD= 116
 )
 
 var NAMES = map[int]string{
