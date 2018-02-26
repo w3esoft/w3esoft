@@ -7,7 +7,6 @@ import (
 	"path/filepath"
 	"fmt"
 	"github.com/w3esoft/glaive/input/inputfile"
-	"github.com/w3esoft/glaive/input"
 )
 func TestAll(t *testing.T) {
 	files :=[]string{}
@@ -17,22 +16,20 @@ func TestAll(t *testing.T) {
 	exclude :=[]string{"**/node_modules"}
 	files =tool.Find(damsistemas.RootDir,files,exclude)
 	for  ii , file :=range files{
-
-		fmt.Println(ii,file);
-		inputFile ,_ :=inputfile.New(filepath.Join(damsistemas.RootDir,file))
-		build(inputFile);
+		rfile:=filepath.Join(damsistemas.RootDir,file)
+		fmt.Println(ii,rfile)
+		build(rfile);
 	}
 }
 
 func Test(t *testing.T) {
-	file:=filepath.Join(damsistemas.RootDir,"packages/damsistemas/packages/damgerenciador/src/index.ts")
-	fmt.Println(file);
-	inputFile ,_ :=inputfile.New(file)
-	build(inputFile);
+	file:=filepath.Join(damsistemas.RootDir,"packages/atomicburst/packages/core/src/atomicburst.ts")
+	build(file);
 }
 
 
-func build(inputFile input.Input ){
+func build(file string ){
+	inputFile ,_ :=inputfile.New(file)
 	l:= New(inputFile);
 	for{
 		tk1:=l.Tokenize()
@@ -52,5 +49,6 @@ func build(inputFile input.Input ){
 			break
 		}
 	}
+	fmt.Println("....................... end")
 
 }

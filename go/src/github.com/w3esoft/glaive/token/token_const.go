@@ -1,39 +1,73 @@
 package token
 
 const (
-	INVALID          = 0
-	EOF              = 1
-	WHITESPACE       = 2
-	NUMERIC          = 3
-	DOT              = 4
-	AMPERSAT         = 5
-	DOUBLEDOT        = 6
-	BRACKETOPEN      = 7
-	BRACKETClOSE     = 8
-	PARENTHESISOPEN  = 9
-	PARENTHESISCLOSE = 10
-	BRACEOPEN        = 11
-	BRACECLOSE       = 12
-	MINUS            = 13
-	STRING           = 14
-	SEMICOLON        = 15
-	FORWARDSLASH     = 16
-	BACKSLASH        = 17
-	COMMA            = 18
-	PLUS             = 19
-	MULTIPLICATION   = 20
-	GREATER          = 21
-	MINOR            = 22
-	EQUAL            = 23
-	BANG             = 24
-	AMPERSAND             = 25
-	WORD             = 26
+	INVALID               = 0x01
+	EOF                   = 0x02
+	WHITESPACE            = 0x03
+	NUMERIC               = 0x04
+	DOT                   = 0x05
+	AMPERSAT              = 0x06
+	DOUBLEDOT             = 0x07
+	BRACKETOPEN           = 0x08
+	BRACKETClOSE          = 0x09
+	PARENTHESISOPEN       = 0x0a
+	PARENTHESISCLOSE      = 0x0b
+	BRACEOPEN             = 0x0c
+	BRACECLOSE            = 0x0d
+	MINUS                 = 0x0f
+	STRING                = 0x11
+	SEMICOLON             = 0x12
+	FORWARDSLASH          = 0x13
+	BACKSLASH             = 0x14
+	COMMA                 = 0x15
+	PLUS                  = 0x16
+	MULTIPLICATION        = 0x17
+	GREATER               = 0x18
+	MINOR                 = 0x19
+	EQUAL                 = 0x1a
+	BANG                  = 0x1b
+	AMPERSAND             = 0x1c
+	WORD                  = 0x1d
+	LINE                  = 0x1f
+	OPERATOR_CONDITION_OR = 0x21
+	COMMENT_LINE          = 0x22
+	COMMENT_BOCK          = 0x23
+	QUESTION_MARK         = 0x24
+	ASTERISK         = 0x25
 )
 
 var NAMES = map[int]string{
-	INVALID:    "INVALID",
-	EOF:        "EOF",
-	WHITESPACE: "WHITESPACE",
-	NUMERIC:    "NUMERIC",
-	DOT:        "DOT",
+	INVALID:               "INVALID",
+	EOF:                   "EOF",
+	WHITESPACE:            "WHITESPACE",
+	NUMERIC:               "NUMERIC",
+	DOT:                   "DOT",
+	AMPERSAT:              "AMPERSAT",
+	DOUBLEDOT:             "DOUBLEDOT",
+	BRACKETOPEN:           "BRACKETOPEN",
+	BRACKETClOSE:          "BRACKETClOSE",
+	PARENTHESISOPEN:       "PARENTHESISOPEN",
+	PARENTHESISCLOSE:      "PARENTHESISCLOSE",
+	BRACEOPEN:             "BRACEOPEN",
+	BRACECLOSE:            "BRACECLOSE",
+	MINUS:                 "MINUS",
+	STRING:                "STRING",
+	SEMICOLON:             "SEMICOLON",
+	FORWARDSLASH:          "FORWARDSLASH",
+	BACKSLASH:             "BACKSLASH",
+	COMMA:                 "COMMA",
+	PLUS:                  "PLUS",
+	MULTIPLICATION:        "MULTIPLICATION",
+	GREATER:               "GREATER",
+	MINOR:                 "MINOR",
+	EQUAL:                 "EQUAL",
+	BANG:                  "BANG",
+	AMPERSAND:             "AMPERSAND",
+	WORD:                  "WORD",
+	LINE:                  "LINE",
+	OPERATOR_CONDITION_OR: "OPERATOR_CONDITION_OR",
+	COMMENT_LINE:          "COMMENT_LINE",
+	COMMENT_BOCK:          "COMMENT_BOCK",
+	QUESTION_MARK:         "QUESTION_MARK",
+	ASTERISK:              "ASTERISK",
 }
