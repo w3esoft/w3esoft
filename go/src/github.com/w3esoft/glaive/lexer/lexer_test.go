@@ -1,7 +1,7 @@
 package lexer
 import (
 	"testing"
-	"github.com/w3esoft/oz/ozcss/token"
+	"github.com/w3esoft/glaive/token"
 	"github.com/w3esoft/tool"
 	"github.com/damsistemas"
 	"path/filepath"
@@ -12,8 +12,7 @@ import (
 func TestAll(t *testing.T) {
 	files :=[]string{}
 	for _,k :=range damsistemas.GetPackageMap()  {
-		files =append(files,k+ "/**.sass")
-		files =append(files,k+ "/**.scss")
+		files =append(files,k+ "/**.ts")
 	}
 	exclude :=[]string{"**/node_modules"}
 	files =tool.Find(damsistemas.RootDir,files,exclude)
@@ -26,7 +25,7 @@ func TestAll(t *testing.T) {
 }
 
 func Test(t *testing.T) {
-	file:=filepath.Join(damsistemas.RootDir,"packages/damsistemas/packages/damgerenciador/src/index.sass")
+	file:=filepath.Join(damsistemas.RootDir,"packages/damsistemas/packages/damgerenciador/src/index.ts")
 	fmt.Println(file);
 	inputFile ,_ :=inputfile.New(file)
 	build(inputFile);

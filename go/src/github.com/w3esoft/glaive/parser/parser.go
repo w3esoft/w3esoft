@@ -1,9 +1,9 @@
 package parser
 
 import (
-	"github.com/w3esoft/oz/ozcss/lexer"
-	"github.com/w3esoft/oz/ozcss/ast"
-	"github.com/w3esoft/oz/ozcss/token"
+	"github.com/w3esoft/glaive/lexer"
+	"github.com/w3esoft/glaive/ast"
+	"github.com/w3esoft/glaive/token"
 	"errors"
 )
 

@@ -2,7 +2,7 @@ package ast
 
 import (
 	"errors"
-	"github.com/w3esoft/oz/ozcss/token"
+	"github.com/w3esoft/glaive/token"
 )
 
 type AstNode struct {

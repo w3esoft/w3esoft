@@ -2,7 +2,7 @@ package lexer
 
 import (
 	"github.com/w3esoft/glaive/input"
-	"github.com/w3esoft/oz/ozcss/token"
+	"github.com/w3esoft/glaive/token"
 )
 
 const (
@@ -35,12 +35,17 @@ const (
 	PERCENT	 	= 	37
 	AMPERSAND	 	= 	38
 )
+const (
+	FSM_OPERATION=1
+	FSM_DECLARE=2
+)
 
 type Lexer struct {
 	CHAR   int
 	Input  input.Input
 	Tokens [] *token.Token
 	pos    int
+	forwardSlashMode int
 }
 
 func New(input input.Input) *Lexer {
@@ -70,7 +75,22 @@ func (lexer *Lexer) Pos() int {
 		return lexer.pos - 1
 	}
 }
-func (lexer *Lexer) Tokenize() *token.Token {
+func (lexer *Lexer) Tokenize() *token.Token{
+	tk := lexer.tokenize();
+	if (tk !=nil){
+		if (tk.Is([]int{
+			token.WORD,
+			token.NUMERIC},nil,true)){
+
+		}
+
+
+	}
+
+	return tk;
+}
+
+func (lexer *Lexer) tokenize() *token.Token {
 	if len(lexer.Tokens) > 0 {
 		r := lexer.Tokens[len(lexer.Tokens)-1:][0]
 		lexer.Tokens = lexer.Tokens[:len(lexer.Tokens)-1]
