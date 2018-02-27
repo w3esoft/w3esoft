@@ -38,6 +38,8 @@ const (
 	ASTERISK         	  = 0x25
 	REGEXP         	      = 0x26
 	PIPE         	      = 0x27
+	IMPORT         	      = 0x28
+	EXPORT         	      = 0x29
 )
 
 var NAMES = map[int]string{
@@ -76,4 +78,6 @@ var NAMES = map[int]string{
 	OPERATOR_DIVISION:     "OPERATOR_DIVISION",
 	REGEXP:     		   "REGEXP",
 	STRING_TEMPLATE:       "STRING_TEMPLATE",
+	IMPORT:       			"IMPORT",
+	EXPORT:       			"EXPORT",
 }

@@ -13,7 +13,7 @@ import (
 func TestAll(t *testing.T) {
 	files :=[]string{}
 	for _,k :=range damsistemas.GetPackageMap()  {
-		files =append(files,k+ "/**.html")
+		files =append(files,k+ "/**.ts")
 	}
 	exclude :=[]string{"**/node_modules"}
 	files =tool.Find(damsistemas.RootDir,files,exclude)

@@ -142,6 +142,14 @@ func (lexer *Lexer) tokenize() *token.Token {
 			len := lexer.Pos() - offset
 			position := &token.Position{Len: len, Offset: offset}
 			value = &v
+			if v=="import"{
+
+				return token.New(token.IMPORT, value, position, true)
+			}
+			if v=="export"{
+
+				return token.New(token.EXPORT, value, position, true)
+			}
 			return token.New(token.WORD, value, position, true)
 		case IsNumeric(char):
 			v := ""
