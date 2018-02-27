@@ -23,12 +23,13 @@ func TestAll(t *testing.T) {
 }
 
 func Test(t *testing.T) {
-	file:=filepath.Join(damsistemas.RootDir,"packages/atomicburst/packages/form.field.range/src/component.ts")
+	file:=filepath.Join(damsistemas.RootDir,"packages/atomicburst/packages/core/src/atomicburst.ts")
 	build(file);
 }
 
 
 func build(file string ){
+	fmt.Println(file)
 	inputFile ,_ :=inputfile.New(file)
 	l:= New(inputFile);
 	for{

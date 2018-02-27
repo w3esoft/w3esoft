@@ -201,7 +201,7 @@ func (lexer *Lexer) tokenize() *token.Token {
 			return token.New(token.BACKSLASH, value, position, true)
 		case char == FORWARDSLASH:
 			char = lexer.Read();
-			if (char == FORWARDSLASH) {
+			if char == FORWARDSLASH {
 				char = lexer.Read()
 				var v = "";
 				for char != EOF && !IsLine(char) {
@@ -212,7 +212,7 @@ func (lexer *Lexer) tokenize() *token.Token {
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
 				return token.New(token.COMMENT_LINE, value, position, true)
-			}else if (char == ASTERISK) {
+			}else if char == ASTERISK {
 				char = lexer.Read();
 				var uu = char;
 				var v = "";
@@ -229,13 +229,19 @@ func (lexer *Lexer) tokenize() *token.Token {
 				position := &token.Position{Len: len, Offset: offset}
 				return token.New(token.COMMENT_BOCK, value, position, true)
 			}else if  lexer.forwardSlashMode == FSM_DECLARE{
-				var uu = char;
 				var v = "";
 				v = v + string(char)
 				char = lexer.Read();
-				for !(uu != BACKSLASH && char == FORWARDSLASH) {
+				for  {
+					if char==BACKSLASH {
+						char = lexer.Read()
+						v = v + string(char)
+						char = lexer.Read()
+					}
+					if char == FORWARDSLASH{
+						break
+					}
 					v = v + string(char)
-					uu =char
 					char = lexer.Read()
 				}
 				char = lexer.Read();
@@ -292,7 +298,15 @@ func (lexer *Lexer) tokenize() *token.Token {
 		case char == DOUBLEQUOTES:
 			v := ""
 			char = lexer.Read()
-			for char != DOUBLEQUOTES {
+			for  {
+				if char==BACKSLASH {
+					char = lexer.Read()
+					v = v + string(char)
+					char = lexer.Read()
+				}
+				if char == DOUBLEQUOTES{
+					break;
+				}
 				if char == EOF {
 					lexer.CHAR = int(char)
 					len := lexer.Pos() - offset
@@ -311,7 +325,15 @@ func (lexer *Lexer) tokenize() *token.Token {
 		case char == QUOTES:
 			v := ""
 			char = lexer.Read()
-			for char != QUOTES {
+			for  {
+				if char==BACKSLASH {
+					char = lexer.Read()
+					v = v + string(char)
+					char = lexer.Read()
+				}
+				if char == QUOTES{
+					break;
+				}
 				if char == EOF {
 					lexer.CHAR = int(char)
 					len := lexer.Pos() - offset
@@ -330,13 +352,21 @@ func (lexer *Lexer) tokenize() *token.Token {
 		case char == ACUTE:
 			v := ""
 			char = lexer.Read()
-			for char != ACUTE {
+			for  {
+				if char==BACKSLASH {
+					char = lexer.Read()
+					v = v + string(char)
+					char = lexer.Read()
+				}
+				if char == ACUTE{
+					break;
+				}
 				if char == EOF {
 					lexer.CHAR = int(char)
 					len := lexer.Pos() - offset
 					position := &token.Position{Len: len, Offset: offset}
 					value = &v
-					return token.New(token.STRING, value, position, false)
+					return token.New(token.STRING_TEMPLATE, value, position, false)
 				}
 				v = v + string(char)
 				char = lexer.Read()
@@ -346,8 +376,6 @@ func (lexer *Lexer) tokenize() *token.Token {
 			position := &token.Position{Len: len, Offset: offset}
 			value = &v
 			return token.New(token.STRING_TEMPLATE, value, position, true)
-
-
 		case char == MINUS:
 			len := lexer.Pos() - offset
 			position := &token.Position{Len: len, Offset: offset}
