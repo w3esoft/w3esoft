@@ -37,6 +37,7 @@ const (
 	AMPERSAND        = 38
 	PIPE             = 124
 	QUESTION_MARK    = 63
+	ACUTE			 =96
 )
 const (
 	FSM_OPERATION = 1
@@ -144,7 +145,11 @@ func (lexer *Lexer) tokenize() *token.Token {
 			return token.New(token.WORD, value, position, true)
 		case IsNumeric(char):
 			v := ""
-			for IsNumeric(char) || PERCENT == char {
+			b:=true;
+			for IsNumeric(char) || (DOT == char&&b) {
+				if DOT == char&& b{
+					b =false
+				}
 				v = v + string(char)
 				char = lexer.Read()
 			}
@@ -165,6 +170,10 @@ func (lexer *Lexer) tokenize() *token.Token {
 			len := lexer.Pos() - offset
 			position := &token.Position{Len: len, Offset: offset}
 			return token.New(token.AMPERSAT, value, position, true)
+		case char == PERCENT:
+			len := lexer.Pos() - offset
+			position := &token.Position{Len: len, Offset: offset}
+			return token.New(token.OPERATOR_MOD, value, position, true)
 		case char == DOUBLEDOT:
 			len := lexer.Pos() - offset
 			position := &token.Position{Len: len, Offset: offset}
@@ -209,7 +218,7 @@ func (lexer *Lexer) tokenize() *token.Token {
 				var v = "";
 				v = v + string(char)
 				char = lexer.Read();
-				for uu != ASTERISK && char != FORWARDSLASH {
+				for !(uu == ASTERISK && char == FORWARDSLASH ) {
 					v = v + string(char)
 					uu =char
 					char = lexer.Read()
@@ -239,7 +248,13 @@ func (lexer *Lexer) tokenize() *token.Token {
 				lexer.CHAR = int(char)
 				len := lexer.Pos() - offset
 				position := &token.Position{Len: len, Offset: offset}
-				return token.New(token.FORWARDSLASH, value, position, true)
+				return token.New(token.REGEXP, value, position, true)
+			}else {
+				lexer.CHAR = int(char)
+				len := lexer.Pos() - offset
+				position := &token.Position{Len: len, Offset: offset}
+				return token.New(token.OPERATOR_DIVISION, value, position, true)
+
 			}
 
 		case char == BRACEOPEN:
@@ -312,6 +327,27 @@ func (lexer *Lexer) tokenize() *token.Token {
 			position := &token.Position{Len: len, Offset: offset}
 			value = &v
 			return token.New(token.STRING, value, position, true)
+		case char == ACUTE:
+			v := ""
+			char = lexer.Read()
+			for char != ACUTE {
+				if char == EOF {
+					lexer.CHAR = int(char)
+					len := lexer.Pos() - offset
+					position := &token.Position{Len: len, Offset: offset}
+					value = &v
+					return token.New(token.STRING, value, position, false)
+				}
+				v = v + string(char)
+				char = lexer.Read()
+
+			}
+			len := lexer.Pos() - offset
+			position := &token.Position{Len: len, Offset: offset}
+			value = &v
+			return token.New(token.STRING_TEMPLATE, value, position, true)
+
+
 		case char == MINUS:
 			len := lexer.Pos() - offset
 			position := &token.Position{Len: len, Offset: offset}
@@ -348,8 +384,10 @@ func (lexer *Lexer) tokenize() *token.Token {
 				return token.New(token.OPERATOR_CONDITION_OR, value, position, true)
 
 			} else {
-
 				lexer.CHAR = int(char)
+				len := lexer.Pos() - offset
+				position := &token.Position{Len: len, Offset: offset}
+				return token.New(token.PIPE, value, position, true)
 			}
 
 		case char == AMPERSAND:

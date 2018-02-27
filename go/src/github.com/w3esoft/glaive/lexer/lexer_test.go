@@ -23,7 +23,7 @@ func TestAll(t *testing.T) {
 }
 
 func Test(t *testing.T) {
-	file:=filepath.Join(damsistemas.RootDir,"packages/atomicburst/packages/core/src/atomicburst.ts")
+	file:=filepath.Join(damsistemas.RootDir,"packages/atomicburst/packages/form.field.range/src/component.ts")
 	build(file);
 }
 
@@ -41,6 +41,7 @@ func build(file string ){
 
 
 		if !tk1.Valid{
+			fmt.Println(file)
 			fmt.Println(tk1.Valid,tk1.Name,tk1.Id,value,tk1.Position.Offset,tk1.Position.Len)
 		}else {
 			fmt.Println(tk1.Valid,tk1.Name,tk1.Id,value,tk1.Position.Offset,tk1.Position.Len)

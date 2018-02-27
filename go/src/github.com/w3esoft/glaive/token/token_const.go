@@ -15,9 +15,9 @@ const (
 	BRACEOPEN             = 0x0c
 	BRACECLOSE            = 0x0d
 	MINUS                 = 0x0f
-	STRING                = 0x11
+	STRING                = 0x1110
+	STRING_TEMPLATE       = 0x1120
 	SEMICOLON             = 0x12
-	FORWARDSLASH          = 0x13
 	BACKSLASH             = 0x14
 	COMMA                 = 0x15
 	PLUS                  = 0x16
@@ -29,11 +29,15 @@ const (
 	AMPERSAND             = 0x1c
 	WORD                  = 0x1d
 	LINE                  = 0x1f
-	OPERATOR_CONDITION_OR = 0x21
+	OPERATOR_CONDITION_OR = 0x2111
+	OPERATOR_DIVISION	  = 0x2121
+	OPERATOR_MOD     	  = 0x2131
 	COMMENT_LINE          = 0x22
 	COMMENT_BOCK          = 0x23
 	QUESTION_MARK         = 0x24
-	ASTERISK         = 0x25
+	ASTERISK         	  = 0x25
+	REGEXP         	      = 0x26
+	PIPE         	      = 0x27
 )
 
 var NAMES = map[int]string{
@@ -53,7 +57,6 @@ var NAMES = map[int]string{
 	MINUS:                 "MINUS",
 	STRING:                "STRING",
 	SEMICOLON:             "SEMICOLON",
-	FORWARDSLASH:          "FORWARDSLASH",
 	BACKSLASH:             "BACKSLASH",
 	COMMA:                 "COMMA",
 	PLUS:                  "PLUS",
@@ -70,4 +73,7 @@ var NAMES = map[int]string{
 	COMMENT_BOCK:          "COMMENT_BOCK",
 	QUESTION_MARK:         "QUESTION_MARK",
 	ASTERISK:              "ASTERISK",
+	OPERATOR_DIVISION:     "OPERATOR_DIVISION",
+	REGEXP:     		   "REGEXP",
+	STRING_TEMPLATE:       "STRING_TEMPLATE",
 }
