@@ -1,17 +1,21 @@
 package ast
 
 const (
-	IMPORT_OBJ                   = 0x1
-	IMPORT_ANY                   = 0x2
-	EXPORT_OBJ                   = 0x3
-	EXPORT_ANY                   = 0x4
-	MODULE                       = 0x5
+	IMPORT_DESTRUCTURING_ASSIGNMENT                = 0x11
+	IMPORT_DESTRUCTURING_ASSIGNMENT_FIELD		   = 0x12
+	IMPORT_ANY                                     = 0x13
+	EXPORT_DESTRUCTURING_ASSIGNMENT                = 0x21
+	EXPORT_ANY                                     = 0x22
+	MODULE                                         = 0x3
+	DESTRUCTURING_ASSIGNMENT_OBJECT_MATCHING_FIELD = 0x4
 )
 
 var NAMES = map[int]string{
-	IMPORT_OBJ:"IMPORT_OBJ",
-	IMPORT_ANY:"IMPORT_ANY",
-	EXPORT_OBJ:"EXPORT_OBJ",
-	EXPORT_ANY:"EXPORT_ANY",
-	MODULE:"MODULE",
+	IMPORT_DESTRUCTURING_ASSIGNMENT:                "IMPORT_DESTRUCTURING_ASSIGNMENT",
+	IMPORT_DESTRUCTURING_ASSIGNMENT_FIELD:          "IMPORT_DESTRUCTURING_ASSIGNMENT_FIELD",
+	IMPORT_ANY:                                     "IMPORT_ANY",
+	EXPORT_DESTRUCTURING_ASSIGNMENT:                "EXPORT_DESTRUCTURING_ASSIGNMENT",
+	EXPORT_ANY:                                     "EXPORT_ANY",
+	MODULE:                                         "MODULE",
+	DESTRUCTURING_ASSIGNMENT_OBJECT_MATCHING_FIELD: "DESTRUCTURING_ASSIGNMENT_OBJECT_MATCHING_FIELD",
 }
