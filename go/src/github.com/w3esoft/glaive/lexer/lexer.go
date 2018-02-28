@@ -150,6 +150,17 @@ func (lexer *Lexer) tokenize() *token.Token {
 
 				return token.New(token.EXPORT, value, position, true)
 			}
+			if v=="from"{
+
+				return token.New(token.FROM, value, position, true)
+			}
+			if v=="let"{
+
+				return token.New(token.LET, value, position, true)
+			}
+
+
+
 			return token.New(token.WORD, value, position, true)
 		case IsNumeric(char):
 			v := ""

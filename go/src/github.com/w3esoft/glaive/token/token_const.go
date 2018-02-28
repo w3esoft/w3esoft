@@ -40,6 +40,8 @@ const (
 	PIPE         	      = 0x27
 	IMPORT         	      = 0x28
 	EXPORT         	      = 0x29
+	FROM         	      = 0x2a
+	LET         	      = 0x2b
 )
 
 var NAMES = map[int]string{
@@ -80,4 +82,6 @@ var NAMES = map[int]string{
 	STRING_TEMPLATE:       "STRING_TEMPLATE",
 	IMPORT:       			"IMPORT",
 	EXPORT:       			"EXPORT",
+	FROM:       			"FROM",
+	LET:       			    "LET",
 }

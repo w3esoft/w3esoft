@@ -1,41 +1,17 @@
 package ast
 
 const (
-	TEXT                   = 100
-	DOCUMENT               = 200
-	COMMENT                = 300
-	DOCTYPE                = 400
-	DOCTYPE_VALUE_NUMERIC  = 401
-	DOCTYPE_VALUE_STRING   = 402
-	DOCTYPE_VALUE_KEY      = 403
-	TAG                    = 500
-	TAG_NAME               = 501
-	TAG_ATTR               = 502
-	TAG_ATTR_VALUE_STRING  = 511
-	TAG_ATTR_VALUE_NUMERIC = 512
-	TAG_ATTR_KEY_NORMAL    = 521
-	TAG_ATTR_KEY_INPUT     = 522
-	TAG_ATTR_KEY_TEMPLATE  = 523
-	TAG_ATTR_KEY_OUTPUT    = 524
-	TAG_ATTR_VALUE         = 570
+	IMPORT_OBJ                   = 0x1
+	IMPORT_ANY                   = 0x2
+	EXPORT_OBJ                   = 0x3
+	EXPORT_ANY                   = 0x4
+	MODULE                       = 0x5
 )
 
 var NAMES = map[int]string{
-	TEXT:                   "TEXT",
-	TAG:                    "TAG",
-	DOCUMENT:               "DOCUMENT",
-	TAG_NAME:               "TAG_NAME",
-	COMMENT:                "COMMENT",
-	TAG_ATTR:               "TAG_ATTR",
-	TAG_ATTR_KEY_INPUT:     "TAG_ATTR_KEY_INPUT",
-	TAG_ATTR_KEY_OUTPUT:    "TAG_ATTR_KEY_OUTPUT",
-	TAG_ATTR_KEY_NORMAL:    "TAG_ATTR_KEY_NORMAL",
-	TAG_ATTR_KEY_TEMPLATE:  "TAG_ATTR_KEY_TEMPLATE",
-	TAG_ATTR_VALUE_STRING:  "TAG_ATTR_VALUE_STRING",
-	TAG_ATTR_VALUE_NUMERIC: "TAG_ATTR_VALUE_NUMERIC",
-	TAG_ATTR_VALUE:         "TAG_ATTR_VALUE",
-	DOCTYPE:                "DOCTYPE",
-	DOCTYPE_VALUE_NUMERIC:  "DOCTYPE_VALUE_NUMERIC",
-	DOCTYPE_VALUE_STRING:   "DOCTYPE_VALUE_STRING",
-	DOCTYPE_VALUE_KEY:      "DOCTYPE_VALUE_KEY",
+	IMPORT_OBJ:"IMPORT_OBJ",
+	IMPORT_ANY:"IMPORT_ANY",
+	EXPORT_OBJ:"EXPORT_OBJ",
+	EXPORT_ANY:"EXPORT_ANY",
+	MODULE:"MODULE",
 }
