@@ -27,7 +27,7 @@ func TestAll(t *testing.T) {
 }
 
 func Test(t *testing.T) {
-	d:=filepath.Join(damsistemas.RootDir,"packages/damsistemas/packages/damonline/dist/index.html")
+	d:=filepath.Join(damsistemas.RootDir,"packages/damsistemas/packages/core/src/atomicburst.module.ts")
 	fmt.Println(d)
 	inputFile ,_ :=inputfile.New(d)
 	l:=lexer.New(inputFile)

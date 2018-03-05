@@ -6,7 +6,7 @@ const (
 	WHITESPACE            = 0x03
 	NUMERIC               = 0x04
 	DOT                   = 0x05
-	AMPERSAT              = 0x06
+	META                  = 0x06
 	DOUBLEDOT             = 0x07
 	BRACKETOPEN           = 0x08
 	BRACKETClOSE          = 0x09
@@ -42,6 +42,10 @@ const (
 	EXPORT         	      = 0x29
 	FROM         	      = 0x2a
 	LET         	      = 0x2b
+	CLASS         	      = 0x2c
+	CONST         	      = 0x2d
+	MACRO_AST         	  = 0x2e
+	MACRO_TOKEN        	  = 0x2f
 )
 
 var NAMES = map[int]string{
@@ -50,7 +54,7 @@ var NAMES = map[int]string{
 	WHITESPACE:            "WHITESPACE",
 	NUMERIC:               "NUMERIC",
 	DOT:                   "DOT",
-	AMPERSAT:              "AMPERSAT",
+	META:                  "META",
 	DOUBLEDOT:             "DOUBLEDOT",
 	BRACKETOPEN:           "BRACKETOPEN",
 	BRACKETClOSE:          "BRACKETClOSE",
@@ -84,4 +88,8 @@ var NAMES = map[int]string{
 	EXPORT:       			"EXPORT",
 	FROM:       			"FROM",
 	LET:       			    "LET",
+	CLASS:					"CLASS",
+	CONST:					"CONST",
+	MACRO_AST:				"MACRO_AST",
+	MACRO_TOKEN:			"MACRO_TOKEN",
 }

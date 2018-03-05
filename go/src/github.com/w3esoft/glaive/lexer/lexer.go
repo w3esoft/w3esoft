@@ -158,6 +158,14 @@ func (lexer *Lexer) tokenize() *token.Token {
 
 				return token.New(token.LET, value, position, true)
 			}
+			if v=="class"{
+
+				return token.New(token.CLASS, value, position, true)
+			}
+			if v=="const"{
+
+				return token.New(token.CONST, value, position, true)
+			}
 
 
 
@@ -186,9 +194,22 @@ func (lexer *Lexer) tokenize() *token.Token {
 			position := &token.Position{Len: len, Offset: offset}
 			return token.New(token.DOT, value, position, true)
 		case char == AMPERSAT:
+			char = lexer.Read()
+			t:=token.META;
+			if (char==DOUBLEDOT){
+				t=token.MACRO_AST;
+				char = lexer.Read()
+			}
+			v := ""
+			for IsWord(char) || IsNumeric(char) || char == DOLLAR || char == UNDERSCORE {
+				v = v + string(char)
+				char = lexer.Read()
+			}
+			lexer.CHAR = int(char)
 			len := lexer.Pos() - offset
 			position := &token.Position{Len: len, Offset: offset}
-			return token.New(token.AMPERSAT, value, position, true)
+			value = &v
+			return token.New(t, value, position, true)
 		case char == PERCENT:
 			len := lexer.Pos() - offset
 			position := &token.Position{Len: len, Offset: offset}
