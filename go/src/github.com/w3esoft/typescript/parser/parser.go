@@ -1,9 +1,9 @@
 package parser
 
 import (
-	"github.com/w3esoft/glaive/lexer"
-	"github.com/w3esoft/glaive/ast"
-	"github.com/w3esoft/glaive/token"
+	"github.com/w3esoft/typescript/lexer"
+	"github.com/w3esoft/typescript/ast"
+	"github.com/w3esoft/typescript/token"
 )
 
 type Parser struct {
@@ -207,10 +207,10 @@ func (par *Parser) ParseClass() (a *ast.AstNode, err error) {
 }
 
 func (par *Parser) ParseCall(aa*ast.AstNode ) (a *ast.AstNode, err error) {
-	tk1:=par.Tokenize()
-	start := tk1
+	par.Tokenize()
+	//start := tk1
 	parameters , _:=par.ParseEmpression(nil);
-	return ast.NewAstMeta(aa,parameters, &ast.Position{Len: start.Position.Len, Offset: start.Position.Offset}), nil;
+	return ast.NewAstMeta(aa,parameters, &ast.Position{Len: start.Position.Len, Offset: start.Position.Len}), nil;
 }
 
 func (par *Parser) ParseMeta() (a *ast.AstNode, err error) {

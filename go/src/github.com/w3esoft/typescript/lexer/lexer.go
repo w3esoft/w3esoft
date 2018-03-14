@@ -2,7 +2,7 @@ package lexer
 
 import (
 	"github.com/w3esoft/input"
-	"github.com/w3esoft/glaive/token"
+	"github.com/w3esoft/typescript/token"
 )
 
 const (

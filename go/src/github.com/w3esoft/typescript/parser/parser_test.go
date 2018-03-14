@@ -6,8 +6,8 @@ import (
 	"github.com/damsistemas"
 	"path/filepath"
 	"github.com/w3esoft/input/inputfile"
-	"github.com/w3esoft/glaive/lexer"
-	"github.com/w3esoft/glaive/ast"
+	"github.com/w3esoft/typescript/lexer"
+	"github.com/w3esoft/typescript/ast"
 	"fmt"
 )
 func TestAll(t *testing.T) {

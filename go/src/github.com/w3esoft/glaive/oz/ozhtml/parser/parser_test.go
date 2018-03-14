@@ -6,14 +6,14 @@ import (
 	"github.com/damsistemas"
 	"path/filepath"
 	"github.com/w3esoft/input/inputfile"
-	"github.com/w3esoft/glaive/lexer"
-	"github.com/w3esoft/glaive/ast"
+	"github.com/w3esoft/glaive/oz/ozhtml/lexer"
+	"github.com/w3esoft/glaive/oz/ozhtml/ast"
 	"fmt"
 )
 func TestAll(t *testing.T) {
 	files :=[]string{}
 	for _,k :=range damsistemas.GetPackageMap()  {
-		files =append(files,k+ "/**.ts")
+		files =append(files,k+ "/**.html")
 	}
 	exclude :=[]string{"**/node_modules"}
 	files =tool.Find(damsistemas.RootDir,files,exclude)
@@ -27,7 +27,7 @@ func TestAll(t *testing.T) {
 }
 
 func Test(t *testing.T) {
-	d:=filepath.Join(damsistemas.RootDir,"packages/damsistemas/packages/core/src/atomicburst.module.ts")
+	d:=filepath.Join(damsistemas.RootDir,"packages/damsistemas/packages/damonline/dist/index.html")
 	fmt.Println(d)
 	inputFile ,_ :=inputfile.New(d)
 	l:=lexer.New(inputFile)

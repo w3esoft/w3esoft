@@ -10,3 +10,5 @@ nbproject
 /python/venv
 /go/pkg
 /go/.idea
+/java/modules/glaive.ide.netbeans/branding/target/
+/java/modules/glaive.ide.netbeans/application/target/

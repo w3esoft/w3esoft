@@ -1,7 +1,7 @@
 package lexer
 import (
 	"testing"
-	"github.com/w3esoft/glaive/token"
+	"github.com/w3esoft/java/token"
 	"github.com/w3esoft/tool"
 	"github.com/damsistemas"
 	"path/filepath"

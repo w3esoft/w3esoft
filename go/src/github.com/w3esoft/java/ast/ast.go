@@ -13,10 +13,6 @@ type AstValue struct {
 type AstIdent struct {
 	Value    * string
 }
-type AstCall struct {
-	Ident *AstNode
-	Parameters []*AstNode
-}
 
 
 
