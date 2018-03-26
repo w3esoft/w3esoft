@@ -12,3 +12,6 @@ nbproject
 /go/.idea
 /java/modules/glaive.ide.netbeans/branding/target/
 /java/modules/glaive.ide.netbeans/application/target/
+/java/.idea
+/java/modules/glaive.ide.intellijIdea/.idea
+/java/modules/glaive.ide.intellijIdea/out

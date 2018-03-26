@@ -1,0 +1,82 @@
+<idea-plugin>
+  <id>com.your.company.unique.plugin.id</id>
+  <name>Plugin display name here</name>
+  <version>1.0</version>
+  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+
+  <description><![CDATA[
+      Enter short description for your plugin here.<br>
+      <em>most HTML tags may be used</em>
+    ]]></description>
+
+  <change-notes><![CDATA[
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="173.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <!-- Plugin's application components -->
+  <application-components>
+    <component>
+      <!-- Component's interface class -->
+      <implementation-class>org.glaive.ide.intellijIdea.components.GlaiveApplicationComponent</implementation-class>
+
+      <interface-class>org.glaive.ide.intellijIdea.impl.components.GlaiveApplicationComponentImpl</interface-class>
+    </component>
+  </application-components>
+
+  <!-- Plugin's project components -->
+  <project-components>
+    <component>
+      <!-- Interface and implementation classes are the same -->
+      <interface-class>org.glaive.ide.intellijIdea.impl.components.GlaiveProjectComponentImpl</interface-class>
+      <implementation-class>org.glaive.ide.intellijIdea.components.GlaiveProjectComponent</implementation-class>
+      <!-- If the "workspace" option is set "true", the component
+           saves its state to the .iws file instead of the .ipr file.
+           Note that the <option> element is used only if the component
+           implements the JDOMExternalizable interface. Otherwise, the
+           use of the <option> element takes no effect.  -->
+      <option name="workspace" value="true" />
+
+      <!-- If the "loadForDefaultProject" tag is present, the project component is instantiated also for the default project. -->
+      <loadForDefaultProject/>
+    </component>
+  </project-components>
+  <!-- Plugin's module components -->
+  <module-components>
+    <component>
+      <interface-class>org.glaive.ide.intellijIdea.impl.components.GlaiveModuleComponentImpl</interface-class>
+      <implementation-class>org.glaive.ide.intellijIdea.components.GlaiveModuleComponent</implementation-class>
+    </component>
+  </module-components>
+
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+  <extensions defaultExtensionNs="com.intellij">
+    <fileTypeFactory implementation="org.glaive.ide.intellijIdea.fileTypes.GlaiveFileTypeFactory"/>
+
+    <lang.syntaxHighlighterFactory implementationClass="com.intellij.plugins.haxe.ide.highlight.HaxeSyntaxHighlighterFactory"/>
+
+
+
+    <!--Place your extensions here-->
+    <moduleType id="GLAIVE_MODULE" implementationClass="org.glaive.ide.intellijIdea.module.GlaiveModuleType"/>
+    <moduleBuilder builderClass="org.glaive.ide.intellijIdea.projectWizard.GlaiveModuleBuilder"/>
+    <projectStructureDetector implementation="org.glaive.ide.intellijIdea.projectWizard.importSources.GlaiveProjectStructureDetector"/>
+  </extensions>
+</idea-plugin>
