@@ -1,4 +1,4 @@
-package org.juice.ide.intellijIdea.fileTypes;
+package org.glaive.ide.intellijIdea.fileTypes;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.vfs.CharsetToolkit;
@@ -11,14 +11,14 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class JuiceLanguageFileType extends LanguageFileType{
-    public  static JuiceLanguageFileType INSTANCE = new JuiceLanguageFileType();
-    public JuiceLanguageFileType(){
+public class GlaiveClassLanguageFileType extends LanguageFileType{
+    public  static GlaiveClassLanguageFileType INSTANCE = new GlaiveClassLanguageFileType();
+    public GlaiveClassLanguageFileType(){
         super(GlaiveClassLanguage.INSTANCE);
     }
 
     @NonNls
-    public static final String DEFAULT_EXTENSION = "je";
+    public static final String DEFAULT_EXTENSION = "gc";
 
     @NotNull
     @Override

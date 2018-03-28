@@ -6,7 +6,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class GlaiveModuleLexer extends Lexer {
+public class GlaiveScriptLexer extends Lexer {
     @Override
     public void start(@NotNull CharSequence charSequence, int i, int i1, int i2) {
 

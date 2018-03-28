@@ -11,6 +11,6 @@ public class GlaiveClassSyntaxHighlighterFactory extends SyntaxHighlighterFactor
     @NotNull
     @Override
     public SyntaxHighlighter getSyntaxHighlighter(@Nullable Project project, @Nullable VirtualFile virtualFile) {
-        return new GlaiveSyntaxHighlighter(project);
+        return new GlaiveClassSyntaxHighlighter(project);
     }
 }

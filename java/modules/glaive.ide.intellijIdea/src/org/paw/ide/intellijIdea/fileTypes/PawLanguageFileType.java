@@ -3,7 +3,7 @@ package org.paw.ide.intellijIdea.fileTypes;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.glaive.ide.intellijIdea.GlaiveLanguage;
+import org.glaive.ide.intellijIdea.lang.GlaiveClassLanguage;
 import org.glaive.ide.intellijIdea.icons.GlaiveIcons;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -14,11 +14,11 @@ import javax.swing.*;
 public class PawLanguageFileType extends LanguageFileType{
     public  static PawLanguageFileType INSTANCE = new PawLanguageFileType();
     public PawLanguageFileType(){
-        super(GlaiveLanguage.INSTANCE);
+        super(GlaiveClassLanguage.INSTANCE);
     }
 
     @NonNls
-    public static final String DEFAULT_EXTENSION = "hx";
+    public static final String DEFAULT_EXTENSION = "pw";
 
     @NotNull
     @Override

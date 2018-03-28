@@ -3,7 +3,7 @@ package org.glaive.ide.intellijIdea.fileTypes;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.glaive.ide.intellijIdea.GlaiveLanguage;
+import org.glaive.ide.intellijIdea.lang.GlaiveClassLanguage;
 import org.glaive.ide.intellijIdea.icons.GlaiveIcons;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -11,14 +11,14 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class GlaiveLanguageFileType extends LanguageFileType{
-    public  static GlaiveLanguageFileType INSTANCE = new GlaiveLanguageFileType();
-    public GlaiveLanguageFileType(){
-        super(GlaiveLanguage.INSTANCE);
+public class GlaiveScriptLanguageFileType extends LanguageFileType{
+    public  static GlaiveScriptLanguageFileType INSTANCE = new GlaiveScriptLanguageFileType();
+    public GlaiveScriptLanguageFileType(){
+        super(GlaiveClassLanguage.INSTANCE);
     }
 
     @NonNls
-    public static final String DEFAULT_EXTENSION = "ge";
+    public static final String DEFAULT_EXTENSION = "gs";
 
     @NotNull
     @Override

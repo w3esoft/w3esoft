@@ -68,13 +68,28 @@
     <!-- Add your actions here -->
   </actions>
   <extensions defaultExtensionNs="com.intellij">
-    <fileTypeFactory implementation="org.glaive.ide.intellijIdea.fileTypes.GlaiveFileTypeFactory"/>
-
-    <lang.syntaxHighlighterFactory id="gs"  implementationClass="org.glaive.ide.intellijIdea.fileTypes.GlaiveModuleSyntaxHighlighterFactory"/>
-
-
-
-    <!--Place your extensions here-->
+    <fileTypeFactory
+            implementation="org.glaive.ide.intellijIdea.fileTypes.GlaiveClassFileTypeFactory"
+    />
+    <lang.parserDefinition
+            language="GLAIVE_SCRIPT_LANGUAGE"
+            implementationClass="org.glaive.ide.intellijIdea.lang.GlaiveScriptParserDefinition"
+    />
+    <lang.syntaxHighlighterFactory
+            key="GLAIVE_SCRIPT_LANGUAGE"
+            implementationClass="org.glaive.ide.intellijIdea.fileTypes.GlaiveScriptSyntaxHighlighterFactory"
+    />
+    <fileTypeFactory
+            implementation="org.glaive.ide.intellijIdea.fileTypes.GlaiveScriptFileTypeFactory"
+    />
+    <lang.parserDefinition
+            language="GLAIVE_CLASS_LANGUAGE"
+            implementationClass="org.glaive.ide.intellijIdea.lang.GlaiveClassParserDefinition"
+    />
+    <lang.syntaxHighlighterFactory
+            key="GLAIVE_CLASS_LANGUAGE"
+            implementationClass="org.glaive.ide.intellijIdea.fileTypes.GlaiveClassSyntaxHighlighterFactory"
+    />
     <moduleType id="GLAIVE_MODULE" implementationClass="org.glaive.ide.intellijIdea.module.GlaiveModuleType"/>
     <moduleBuilder builderClass="org.glaive.ide.intellijIdea.projectWizard.GlaiveModuleBuilder"/>
     <projectStructureDetector implementation="org.glaive.ide.intellijIdea.projectWizard.importSources.GlaiveProjectStructureDetector"/>
