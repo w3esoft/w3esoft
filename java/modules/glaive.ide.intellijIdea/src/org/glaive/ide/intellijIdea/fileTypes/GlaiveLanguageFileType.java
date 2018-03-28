@@ -18,7 +18,7 @@ public class GlaiveLanguageFileType extends LanguageFileType{
     }
 
     @NonNls
-    public static final String DEFAULT_EXTENSION = "hx";
+    public static final String DEFAULT_EXTENSION = "ge";
 
     @NotNull
     @Override

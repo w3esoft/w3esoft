@@ -70,7 +70,7 @@
   <extensions defaultExtensionNs="com.intellij">
     <fileTypeFactory implementation="org.glaive.ide.intellijIdea.fileTypes.GlaiveFileTypeFactory"/>
 
-    <lang.syntaxHighlighterFactory implementationClass="com.intellij.plugins.haxe.ide.highlight.HaxeSyntaxHighlighterFactory"/>
+    <lang.syntaxHighlighterFactory id="gs"  implementationClass="org.glaive.ide.intellijIdea.fileTypes.GlaiveModuleSyntaxHighlighterFactory"/>
 
 
 

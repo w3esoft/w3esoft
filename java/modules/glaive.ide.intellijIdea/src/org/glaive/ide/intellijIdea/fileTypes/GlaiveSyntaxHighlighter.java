@@ -5,6 +5,7 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.tree.IElementType;
+import org.glaive.ide.intellijIdea.lexer.GlaiveModuleLexer;
 import org.jetbrains.annotations.NotNull;
 
 public class GlaiveSyntaxHighlighter implements SyntaxHighlighter {
@@ -15,7 +16,7 @@ public class GlaiveSyntaxHighlighter implements SyntaxHighlighter {
     @NotNull
     @Override
     public Lexer getHighlightingLexer() {
-        return null;
+        return new GlaiveModuleLexer();
     }
 
     @NotNull
