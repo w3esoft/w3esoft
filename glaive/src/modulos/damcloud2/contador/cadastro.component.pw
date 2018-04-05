@@ -1,0 +1,51 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% import {FormModule} from "@paw/html" %>  
+<% import {AbViewport} from "@atomicburst/viewport" %>  
+<% import {AbToolbar} from "@atomicburst/toolbar" %>  
+<% import {AbButton} from "@atomicburst/button" %>  
+<% import {AbContainer} from "@atomicburst/container" %>  
+<% import {AbTextfield} from "@atomicburst/textfield" %>  
+<% apply HtmlModule %>  
+<% apply FormModule %>  
+<AbViewport>
+
+<AbToolbar
+            [AbToolbar]="{
+                   position:'top',
+                   ui:'dam-contador'
+                }">
+  <div style="flex-grow: 1;"></div>
+  <AbButton [AbButton]="{text:'Salvar'}" (click)="salvar(form)">
+    <AbTemplate [AbTemplate]="{type:'icon'}">
+      <i class="fa fa-file-o" aria-hidden="true"></i>
+    </AbTemplate>
+  </AbButton>
+  <AbButton [AbButton]="{text:'Retornar'}" (click)="retornar()">
+    <AbTemplate [AbTemplate]="{type:'icon'}">
+      <i class="fa fa-sign-out" aria-hidden="true"></i>
+    </AbTemplate>
+  </AbButton>
+</AbToolbar>
+  <form #form="ngForm">
+    <AbContainer  AbLayoutGrid >
+      <AbTextfield #contadorId (next)="nome.focus.emit()"
+                    [AbLayoutGridItem]="{sm:6,md:2}"
+                    [AbTextfield]="{fieldLabel:'Código'}"
+                    [AbRecord]="[record,'contadorId']"
+      >
+      </AbTextfield>
+      <AbTextfield #nome (next)="email.focus.emit()"
+                    [AbLayoutGridItem]="{sm:6,md:4}"
+                    [AbTextfield]="{fieldLabel:'Nome'}"
+                    [AbRecord]="[record,'nome']"
+      >
+      </AbTextfield>
+      <AbTextfield #email (next)="contadorId.focus.emit()"
+                    [AbLayoutGridItem]="{sm:6,md:4}"
+                    [AbTextfield]="{fieldLabel:'Email'}"
+                    [AbRecord]="[record,'email']"
+      >
+      </AbTextfield>
+    </AbContainer>
+  </form>
+</AbViewport>

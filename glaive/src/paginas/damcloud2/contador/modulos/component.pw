@@ -1,0 +1,119 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% import {AbViewport} from "@atomicburst/viewport" %>  
+<% import {AbToolbar} from "@atomicburst/toolbar" %>  
+<% import {AbButton} from "@atomicburst/button" %>  
+<% import {AbMenu} from "@atomicburst/menu" %>  
+<% apply HtmlModule %>  
+<AbViewport #viewport>
+  <AbViewport >
+
+    <AbToolbar style="background-color: #414a52"
+                [AbToolbar]="{
+                position:'bottom'
+              }"
+                [hidden]="!(viewport.offsetWidth< 620)">
+      <AbButton (click)="ToolbarLeft.open()">
+        <AbTemplate [AbTemplate]="{type:'icon'}">
+          <i class="fa fa-home" aria-hidden="true"></i>
+        </AbTemplate>
+      </AbButton>
+    </AbToolbar>
+    <AbToolbar
+      #ToolbarTop
+      [AbToolbar]="{
+      ui:'menu-user',
+      position:  viewport.offsetWidth< 620 ? 'right' : 'top' ,
+      floating: viewport.offsetWidth< 620
+     }"
+      class="menu-top"
+    >
+      <AbButton (click)="ToolbarTop.hidden=!ToolbarTop.hidden">
+        <AbTemplate [AbTemplate]="{type:'icon'}">
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </AbTemplate>
+      </AbButton>
+      <div style="color: #2f7edd; padding: 15px;" *ngIf="sessionEmpresa">
+        <a>
+          <i class="fa fa-building-o" aria-hidden="true"></i>
+          {{sessionEmpresa.empresaId.nome}}
+        </a>
+      </div>
+      <div style="flex-grow: 1"></div>
+      <div style="color: #2f7edd; padding: 15px;" *ngIf="sessionUsuario">
+        <a>
+          <i class="fa fa-user" aria-hidden="true"></i>
+          {{sessionContador.email}}
+        </a>
+      </div>
+      <div style="
+        width: 30px;
+    "></div>
+    </AbToolbar>
+    <AbToolbar
+      #ToolbarLeft
+      [hidden]="ToolbarTop.hidden"
+      [AbToolbar]="{
+      ui:'menu-main-1',
+      position:'left',
+      floating: viewport.offsetWidth< 620
+     }"
+      [AbDefaultConfig]="{'AbMenu':{collapsed:true}}"
+      class="menu-top"
+    >
+      <div style="color: #fff;height: 160px;padding: 20px;">
+        <img style=" height: 100px;
+    padding-left: 15px;" src="assets/logo.svg">
+        <div style="text-align: center">
+          <h2 style="font-size: 30px">Consulta Xml</h2>
+        </div>
+      </div>
+      <div  style="flex-grow:1;overflow: auto;">
+        <AbTemplate #tplMenus let-menus="menus"  let-tplMenus="tplMenus">
+          <AbTemplate ngFor let-item [ngForOf]="menus" let-i="index">
+            <AbTemplate [ngIf]="(item.children&&item.children.length)&&!item.acao">
+              <AbMenu [AbMenu]="{
+                ui:item.ui,
+                text:item.nome,
+                routerLink:item.routerLink,
+                iconCls:item.iconCls
+            }">
+                <ng-container *ngTemplateOutlet="tplMenus; context: {
+                    tplMenus:tplMenus,
+                    menus:item.children
+                }">
+                </ng-container>
+              </AbMenu>
+            </AbTemplate>
+
+            <AbTemplate [ngIf]="!(item.children&&item.children.length)&&!item.acao">
+              <AbButton [AbButton]="{
+                  ui:item.ui,
+                  text:item.nome,
+                  routerLink:item.routerLink,
+                  iconCls:item.iconCls
+            }" (click)="clickItem(item)">
+              </AbButton>
+            </AbTemplate>
+
+            <AbTemplate [ngIf]="item.acao">
+              <AbButton [AbButton]="{
+                  ui:item.ui,
+                  text:item.nome,
+                  iconCls:item.iconCls
+            }" (click)="clickItem(item)">
+              </AbButton>
+            </AbTemplate>
+
+          </AbTemplate>
+        </AbTemplate>
+        <ng-container *ngTemplateOutlet="tplMenus; context: {
+        tplMenus:tplMenus,
+        menus:menus
+    }">
+        </ng-container>
+      </div>
+    </AbToolbar>
+    <router-outlet></router-outlet>
+
+  </AbViewport>
+</AbViewport>

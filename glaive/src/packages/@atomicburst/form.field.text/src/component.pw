@@ -1,0 +1,23 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% apply HtmlModule %>  
+<div id="{{id}}-inner" class="AbField-inner">
+  <label   class="AbField-label"  attr.for="{{id}}-input">{{config?.fieldLabel }}</label>
+  <div  class="AbField-input-group"  >
+    <div class="AbField-input">
+      <input class="AbField-input-inner"
+
+             autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+             [readonly]="readonly"
+             (focus)= "_onFocus()"
+             (keydown)="_onKeydown($event)"
+             (blur)="_onBlur($event)"
+             (keydown)="_onKeydown($event)"
+             (focusout)="_onFocusout()"
+             (input)="_onInput($event)"
+             type="text" type="{{config?.inputType}}"
+             name="{{id}}-input" id="{{id}}-input">
+      <div class="hr"></div>
+    </div>
+    <div *ngIf="invalid" class="AbField-error">{{messageError}}</div>
+  </div>
+</div>

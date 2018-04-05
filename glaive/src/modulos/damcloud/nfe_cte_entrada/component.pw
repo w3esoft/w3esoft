@@ -1,0 +1,411 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% import {FormModule} from "@paw/html" %>  
+<% import {AbViewport} from "@atomicburst/viewport" %>  
+<% import {AbToolbar} from "@atomicburst/toolbar" %>  
+<% import {AbButton} from "@atomicburst/button" %>  
+<% import {AbContainer} from "@atomicburst/container" %>  
+<% import {AbCombo} from "@atomicburst/combo" %>  
+<% import {AbTextfield} from "@atomicburst/textfield" %>  
+<% import {AbDatefield} from "@atomicburst/datefield" %>  
+<% import {AbCheckbox} from "@atomicburst/checkbox" %>  
+<% import {AbDatatable} from "@atomicburst/datatable" %>  
+<% import {AbDatatable_column} from "@atomicburst/datatable_column" %>  
+<% import {AbPanel} from "@atomicburst/panel" %>  
+<% import {AbTextareafield} from "@atomicburst/textareafield" %>  
+<% apply HtmlModule %>  
+<% apply FormModule %>  
+<AbViewport #viewport>
+    <AbToolbar
+            [AbToolbar]="{
+                   position:'top',
+                   ui:'TOOLS-TOP'
+                }">
+        <div style="flex-grow: 1;"></div>
+        <AbButton (click)="pesquisar(form)" [AbButton]="{text:'Pesquisar',iconCls:'fa fa-search'}">
+        </AbButton>
+        <AbButton (click)="buscarNfe(form ,modal1)" [AbButton]="{text:'Busca Nfe SeFaz',iconCls:'fa fa-download'}">
+        </AbButton>
+        <AbButton (click)="buscarCte(form ,modal1)" [AbButton]="{text:'Busca Cte SeFaz',iconCls:'fa fa-download'}">
+        </AbButton>
+        <AbButton (click)="downloadALL(form ,modal1)" [AbButton]="{text:'Baixar Todos',iconCls:'fa fa-download'}">
+        </AbButton>
+    </AbToolbar>
+    <AbContainer [AbLayout_flex]="{'orientation':'vertical'}" style="width:100%;height:100%">
+        <form #form="ngForm" >
+            <AbContainer [AbLayoutGrid]="{units:24}">
+                <AbCombo #empresaCombo  AbValidationRequired
+                          [AbLayoutGridItem]="{mm:12,sm:12,md:12}" #cb="AbCombo"
+                          [AbCombo]="{
+                              fieldLabel:'Empresa' ,
+                              displayField:'nomeFantasia'
+                           }"
+                          [AbStore]="{
+                            service:empresaService,
+                            proxy:{
+                              read:{
+                                method:'listQueryCombo',
+                                extraParams:{
+                                    record:contador
+                                }
+                              }
+                            },
+                            columns:[{
+                                dataIndex:'nomeFantasia',
+                                field:'nomeFantasia'
+                            },{
+                                dataIndex:'razaoSocial',
+                                field:'razaoSocial'
+                            },{
+                                dataIndex:'cnpj',
+                                field:'cnpj'
+                            },{
+                                dataIndex:'empresaId',
+                                field:'empresaId'
+                            }]
+                          }"
+                          [AbRecord]="[pesquisa,'empresaId']"
+                          (next)="numeroDocumentoTextfield.focus.emit()"
+                >
+                    <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
+                        <table>
+                            <tr>
+                                <th style="width: 65%"></th>
+                                <th style="width: 35%"></th>
+                            </tr>
+                            <tr>
+                                <td><strong>Razão Social:</strong> {{r.get('nomeFantasia')}}</td>
+                                <td rowspan="2">{{r.get('cnpj')}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Nome Fantasia:</strong> {{r.get('razaoSocial')}}</td>
+                            </tr>
+                        </table>
+                    </AbTemplate>
+                </AbCombo>
+
+                <AbTextfield #numeroDocumentoTextfield
+                              [AbLayoutGridItem]="{mm:12,sm:12,md:2}"
+                              [AbTextfield]="{fieldLabel:'N.Doc'}"
+                              style="width:150px" [AbRecord]="[pesquisa,'numeroDocumento']"
+
+                              (next)="serieTextfield.focus.emit()"
+                              AbMask_number>
+
+                </AbTextfield>
+                <AbTextfield #serieTextfield [AbLayoutGridItem]="{mm:12,sm:12,md:2}"
+                              [AbTextfield]="{fieldLabel:'Serie'}"
+                              style="width:150px" [AbRecord]="[pesquisa,'serie']"
+                              AbMask_number
+
+                              (next)="dataInicioCombo.focus.emit()"
+                >
+
+                </AbTextfield>
+                <AbDatefield #dataInicioCombo [AbLayoutGridItem]="{mm:12,sm:12,md:4}"
+                              [AbDatefield]="{fieldLabel:'Data Inicio'}"
+                              [AbRecord]="[pesquisa,'dtInicio']"
+
+                              (next)="dataFinalCombo.focus.emit()"
+                >
+                </AbDatefield>
+                <AbDatefield #dataFinalCombo [AbLayoutGridItem]="{mm:12,sm:12,md:4}"
+                              [AbDatefield]="{fieldLabel:'Data Final'}"
+                              [AbRecord]="[pesquisa,'dtFinal']"
+                              (next)="NFECheckbox.focus.emit()"
+                >
+                </AbDatefield>
+                <AbCheckbox #NFECheckbox [AbLayoutGridItem]="{mm:6,sm:6,md:1}"
+                             (AbRecord-change)="$event?1:pesquisa.set('CTE',true)"
+                             [AbCheckbox]="{fieldLabel:'CTE'}"
+                             [AbRecord]="[pesquisa,'CTE']"
+                             (next)="CTECheckbox.focus.emit()"
+                >
+                </AbCheckbox>
+                <AbCheckbox #CTECheckbox [AbLayoutGridItem]="{mm:6,sm:6,md:1}"
+                             (AbRecord-change)="$event?1:pesquisa.set('NFCE',true)"
+                             [AbCheckbox]="{fieldLabel:'NFE'}"
+                             [AbRecord]="[pesquisa,'NFE']"
+                             (next)="empresaCombo.focus.emit()"
+                >
+                </AbCheckbox>
+
+                <AbCombo #exibirCombo [AbLayoutGridItem]="{mm:7,sm:7,md:7}" #cb="AbCombo"
+                          [AbCombo]="{
+                        fieldLabel:'Exibir',
+                        displayField:'nome',
+                        keyField:'codigo',
+                        localQuery:true
+                   }"
+                          (next)="empresaCombo.focus.emit()"
+                          [AbStore]="{
+                   proxy:{
+                     read:[{
+                          nome:'Todos ',
+                          codigo:1
+                       },{
+                          nome:'Somente Não Manifestado',
+                          codigo:6
+                       }]
+                   }
+               }"
+                          [AbRecord]="[pesquisa,'exibir']">
+                </AbCombo>
+            </AbContainer>
+        </form>
+        <AbDatatable
+                [AbLayout_flex_item]="{flex:1}"
+                #datatableStore="AbStore"
+                [summaryTPL]="'Valor Total: \$${this.currency(this.summary.valorTotal)}'"
+                #datatableComponent="AbDatatable"
+                (AbStore-select)="select($event)"
+                style="width: 100%"
+                [AbDatatable]="{pagination:'bottom'}"
+
+                [AbStore]="{
+                service:xmlService,
+                proxy:{
+                  read:{
+                    method:'listQueryGrid',
+                    extraParams:{
+                      pesquisa:pesquisa
+                    }
+                  }
+                },
+                columnsDisplay:[
+                    {
+                        dataIndex:'downloadLink',
+                        field:'downloadLink',
+                        displayField:'downloadLink'
+                    }
+                ],
+                columns:[{
+                    field:'xmlId',
+                    dataIndex:'xmlId'
+                },{
+                    field:'l_numeroSaida',
+                    dataIndex:'l_numeroSaida'
+                },{
+                    field:'data',
+                    dataIndex:'data',
+                    dateFormat: 'Y-m-d H:i:s.u'
+                },{
+                    field:'modelo',
+                    dataIndex:'modelo'
+
+                },{
+                    field:'empresaEntradaId.nomeFantasia',
+                    dataIndex:'nomeFantasia'
+
+                },{
+                    field:'empresaEntradaId.empresaId',
+                    dataIndex:'empresaId'
+
+                },{
+                    field:'empresaEntradaId.cnpj',
+                    dataIndex:'empresaCnpj'
+
+                },{
+                    field:'cancelado',
+                    dataIndex:'cancelado'
+
+                },{
+                    field:'inutilizado',
+                    dataIndex:'inutilizado'
+
+                },{
+                    field:'denegado',
+                    dataIndex:'denegado'
+
+                },{
+                    field:'manifestado',
+                    dataIndex:'manifestado'
+
+                },{
+                    field:'numeroDocumento',
+                    dataIndex:'numeroDocumento'
+
+                },{
+                    field:'serie',
+                    dataIndex:'serie'
+
+                },{
+                    field:'valorTotal',
+                    dataIndex:'valorTotal'
+
+                }]
+    }"
+
+        >
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'N.DOC',
+        dataIndex:'numeroDocumento',
+        minWidth:'60px'
+      }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Serie',
+        dataIndex:'serie',
+        minWidth:'50px'
+      }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Empresa',
+        dataIndex:'nomeFantasia',
+        minWidth:'200px'
+      }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Empresa CNPJ',
+        dataIndex:'empresaCnpj',
+        minWidth:'150px'
+      }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Modelo',
+        dataIndex:'modelo',
+        minWidth:'60px'
+      }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Data',
+        dataIndex:'data',
+        dateFormat: 'd/m/Y H:i:s',
+        minWidth:'150px'
+      }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+                title:'Manifestado',
+                dataIndex:'manifestado',
+                minWidth:'50px'
+              }">
+            </AbDatatable_column>
+
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Valor',
+        dataIndex:'valorTotal',
+        minWidth:'150px',
+        currency:true
+      }">
+            </AbDatatable_column>
+
+
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Ação',
+        dataIndex:'downloadLink',
+        minWidth:'100px'
+      }"
+                                 (AbDatatable_column_cellClick)="download($event,modal1,modalManifestacao)"
+            >
+
+            </AbDatatable_column>
+
+        </AbDatatable>
+    </AbContainer>
+    <AbTemplate AbModal #modal1="AbModal" [closedOut]="false">
+        <AbPanel
+                style="
+                    height:190px;
+                    width: calc( 100% - 200px );
+                    margin-left: 100px;
+                    margin-top: 100px;
+               "
+                [AbPanel]="{title:'Caregando'}">
+            <AbViewport>
+                <AbToolbar
+                        [AbToolbar]="{
+                   position:'top',
+                   ui:'TOOLS-TOP'
+                }">
+                    <div style="flex-grow: 1;"></div>
+                    <AbButton [AbButton]="{text:'Cancelar'}" (click)="cancelDonwload(modal1)">
+                        <AbTemplate [AbTemplate]="{type:'icon'}">
+                            <i class="fa fa-close" aria-hidden="true"></i>
+                        </AbTemplate>
+                    </AbButton>
+                </AbToolbar>
+                <form #formConcluido="ngForm" style="height: 100%;width: 100%">
+                    <AbContainer [AbLayout_flex]="{'orientation':'vertical'}" style="width:100%;height:100%">
+                        <progress [attr.max]="progressValue" value="10000">
+                            <div class="progress-bar">
+                                <span style="width: 80%; ">Progress: 80%</span>
+                            </div>
+                        </progress>
+                        <div style="text-align: right;padding-right: 50px;">{{progressText}}</div>
+                    </AbContainer>
+                </form>
+            </AbViewport>
+        </AbPanel>
+    </AbTemplate>
+    <AbTemplate AbModal #modalManifestacao="AbModal" [closedOut]="false">
+        <AbPanel
+                style="
+                    height:360px;
+                    width: calc( 100% - 200px );
+                    margin-left: 100px;
+                    margin-top: 100px;
+               "
+                [AbPanel]="{title:'Manifestacao'}">
+            <AbViewport>
+                <AbToolbar
+                        [AbToolbar]="{
+                   position:'top',
+                   ui:'TOOLS-TOP'
+                }">
+                    <div style="flex-grow: 1;"></div>
+
+                    <AbButton (click)="manifestar(form ,formManifestacao,recordManifestacao,modal1 ,modalManifestacao)" [AbButton]="{text:'Salvar',iconCls:'fa fa-check'}">
+                    </AbButton>
+                    <AbButton [AbButton]="{text:'Cancelar'}" (click)="cancelManifestacao(modalManifestacao)">
+                        <AbTemplate [AbTemplate]="{type:'icon'}">
+                            <i class="fa fa-close" aria-hidden="true"></i>
+                        </AbTemplate>
+                    </AbButton>
+                </AbToolbar>
+                <form #formManifestacao="ngForm" style="height: 100%;width: 100%">
+                    <AbContainer [AbLayout_flex]="{'orientation':'vertical'}" style="width:100%;height:100%">
+                        <AbCombo #ManifestacaoTipoField [AbLayoutGridItem]="{mm:7,sm:7,md:7}" #cb="AbCombo"
+                                  [AbCombo]="{
+                                            fieldLabel:'Tipo',
+                                            displayField:'nome',
+                                            keyField:'codigo',
+                                            localQuery:true
+                                       }"
+                                      (next)="empresaCombo.focus.emit()"
+                                      [AbStore]="{
+                                      proxy:{
+                                        read:[
+                                            {
+                                              nome:'Confirmação da Operação ',
+                                              codigo:'210200'
+                                            },{
+                                                nome:'Confirmação da Operação ',
+                                                codigo:'210200'
+                                            },{
+                                                nome:'Ciencia da Operacao',
+                                                codigo:'210210'
+                                            },{
+                                                nome:'Desconhecimento da Operacao',
+                                                codigo:'210220'
+                                            },{
+                                                nome:'Operacao nao Realizada',
+                                                codigo:'210240'
+                                            }
+                                        ]
+                                      }
+                                   }"
+                                  [AbRecord]="[recordManifestacao,'tipoManifestacao']">
+                        </AbCombo>
+                        <AbTextareafield
+                                AbValidationRequired
+                                [AbLayoutGridItem]="{sm:12,md:12}"
+                                style="height: 200px;"
+                                [AbTextareafield]="{fieldLabel:'Motivo'}"
+                                [AbRecord]="[recordManifestacao,'motivo']"
+                        >
+                        </AbTextareafield>
+                    </AbContainer>
+                </form>
+            </AbViewport>
+        </AbPanel>
+    </AbTemplate>
+</AbViewport>

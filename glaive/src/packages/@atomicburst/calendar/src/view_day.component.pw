@@ -1,0 +1,97 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% apply HtmlModule %>  
+<div #bodyScroll style="overflow: auto;"
+     [ngStyle]="{
+      'height':(offsetHeight)+ 'px',
+      'width':(offsetWidth)+ 'px'
+     }"
+     class="scrollBar"
+>
+  <div class="view_weeks"
+
+       (AbDrop)="drop($event)"
+       (touchstart)="touchstartBody($event)"
+       (touchmove)="touchmoveBody($event)"
+       (touchcancel)="touchcancelBody($event)"
+       (touchleave)="touchleaveBody($event)"
+       (touchend)="touchendBody($event)"
+       (mouseup)="mouseupBody($event)"
+       (mouseleave)="mouseleaveBody($event)"
+       (mousedown)="mousedownBody($event)"
+       (mousemove)="mousemoveBody($event)"
+
+
+       style="position: relative"#inner>
+    <table class="day" style="width: 100%">
+      <tbody>
+      <AbTemplate ngFor let-minutes [ngForOf]="day" >
+        <tr *ngFor="let minute of minutes;let even=even;let j=index;"
+            class="row_minute"
+            [class.even]="even">
+          <td class="minute">
+            {{formatMinute(minute.dateStart,j)}}
+          </td>
+          <td class="minute-event"
+              [attr.data-date]="minute.dateStart.toJSON()">
+
+          </td>
+        </tr>
+      </AbTemplate>
+      </tbody>
+    </table>
+
+    <div class="day" style="
+    width: calc(100% - 200px );
+    position: absolute;
+    z-index: 1000;
+    height: 100%;
+    top: 0;
+    margin-left: 100px;
+
+"        [ngStyle]="{
+      'height':(inner.offsetHeight)+ 'px',
+      'width':(inner.offsetWidth-200)+ 'px'
+     }"
+    >
+      <table class="day" style="width: 100%;height: 100%">
+        <tbody>
+        <tr>
+          <AbTemplate ngFor let-column [ngForOf]="dayColumns" >
+          <td>
+            <table class="day" style="width: 100%;height: 100%">
+              <AbTemplate ngFor let-cell [ngForOf]="column"  >
+                <tr
+                  *ngIf="cell.event"
+                  [ngStyle]="{'height':((100*cell.len)/24)+ '%'}"
+                  class="event-container event-container-fill"
+                  [attr.data-date]="cell.getDateStart().toJSON()"
+                >
+                  <td>
+                      <div
+                        [AbDrag]="cell"
+                        style="
+                      margin-left: 10px;
+                      margin-top: 5px;
+                      width: calc(100% - 20px );
+                      height: calc(100% - 10px );
+                      " class="event">
+                      </div>
+                  </td>
+                </tr>
+                <tr *ngIf="!cell.event"
+                    class="event-container "
+                    [ngStyle]="{'height':((100*cell.len)/24)+ '%'}">
+                </tr>
+              </AbTemplate>
+            </table>
+          </td>
+          </AbTemplate>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+

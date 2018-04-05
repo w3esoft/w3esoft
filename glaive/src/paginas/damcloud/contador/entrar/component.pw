@@ -1,0 +1,117 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% import {FormModule} from "@paw/html" %>  
+<% import {AbViewport} from "@atomicburst/viewport" %>  
+<% import {AbPanel} from "@atomicburst/panel" %>  
+<% import {AbTextfield} from "@atomicburst/textfield" %>  
+<% import {AbButton} from "@atomicburst/button" %>  
+<% apply HtmlModule %>  
+<% apply FormModule %>  
+<AbViewport class="login">
+  <div class="page-top-backgound">
+    <img src="/assets/raiodesol.svg" style="width: 100%;position: absolute;bottom: 0px;">
+  </div>
+  <div style="text-align: center;display: block;">
+    <div class="page-top">
+
+
+      <img src="assets/logo.svg" style="
+    width: 60%;
+    display: flex;
+    padding-bottom: 15px;
+">
+      <AbPanel [hidden]="cadastro" [AbPanel]="{title:'Consulta XMl'}" style="font-size: 15px">
+        <form style="text-align: left;display: inline-table">
+          <AbTextfield
+
+            #nomeTextfield1
+            (next)="senhaTextfield1.focus.emit()"
+
+            style="width: 100%;" AbValidationRequired AbValidation-email
+            [AbTextfield]="{fieldLabel:'Email',inputType:'email'}" [AbRecord]="[record,'email']">
+          </AbTextfield>
+          <AbTextfield
+            #senhaTextfield1
+            (next)="nomeTextfield1.focus.emit();entrar()"
+            style="width: 100%;" AbValidationRequired [AbTextfield]="{fieldLabel:'Senha',inputType:'password'}"
+            [AbRecord]="[record,'senha']">
+          </AbTextfield>
+          <div style="text-align: center ;margin-top: 15px">
+            <AbButton
+              (click)="entrar()"
+              [AbButton]="{
+                text:'Entrar'
+              }"
+
+            >
+              <AbTemplate [AbTemplate]="{type:'icon'}">
+                <i class="fa fa-sign-in " aria-hidden="true"></i>
+              </AbTemplate>
+            </AbButton>
+            <AbButton
+              (click)="cadastro=true"
+              [AbButton]="{
+                text:'Cadastrar'
+              }"
+            >
+              <AbTemplate [AbTemplate]="{type:'icon'}">
+                <i class="fa fa-file " aria-hidden="true"></i>
+              </AbTemplate>
+            </AbButton>
+          </div>
+        </form>
+      </AbPanel>
+      <AbPanel [hidden]="!cadastro" [AbPanel]="{title:'Consulta XMl'}" style="font-size: 15px">
+
+        <form style="text-align: left;display: inline-table">
+          <AbTextfield
+            #nomeTextfield
+            (next)="emailTextfield.focus.emit()"
+            style="width: 100%;" [AbTextfield]="{fieldLabel:'Nome'}" [AbRecord]="[record,'nome']">
+          </AbTextfield>
+          <AbTextfield
+            #emailTextfield
+
+            (next)="senhaTextfield.focus.emit()"
+            style="width: 100%;" AbValidationRequired AbValidation-email
+            [AbTextfield]="{fieldLabel:'Email',inputType:'email'}" [AbRecord]="[record,'email']">
+          </AbTextfield>
+          <AbTextfield
+            #senhaTextfield
+
+            (next)="senha2Textfield.focus.emit()"
+            style="width: 50%;" AbValidationRequired [AbTextfield]="{fieldLabel:'Senha',inputType:'password'}"
+            [AbRecord]="[record,'senha']">
+          </AbTextfield>
+          <AbTextfield
+            #senha2Textfield
+            (next)="nomeTextfield.focus.emit();cadastrar()"
+            style="width: 50%;" [AbTextfield]="{fieldLabel:'Senha Confirmação',inputType:'password'}"
+            [AbRecord]="[record,'senha2']">
+          </AbTextfield>
+        </form>
+        <div style="text-align: center ;margin-top: 15px">
+          <AbButton
+            (click)="cadastrar()"
+            [AbButton]="{
+              text:'Cadastrar'
+            }"
+          >
+            <AbTemplate [AbTemplate]="{type:'icon'}">
+              <i class="fa fa-sign-in " aria-hidden="true"></i>
+            </AbTemplate>
+          </AbButton>
+          <AbButton
+            (click)="cadastro=false"
+            [AbButton]="{
+              text:'Voltar'
+            }"
+          >
+            <AbTemplate [AbTemplate]="{type:'icon'}">
+              <i class="fa fa-sign-out " aria-hidden="true"></i>
+            </AbTemplate>
+          </AbButton>
+        </div>
+      </AbPanel>
+    </div>
+  </div>
+</AbViewport>

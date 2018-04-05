@@ -1,0 +1,15 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% apply HtmlModule %>  
+<div id="{{id}}-inner" class="AbField-inner">
+  <label   class="AbField-label"  attr.for="{{id}}-input">{{config?.fieldLabel }}</label>
+  <div  class="AbField-input-group"  >
+    <input class="AbField-input"
+           (input)="_onInput($event)"
+           (click)="_onClick($event)"
+           (keydown)="_onKeydown($event)"
+           (focusout)="_onFocusout()"
+           (blur)="_onBlur($event)"
+           type="text" type="checkbox"
+           name="{{id}}-input" id="{{id}}-input">
+  </div>
+</div>

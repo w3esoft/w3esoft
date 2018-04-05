@@ -1,0 +1,51 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% import {FormModule} from "@paw/html" %>  
+<% import {AbViewport} from "@atomicburst/viewport" %>  
+<% import {AbToolbar} from "@atomicburst/toolbar" %>  
+<% import {AbButton} from "@atomicburst/button" %>  
+<% import {AbContainer} from "@atomicburst/container" %>  
+<% import {AbFilefield} from "@atomicburst/filefield" %>  
+<% import {AbDatefield} from "@atomicburst/datefield" %>  
+<% apply HtmlModule %>  
+<% apply FormModule %>  
+<AbViewport>
+
+<AbToolbar
+            [AbToolbar]="{
+                   position:'top',
+                   ui:'dam-sincmaster'
+                }">
+  <div style="flex-grow: 1;"></div>
+  <AbButton [AbButton]="{text:'Salvar'}" (click)="salvar(form)">
+    <AbTemplate [AbTemplate]="{type:'icon'}">
+      <i class="fa fa-file-o" aria-hidden="true"></i>
+    </AbTemplate>
+  </AbButton>
+  <AbButton [AbButton]="{text:'Retornar'}" (click)="retornar()">
+    <AbTemplate [AbTemplate]="{type:'icon'}">
+      <i class="fa fa-sign-out" aria-hidden="true"></i>
+    </AbTemplate>
+  </AbButton>
+</AbToolbar>
+  <form #form="ngForm">
+    <AbContainer  AbLayoutGrid >
+      <AbFilefield
+                    AbValidationRequired
+                    [AbLayoutGridItem]="{sm:12,md:8}"
+                    [AbFilefield]="{
+                      readonly:editMode,
+                      fieldLabel:'Caminho',
+                      baseHref:URLBASE+'damgerenciador/arquivo/donwload/'
+                    }"
+                    [AbRecord]="[record,'caminho']"
+      >
+      </AbFilefield>
+      <AbDatefield
+                    [AbLayoutGridItem]="{sm:12,md:3}"
+                    [AbDatefield]="{readonly:true,fieldLabel:'Data'}"
+                    [AbRecord]="[record,'data']"
+      >
+      </AbDatefield>
+    </AbContainer>
+  </form>
+</AbViewport>

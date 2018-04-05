@@ -1,0 +1,7 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% apply HtmlModule %>  
+<div  class="crumbs">
+    <a  *ngFor="let breadcrumb of breadcrumbs" class="crumb" (click)="onClick(breadcrumb)">
+    {{breadcrumb.title}}
+    </a>
+</div>

@@ -1,0 +1,69 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% import {AbViewport} from "@atomicburst/viewport" %>  
+<% import {AbToolbar} from "@atomicburst/toolbar" %>  
+<% import {AbMenu} from "@atomicburst/menu" %>  
+<% import {AbButton} from "@atomicburst/button" %>  
+<% import {AbCalendar_view_month} from "@atomicburst/calendar_view_month" %>  
+<% import {AbCalendar_view_week} from "@atomicburst/calendar_view_week" %>  
+<% import {AbCalendar_view_day} from "@atomicburst/calendar_view_day" %>  
+<% import {*ngfor} from "@atomicburst/common" %> 
+<% apply HtmlModule %>  
+<AbViewport>
+  <AbToolbar #toolbar>
+    <AbMenu >
+      <AbButton (click)="next()"    (touch)="next()" >
+        <AbTemplate [AbTemplate]="{type:'icon'}">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </AbTemplate>
+      </AbButton>
+      <AbButton (click)="previous()" (touch)="previous()" >
+        <AbTemplate [AbTemplate]="{type:'icon'}">
+          <i class="fa fa-arrow-right" aria-hidden="true"></i>
+        </AbTemplate>
+      </AbButton>
+    </AbMenu>
+    <AbMenu >
+      <AbButton [AbButton]="buttonToday">
+      </AbButton>
+    </AbMenu>
+    <div style="padding-top: 15px;color: #2f7edd;flex-grow: 1;text-align: center">
+      <span style=" display: -webkit-inline-box;">
+        <h1 style="width: 80px;">{{title}}</h1>
+      </span>
+    </div>
+    <AbMenu >
+      <AbButton
+              *ngFor="let v of views"
+              (click)="start(v)"
+              [class.active]="view==v"
+              (touch)="start(v)"
+              [AbButton]="configViews[v].button"
+      >
+      </AbButton>
+    </AbMenu>
+  </AbToolbar>
+
+  <AbCalendar_view_month  class="view" [hidden]="view!='month'"   [ngStyle]="{
+    'height':(offsetHeight -toolbar.offsetHeight)+'px'
+  }" >
+  </AbCalendar_view_month>
+  <AbCalendar_view_week    class="view" [hidden]="view!='week'" [ngStyle]="{
+    'height':(offsetHeight -toolbar.offsetHeight)+'px'
+  }">
+  </AbCalendar_view_week>
+  <AbCalendar_view_day    class="view" [hidden]="view!='day'" [ngStyle]="{
+    'height':(offsetHeight -toolbar.offsetHeight)+'px'
+  }">
+  </AbCalendar_view_day>
+
+</AbViewport>
+<AbTemplate  [AbTemplate]="{type:'event'}" let-event="event">
+  <div class="event-inner">
+
+    <div class="event-inner-text">
+      <span>{{event.display}}</span>
+    </div>
+
+  </div>
+</AbTemplate>
+<ng-content></ng-content>

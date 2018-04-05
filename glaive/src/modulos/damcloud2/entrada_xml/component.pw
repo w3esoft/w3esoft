@@ -1,0 +1,312 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% import {FormModule} from "@paw/html" %>  
+<% import {AbViewport} from "@atomicburst/viewport" %>  
+<% import {AbToolbar} from "@atomicburst/toolbar" %>  
+<% import {AbButton} from "@atomicburst/button" %>  
+<% import {AbContainer} from "@atomicburst/container" %>  
+<% import {AbCombo} from "@atomicburst/combo" %>  
+<% import {AbTextfield} from "@atomicburst/textfield" %>  
+<% import {AbDatefield} from "@atomicburst/datefield" %>  
+<% import {AbCheckbox} from "@atomicburst/checkbox" %>  
+<% import {AbDatatable} from "@atomicburst/datatable" %>  
+<% import {AbDatatable_column} from "@atomicburst/datatable_column" %>  
+<% import {AbPanel} from "@atomicburst/panel" %>  
+<% apply HtmlModule %>  
+<% apply FormModule %>  
+<AbViewport #viewport>
+    <AbToolbar
+            [AbToolbar]="{
+                   position:'top',
+                   ui:'TOOLS-TOP'
+                }">
+        <div style="flex-grow: 1;"></div>
+        <AbButton (click)="pesquisar()" [AbButton]="{text:'Pesquisar',iconCls:'fa fa-search'}">
+        </AbButton>
+        <AbButton (click)="downloadALL(modal1)" [AbButton]="{text:'Baixar Todos',iconCls:'fa fa-download'}">
+        </AbButton>
+    </AbToolbar>
+    <AbContainer [AbLayout_flex]="{'orientation':'vertical'}" style="width:100%;height:100%">
+        <AbContainer [AbLayoutGrid]="{units:24}">
+            <AbCombo #empresaCombo
+                      [AbLayoutGridItem]="{mm:12,sm:12,md:6}" #cb="AbCombo"
+                      [AbCombo]="{
+                      fieldLabel:'Empresa' ,
+                      displayField:'empresaId.nomeFantasia',
+                      keyField:'contadorEmpresaId',
+                      localQuery:true
+                   }"
+                      [AbStore]="{
+                  proxy:{
+                     read:{
+                        subject:contador.on('empresas')
+                     }
+                  }
+              }"
+                      [AbRecord]="[pesquisa,'empresaId']"
+                      (next)="numeroDocumentoTextfield.focus.emit()"
+            >
+                <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
+                    <table>
+                        <tr>
+                            <th style="width: 65%"></th>
+                            <th style="width: 35%"></th>
+                        </tr>
+                        <tr>
+                            <td><strong>Razão Social:</strong> {{r.get('empresaId.nomeFantasia')}}</td>
+                            <td rowspan="2">{{r.get('empresaId.cnpj')}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nome Fantasia:</strong> {{r.get('empresaId.razaoSocial')}}</td>
+                        </tr>
+                    </table>
+                </AbTemplate>
+            </AbCombo>
+            <AbTextfield #numeroDocumentoTextfield
+                          [AbLayoutGridItem]="{mm:12,sm:12,md:2}"
+                          [AbTextfield]="{fieldLabel:'N.Doc'}"
+                          style="width:150px" [AbRecord]="[pesquisa,'numeroDocumento']"
+
+                          (next)="serieTextfield.focus.emit()"
+                          AbMask_number>
+
+            </AbTextfield>
+            <AbTextfield #serieTextfield [AbLayoutGridItem]="{mm:12,sm:12,md:2}"
+                          [AbTextfield]="{fieldLabel:'Serie'}"
+                          style="width:150px" [AbRecord]="[pesquisa,'serie']"
+                          AbMask_number
+
+                          (next)="dataInicioCombo.focus.emit()"
+            >
+
+            </AbTextfield>
+            <AbDatefield #dataInicioCombo [AbLayoutGridItem]="{mm:12,sm:12,md:4}"
+                          [AbDatefield]="{fieldLabel:'Data Inicio'}"
+                          [AbRecord]="[pesquisa,'dtInicio']"
+
+                          (next)="dataFinalCombo.focus.emit()"
+            >
+            </AbDatefield>
+            <AbDatefield #dataFinalCombo [AbLayoutGridItem]="{mm:12,sm:12,md:4}"
+                          [AbDatefield]="{fieldLabel:'Data Final'}"
+                          [AbRecord]="[pesquisa,'dtFinal']"
+                          (next)="NFECheckbox.focus.emit()"
+            >
+            </AbDatefield>
+            <AbCheckbox #NFECheckbox [AbLayoutGridItem]="{mm:6,sm:6,md:1}"
+                         (AbRecord-change)="$event?1:pesquisa.set('NFE',true)"
+                         [AbCheckbox]="{fieldLabel:'NFCE'}"
+                         [AbRecord]="[pesquisa,'NFCE']"
+                         (next)="NFCECheckbox.focus.emit()"
+            >
+            </AbCheckbox>
+            <AbCheckbox #NFCECheckbox [AbLayoutGridItem]="{mm:6,sm:6,md:1}"
+                         (AbRecord-change)="$event?1:pesquisa.set('NFCE',true)"
+                         [AbCheckbox]="{fieldLabel:'NFE'}"
+                         [AbRecord]="[pesquisa,'NFE']"
+                         (next)="exibirCombo.focus.emit()"
+            >
+            </AbCheckbox>
+            <AbCombo #exibirCombo [AbLayoutGridItem]="{mm:12,sm:4,md:4}" #cb="AbCombo"
+                      [AbCombo]="{
+                        fieldLabel:'Exibir',
+                        displayField:'nome',
+                        keyField:'codigo',
+                        localQuery:true
+                   }"
+                      (next)="empresaCombo.focus.emit()"
+                      [AbStore]="{
+                   proxy:{
+                     read:[{
+                          nome:'Todos ',
+                          codigo:1
+                       },{
+                          nome:'Somente Enviados',
+                          codigo:2
+                       },{
+                          nome:'Somente Cancelados',
+                          codigo:3
+                       },{
+                          nome:'Somente Inutilizados',
+                          codigo:4
+                       },{
+                          nome:'Somente Denegados',
+                          codigo:5
+                       }]
+                   }
+               }"
+                      [AbRecord]="[pesquisa,'exibir']">
+            </AbCombo>
+        </AbContainer>
+        <AbDatatable
+                [AbLayout_flex_item]="{flex:1}"
+                #datatableStore="AbStore"
+                [summaryTPL]="'Valor Total: \$${this.currency(this.summary.valorTotal)}'"
+                #datatableComponent="AbDatatable"
+                (AbStore-select)="select($event)"
+                style="width: 100%"
+                [AbDatatable]="{pagination:'bottom'}"
+
+                [AbStore]="{
+                service:xmlService,
+                proxy:{
+                  read:{
+                    method:'listQueryGrid',
+                    extraParams:{
+                      pesquisa:pesquisa
+                    }
+                  }
+                },
+                columnsDisplay:[
+                    {
+                        dataIndex:'downloadLink',
+                        field:'downloadLink',
+                        displayField:'downloadLink'
+                    }
+                ],
+                columns:[{
+                    field:'xmlId',
+                    dataIndex:'xmlId'
+                },{
+                    field:'l_numeroSaida',
+                    dataIndex:'l_numeroSaida'
+                },{
+                    field:'data',
+                    dataIndex:'data',
+                    dateFormat: 'Y-m-d H:i:s.u'
+                },{
+                    field:'modelo',
+                    dataIndex:'modelo'
+
+                },{
+                    field:'empresaId.nomeFantasia',
+                    dataIndex:'nomeFantasia'
+
+                },{
+                    field:'empresaId.empresaId',
+                    dataIndex:'empresaId'
+
+                },{
+                    field:'empresaId.cnpj',
+                    dataIndex:'empresaCnpj'
+
+                },{
+                    field:'cancelado',
+                    dataIndex:'cancelado'
+
+                },{
+                    field:'inutilizado',
+                    dataIndex:'inutilizado'
+
+                },{
+                    field:'denegado',
+                    dataIndex:'denegado'
+
+                },{
+                    field:'numeroDocumento',
+                    dataIndex:'numeroDocumento'
+
+                },{
+                    field:'serie',
+                    dataIndex:'serie'
+
+                },{
+                    field:'valorTotal',
+                    dataIndex:'valorTotal'
+
+                }]
+    }"
+
+        >
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'N.DOC',
+        dataIndex:'numeroDocumento',
+        minWidth:'60px'
+      }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Serie',
+        dataIndex:'serie',
+        minWidth:'50px'
+      }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Numero Saida',
+        dataIndex:'l_numeroSaida',
+        minWidth:'100px'
+      }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Empresa',
+        dataIndex:'nomeFantasia',
+        minWidth:'200px'
+      }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Empresa CNPJ',
+        dataIndex:'empresaCnpj',
+        minWidth:'150px'
+      }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Modelo',
+        dataIndex:'modelo',
+        minWidth:'60px'
+      }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Data',
+        dataIndex:'data',
+        dateFormat: 'd/m/Y H:i:s',
+        minWidth:'150px'
+      }">
+            </AbDatatable_column>
+
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Valor',
+        dataIndex:'valorTotal',
+        minWidth:'150px',
+        currency:true
+      }">
+            </AbDatatable_column>
+
+
+            <AbDatatable_column [AbDatatable_column]="{
+        title:'Download',
+        dataIndex:'downloadLink',
+        minWidth:'100px'
+      }"
+                                 (AbDatatable_column_cellClick)="download($event,modal1)"
+            >
+
+            </AbDatatable_column>
+
+        </AbDatatable>
+    </AbContainer>
+    <AbTemplate AbModal #modal1="AbModal" [closedOut]="false">
+
+        <AbPanel [AbPanel]="{title:'Download'}" style="
+      padding: 40px;height: 220px;
+      font-size: 15px">
+            <AbToolbar
+                    [AbToolbar]="{
+                   position:'top',
+                   ui:'TOOLS-TOP'
+                }">
+                <div style="flex-grow: 1;"></div>
+                <AbButton [AbButton]="{text:'Cancelar'}" (click)="cancelDonwload(modal1)">
+                    <AbTemplate [AbTemplate]="{type:'icon'}">
+                        <i class="fa fa-close" aria-hidden="true"></i>
+                    </AbTemplate>
+                </AbButton>
+            </AbToolbar>
+            <form #formConcluido="ngForm">
+                <progress [attr.max]="progressValue" value="10000">
+                    <div class="progress-bar">
+                        <span style="width: 80%; ">Progress: 80%</span>
+                    </div>
+                </progress>
+                <div style="text-align: right;padding-right: 50px;">{{progressText}}</div>
+            </form>
+        </AbPanel>
+    </AbTemplate>
+</AbViewport>

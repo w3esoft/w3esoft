@@ -1,0 +1,5 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% apply HtmlModule %>  
+<div #container class="AbToolbar-inner">
+    <ng-content></ng-content>
+</div>

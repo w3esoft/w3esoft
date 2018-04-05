@@ -1,0 +1,15 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% apply HtmlModule %>  
+<div style="position: relative;height: 100%;">
+  <div class="loader-wrapper" id="loader-1" style="
+    position: absolute;
+    text-align: center;
+    top: calc( 50% - 250px);
+    left: calc( 50% - 150px);
+    display: grid;
+      ">
+    <img  class="page-top-logo"  src="/assets/logo2.svg" >
+    <img  class="page-top-logo" style="padding-top: 25px"  src="/assets/404.svg" >
+    <a href="/">Voltar</a>
+  </div>
+</div>

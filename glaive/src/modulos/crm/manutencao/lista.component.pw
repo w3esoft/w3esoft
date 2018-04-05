@@ -1,0 +1,160 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% import {AbViewport} from "@atomicburst/viewport" %>  
+<% import {AbToolbar} from "@atomicburst/toolbar" %>  
+<% import {AbButton} from "@atomicburst/button" %>  
+<% import {AbContainer} from "@atomicburst/container" %>  
+<% import {AbTextfield} from "@atomicburst/textfield" %>  
+<% import {AbCombo} from "@atomicburst/combo" %>  
+<% import {AbDatatable} from "@atomicburst/datatable" %>  
+<% import {AbDatatable_column} from "@atomicburst/datatable_column" %>  
+<% apply HtmlModule %>  
+<AbViewport AbLayout_vbox>
+    <AbToolbar
+            [AbToolbar]="{
+                   position:'top',
+                   ui:'TOOLS-TOP'
+                }">
+        <div style="flex-grow: 1;"></div>
+        <AbButton [AbButton]="{text:'Novo Atendimento'}" (click)="novo()">
+            <AbTemplate [AbTemplate]="{type:'icon'}">
+                <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+            </AbTemplate>
+        </AbButton>
+        <AbButton [AbButton]="{text:'Pesquisar'}" (click)="pesquisar()">
+            <AbTemplate [AbTemplate]="{type:'icon'}">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </AbTemplate>
+        </AbButton>
+    </AbToolbar>
+    <AbContainer [AbLayout_flex]="{'orientation':'vertical'}" style="width:100%;height:100%">
+        <AbContainer AbLayoutGrid style="padding:0px 5px 5px 5px">
+            <AbTextfield #nomeCasoField="AbTextfield"
+
+                          (next)="nomeClienteNome.focus.emit();pesquisar();"
+                          [AbLayoutGridItem]="{sm:12,md:3}" [AbTextfield]="{fieldLabel:'Nome Caso'}"
+                          style="width:250px" [AbRecord]="[pesquisa,'resumo']"
+            >
+            </AbTextfield>
+            <AbTextfield
+                    #nomeClienteNome="AbTextfield"
+
+                    (next)="ComboColaboradorEntrada.focus.emit();pesquisar();"
+                    [AbLayoutGridItem]="{sm:12,md:3}" [AbTextfield]="{fieldLabel:'Cliente'}"
+                    style="width:250px" [AbRecord]="[pesquisa,'clienteNome']"
+            >
+            </AbTextfield>
+            <AbCombo
+                    #ComboColaboradorEntrada
+                    (next)="nomeCasoField.focus.emit();pesquisar();"
+                    [AbLayoutGridItem]="{sm:12,md:4}"
+                    [AbStore]="{
+                    service:usuarioService,
+                    rootField:'usuarioId',
+                proxy:{
+                  read:{
+                    method:'listQueryCombo',
+                    extraParams:{
+                      codigo :'01.06'
+                    }
+                  }
+                },
+                columns:[{
+                    dataIndex:'colaboradorApelido',
+                    field:'usuarioId.pessoaId.apelido'
+                },{
+                    dataIndex:'colaboradorNome',
+                    field:'usuarioId.pessoaId.nome'
+                },{
+                    dataIndex:'colaboradorId',
+                    field:'usuarioId.colaboradorId'
+                }]
+      }"
+                    [AbCombo]="{
+          fieldLabel:'Manutencao' ,
+          displayField:'pessoaId.nome',
+          keyField:'colaboradorId'
+        }" pesquisa
+                    [AbRecord]="[pesquisa,'casoId.colaboradorDestinoId']"
+            >
+                <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
+                    {{r.get('pessoaId.nome')}}
+                </AbTemplate>
+            </AbCombo>
+        </AbContainer>
+        <AbDatatable
+                #datatableStore="AbStore"
+                [AbLayout_flex_item]="{flex:1}"
+                (AbStore-select)="edit($event)"
+                [AbStore]="{
+                service:casoService,
+                proxy:{
+                  read:{
+                    method:'listQueryGridManutencao',
+                    extraParams:{
+                      pesquisa:pesquisa
+                    }
+                  }
+                },
+                columns:[{
+                    field:'casoId.tarefaId',
+                    dataIndex:'tarefaId'
+                },{
+                    field:'casoId.colaboradorDestinoId.pessoaId.nome',
+                    dataIndex:'colaboradorDestinoNome'
+                },{
+                    field:'casoId.colaboradorEntradaId.pessoaId.nome',
+                    dataIndex:'colaboradorEntradaNome'
+                },{
+                    field:'pessoaId.nome',
+                    dataIndex:'clienteNome'
+                },{
+                    field:'casoId.dataAlteracao',
+                    dataIndex:'dataAlteracao',
+                    dateFormat: 'Y-m-d H:i:s.u'
+                },{
+                    field:'casoId.resumo',
+                    dataIndex:'resumo'
+         }]
+    }
+    "
+                [AbDatatable]="{pagination:'bottom'}">
+            <AbDatatable_column [AbDatatable_column]="{
+            title:'Resumo',
+            width:'30%',
+            minWidth:'150px',
+            dataIndex:'resumo'
+          }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+            title:'Cliente',
+            width:'15%',
+            minWidth:'150px',
+            dataIndex:'clienteNome'
+          }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+            dataIndex:'colaboradorDestinoNome',
+            title:'Destino',
+            width:'15%',
+            minWidth:'150px'
+          }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+            dataIndex:'colaboradorEntradaNome',
+            title:'Entrada',
+            width:'15%',
+            minWidth:'150px'
+          }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+            dataIndex:'dataAlteracao',
+            title:'Data',
+            width:'20%',
+            minWidth:'150px',
+            sort:'DESC',
+            dateFormat: 'd/m/Y H:i:s'
+          }">
+            </AbDatatable_column>
+        </AbDatatable>
+    </AbContainer>
+</AbViewport>

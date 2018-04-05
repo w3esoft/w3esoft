@@ -1,0 +1,136 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% import {FormModule} from "@paw/html" %>  
+<% import {AbViewport} from "@atomicburst/viewport" %>  
+<% import {AbToolbar} from "@atomicburst/toolbar" %>  
+<% import {AbButton} from "@atomicburst/button" %>  
+<% import {AbContainer} from "@atomicburst/container" %>  
+<% import {AbPanel} from "@atomicburst/panel" %>  
+<% import {AbTextfield} from "@atomicburst/textfield" %>  
+<% import {AbCombo} from "@atomicburst/combo" %>  
+<% apply HtmlModule %>  
+<% apply FormModule %>  
+<AbViewport>
+
+    <AbToolbar
+            [AbToolbar]="{
+                   position:'top',
+                   ui:'dam-empresa'
+                }">
+        <div style="flex-grow: 1;"></div>
+        <AbButton [AbButton]="{text:'Salvar'}" (click)="salvar(form)">
+            <AbTemplate [AbTemplate]="{type:'icon'}">
+                <i class="fa fa-file-o" aria-hidden="true"></i>
+            </AbTemplate>
+        </AbButton>
+        <AbButton [AbButton]="{text:'Retornar'}" (click)="retornar()">
+            <AbTemplate [AbTemplate]="{type:'icon'}">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </AbTemplate>
+        </AbButton>
+    </AbToolbar>
+    <form #form="ngForm" style="height: 100%">
+        <AbContainer [AbLayoutGrid]="{units:24}" style="height: 100%">
+            <AbPanel [AbPanel]="{title:'Dados Pessoais'}"
+                      [AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:24}">
+                <AbTextfield AbMask_cpfCnpf #cnpj (next)="nomeFantasia.focus.emit()"
+                              [AbLayoutGridItem]="{sm:12,md:4}"
+                              [AbTextfield]="{fieldLabel:'CPF/CNPJ'}"
+                              [AbRecord]="[record,'cnpj']"
+                >
+                </AbTextfield>
+                <AbTextfield #razaoSocial (next)="nomeFantasia.focus.emit()"
+                              [AbLayoutGridItem]="{sm:14,md:9}"
+                              [AbTextfield]="{fieldLabel:'Nome Fantasia'}"
+                              [AbRecord]="[record,'nomeFantasia']"
+                >
+                </AbTextfield>
+                <AbTextfield #nomeFantasia (next)="uf.focus.emit()"
+                              [AbLayoutGridItem]="{sm:14,md:9}"
+                              [AbTextfield]="{fieldLabel:'Razão Social'}"
+                              [AbRecord]="[record,'razaoSocial']"
+                >
+                </AbTextfield>
+                <AbCombo #uf
+                          [AbLayoutGridItem]="{mm:12,sm:4,md:4}"
+                          #cb="AbCombo"
+                          [AbCombo]="{
+                            fieldLabel:'Estado',
+                            displayField:'nome',
+                            valueField:'codigo',
+                            localQuery:true
+                       }"
+                          (next)="cnpj.focus.emit()"
+                          [AbStore]="{
+                           proxy:{
+                                read:[
+                                    {nome:'Acre'				,	codigo :'AC'},
+                                    {nome:'Alagoas'				,	codigo :'AL'},
+                                    {nome:'Amapá'				,	codigo :'AP'},
+                                    {nome:'Amazonas'			,	codigo :'AM'},
+                                    {nome:'Bahia'				,	codigo :'BA'},
+                                    {nome:'Ceará'				,	codigo :'CE'},
+                                    {nome:'Distrito Federal'	,	codigo :'DF'},
+                                    {nome:'Espírito Santo'		,	codigo :'ES'},
+                                    {nome:'Goiás'				,	codigo :'GO'},
+                                    {nome:'Maranhão'			,   codigo :'MA'},
+                                    {nome:'Mato Grosso'			,	codigo :'MT'},
+                                    {nome:'Mato Grosso do Sul'	,	codigo :'MS'},
+                                    {nome:'Minas Gerais'		,	codigo :'MG'},
+                                    {nome:'Pará'				,	codigo :'PA'},
+                                    {nome:'Paraíba'				,	codigo :'PB'},
+                                    {nome:'Paraná'				,	codigo :'PR'},
+                                    {nome:'Pernambuco'			,	codigo :'PE'},
+                                    {nome:'Piauí'				,	codigo :'PI'},
+                                    {nome:'Rio de Janeiro'		,	codigo :'RJ'},
+                                    {nome:'Rio Grande do Norte'	,	codigo :'RN'},
+                                    {nome:'Rio Grande do Sul'	,	codigo :'RS'},
+                                    {nome:'Rondônia'			,	codigo :'RO'},
+                                    {nome:'Roraima'				,	codigo :'RR'},
+                                    {nome:'Santa Catarina'		,	codigo :'SC'},
+                                    {nome:'São Paulo'			,	codigo :'SP'},
+                                    {nome:'Sergipe'				,	codigo :'SE'},
+                                    {nome:'Tocantins'			,	codigo :'TO'}
+                                ]
+                           }
+                      }"
+                          [AbRecord]="[record,'uf']"
+                >
+                </AbCombo>
+
+
+                <AbCombo AbValidationRequired
+                          #ComboCertificado
+                          (next)="uf.focus.emit()"
+                          [AbLayoutGridItem]="{sm:12,md:8}"
+                          [AbCombo]="{
+                                        fieldLabel:'Certificado',
+                                        displayField:'nome',
+                                        valueField:'certificado_md5'
+                          }"
+                          [AbRecord]="[record,'certificado_md5']"
+                          [AbStore]="{
+                                            service:certificadoService,
+                                            proxy:{
+                                               read:{
+                                                    method:'listQueryCombo'
+                                               }
+                                            },
+                                            columns:[{
+                                                dataIndex:'nome',
+                                                field:'nome'
+                                            },{
+                                                dataIndex:'sistemaId',
+                                                field:'sistemaId'
+                                            }]
+                                        }
+                                    "
+                >
+                    <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
+                        {{r.get('nome')}}
+                    </AbTemplate>
+                </AbCombo>
+
+            </AbPanel>
+        </AbContainer>
+    </form>
+</AbViewport>

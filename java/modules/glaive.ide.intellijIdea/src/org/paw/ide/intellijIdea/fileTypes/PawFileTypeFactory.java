@@ -7,6 +7,6 @@ import org.jetbrains.annotations.NotNull;
 public class PawFileTypeFactory extends FileTypeFactory {
     @Override
     public void createFileTypes(@NotNull FileTypeConsumer fileTypeConsumer) {
-        fileTypeConsumer.consume(PawLanguageFileType.INSTANCE, "s");
+        fileTypeConsumer.consume(PawLanguageFileType.INSTANCE, "pw");
     }
 }

@@ -1,0 +1,8 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% apply HtmlModule %>  
+<div style="height: 100%;width: 100%; display: flex;flex-direction: row">
+    <div style="flex-grow: 1">
+        <canvas #chart (click)="onClick($event)">
+        </canvas>
+    </div>
+</div>

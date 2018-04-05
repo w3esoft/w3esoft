@@ -1,0 +1,30 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% apply HtmlModule %>  
+<ng-content></ng-content>
+<AbTemplate [AbTemplate]="{type:'icon'}">
+  <i  *ngIf="config.iconCls"  class="{{config.iconCls}}" aria-hidden="true"></i>
+</AbTemplate>
+<AbTemplate  [AbTemplate]="{type:'text'}" >
+      <ng-container *ngTemplateOutlet="tplIcon;">
+      </ng-container>
+      {{config?.text}}
+</AbTemplate>
+<ng-container *ngTemplateOutlet="tplText;">
+</ng-container>
+<a *ngIf="config.href&&!config.routerLink"  [attr.href]="config?.href" style="
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+">
+</a>
+<a *ngIf="config.routerLink" [attr.href]="config?.routerLink"  style="
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+" (click)="_onClick($event)">
+</a>
+

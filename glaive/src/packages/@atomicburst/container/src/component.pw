@@ -1,0 +1,7 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% apply HtmlModule %>  
+<div style="height: 100%;height: 100%;display: flex;flex-direction: row">
+        <div  class="body" #container  [ngStyle]="config.body.style" >
+                <ng-content></ng-content>
+        </div>
+</div>

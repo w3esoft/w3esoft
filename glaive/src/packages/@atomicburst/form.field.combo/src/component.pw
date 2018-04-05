@@ -1,0 +1,63 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% import {AbButton} from "@atomicburst/button" %>  
+<% apply HtmlModule %>  
+<div id="{{id}}-inner" class="AbField-inner" >
+    <label class="AbField-label" attr.for="{{id}}-input">{{config?.fieldLabel }}</label>
+    <div class="AbField-input-group">
+        <div class="AbField-input">
+            <input
+                    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+
+                   [hidden]="multSelect"
+                   [readonly]="readonly"
+                   class="AbField-input-inner"
+                   (focus)="_onFocus()"
+                    (keydown)="_onKeydown($event)"
+                   (focusout)="_onFocusout()"
+                    (blur)="_onBlur($event)"
+                   (input)="_onInput($event)"
+                   type="text"
+                   name="{{id}}-input" id="{{id}}-input"
+            >
+            <textarea
+                    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                     [hidden]="!multSelect"
+                      [readonly]="readonly"
+                      class="AbField-input-inner"
+                      (focus)="_onFocus()"
+                      (keydown)="_onKeydown($event)"
+                      (focusout)="_onFocusout()"
+                      (blur)="_onBlur($event)"
+                      (input)="_onInput($event)"
+                      type="text"
+                      name="{{id}}-input" id="{{id}}-textarea"
+                >
+            </textarea>
+            <i [hidden]="!clearButton" class="clear fa fa-times" (click)="_clear()"  aria-hidden="true"></i>
+            <div class="hr"></div>
+        </div>
+        <AbButton
+                style="height: 16px;width: 15px;"
+                (click)="triggerClick()"
+        >
+            <AbTemplate [AbTemplate]="{type:'icon'}">
+                <i class="fa fa-sort-desc" aria-hidden="true"></i>
+            </AbTemplate>
+        </AbButton>
+        <div *ngIf="invalid" class="AbField-error">{{messageError}}</div>
+        <div #list class="list" [ngClass]="{'open':open}" >
+            <div *ngFor="let record of items" class="{{id}}-item item {{id}}-{{record.id}}-item "
+                 (click)="clickItem(record)"
+            >
+                <ng-container *ngTemplateOutlet="tplItem;context:{
+                displayField:config.displayField,
+                record:record
+              }">
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+<AbTemplate [AbTemplate]="{type:'tplItem'}" let-displayField="displayField" let-record="record">
+    {{record.get(displayField)}}
+</AbTemplate>

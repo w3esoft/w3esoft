@@ -1,0 +1,224 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% import {FormModule} from "@paw/html" %>  
+<% import {AbViewport} from "@atomicburst/viewport" %>  
+<% import {AbToolbar} from "@atomicburst/toolbar" %>  
+<% import {AbButton} from "@atomicburst/button" %>  
+<% import {AbContainer} from "@atomicburst/container" %>  
+<% import {AbTextfield} from "@atomicburst/textfield" %>  
+<% import {AbDatatable} from "@atomicburst/datatable" %>  
+<% import {AbDatatable_column} from "@atomicburst/datatable_column" %>  
+<% import {AbPanel} from "@atomicburst/panel" %>  
+<% import {AbTextareafield} from "@atomicburst/textareafield" %>  
+<% import {AbRangefield} from "@atomicburst/rangefield" %>  
+<% apply HtmlModule %>  
+<% apply FormModule %>  
+<AbViewport AbLayout_vbox>
+    <AbToolbar
+            [AbToolbar]="{
+                   position:'top',
+                   ui:'TOOLS-TOP'
+                }">
+        <div style="flex-grow: 1;"></div>
+        <AbButton [AbButton]="{text:'Novo Atendimento'}" (click)="novo()">
+            <AbTemplate [AbTemplate]="{type:'icon'}">
+                <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+            </AbTemplate>
+        </AbButton>
+        <AbButton [AbButton]="{text:'Pesquisar'}" (click)="pesquisar()">
+            <AbTemplate [AbTemplate]="{type:'icon'}">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </AbTemplate>
+        </AbButton>
+    </AbToolbar>
+
+    <AbContainer [AbLayout_flex]="{'orientation':'vertical'}" style="width:100%;height:100%">
+
+        <AbContainer AbLayoutGrid style="padding:0px 5px 5px 5px">
+            <AbTextfield #resumoField="AbTextfield"
+                          [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{fieldLabel:'Nome Caso'}"
+                          style="width:250px" [AbRecord]="[pesquisa,'resumo']"
+                          (next)="resumoClienteNome.focus.emit();pesquisar();"
+            >
+            </AbTextfield>
+            <AbTextfield #resumoClienteNome="AbTextfield"
+                          (next)="resumoField.focus.emit();pesquisar();"
+                          [AbLayoutGridItem]="{sm:12,md:2}"
+                          [AbTextfield]="{fieldLabel:'Cliente'}"
+                          style="width:250px"
+                          [AbRecord]="[pesquisa,'clienteNome']"
+
+            >
+            </AbTextfield>
+        </AbContainer>
+
+        <AbDatatable
+                #datatableStore="AbStore"
+                [AbLayout_flex_item]="{flex:1}"
+                [AbDatatable]="{pagination:'bottom'}"
+                [AbStore]="{
+                service:casoService,
+                proxy:{
+                  read:{
+                    method:'listQueryGridAtendimento',
+                    extraParams:{
+                        pesquisa:pesquisa
+                    }
+                  }
+                },
+
+                columnsDisplay:[
+                    {
+                        dataIndex:'feedback',
+                        field:'feedback',
+                        displayField:'feedback'
+                    }
+                ],
+                columns:[{
+                    field:'casoId.tarefaId',
+                    dataIndex:'tarefaId'
+                },{
+                    field:'casoId.colaboradorDestinoId.pessoaId.nome',
+                    dataIndex:'colaboradorDestinoNome'
+                },{
+                    field:'casoId.colaboradorEntradaId.pessoaId.nome',
+                    dataIndex:'colaboradorEntradaNome'
+                },{
+                    field:'pessoaId.apelido',
+                    dataIndex:'clienteApelido'
+                },{
+                    field:'casoId.dataAlteracao',
+                    dataIndex:'dataAlteracao',
+                    dateFormat: 'Y-m-d H:i:s.u'
+                },{
+                    field:'casoId.resumo',
+                    dataIndex:'resumo'
+                },{
+                    field:'casoId.descricao',
+                    dataIndex:'descricao'
+                }]
+    }"
+        >
+            <AbDatatable_column [AbDatatable_column]="{
+            title:'Nome Caso',
+            dataIndex:'resumo',
+            width:'33%',
+            minWidth:'250px'
+          }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+            title:'Cliente',
+            dataIndex:'clienteApelido',
+            minWidth:'200px'
+          }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+            title:'Destino',
+            dataIndex:'colaboradorDestinoNome',
+            minWidth:'120px'
+          }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+            title:'Entrada',
+            dataIndex:'colaboradorEntradaNome',
+            minWidth:'120px'
+          }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+            title:'Data',
+            dataIndex:'dataAlteracao',
+            minWidth:'150px',
+            sort:'DESC',
+            dateFormat: 'd/m/Y H:i:s'
+          }">
+            </AbDatatable_column>
+            <AbDatatable_column [AbDatatable_column]="{
+            title:'FEEDBACK',
+            minWidth:'90px',
+            dataIndex:'feedback'
+     }  " (AbDatatable_column_cellClick)="feedBack($event,modal1)"
+            >
+            </AbDatatable_column>
+        </AbDatatable>
+
+
+        <AbTemplate AbModal #modal1="AbModal">
+            <AbPanel [hidden]="cadastro" [AbPanel]="{title:'FeedBack'}" style="
+      padding: 20px;height: 550px;
+      font-size: 15px">
+                <AbToolbar
+                        [AbToolbar]="{
+                   position:'top',
+                   ui:'TOOLS-TOP'
+                }">
+                    <div style="flex-grow: 1;"></div>
+                    <AbButton [AbButton]="{text:'Salvar'}" (click)="salvarFeedBack(modal1,formConcluido)">
+                        <AbTemplate [AbTemplate]="{type:'icon'}">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </AbTemplate>
+                    </AbButton>
+                    <AbButton [AbButton]="{text:'Cancelar'}" (click)="modal1.hide()">
+                        <AbTemplate [AbTemplate]="{type:'icon'}">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        </AbTemplate>
+                    </AbButton>
+                </AbToolbar>
+                <form #formConcluido="ngForm" style="height: 100%">
+                    <AbContainer AbLayoutGrid>
+                        <AbTextfield #resumoField="AbTextfield"
+                                      [AbLayoutGridItem]="{sm:8}"
+                                      [AbTextfield]="{fieldLabel:'Cliente',readonly:true}"
+                                      [AbRecord]="[recordFinalizar,'pessoaId.apelido']"
+                        >
+                        </AbTextfield>
+                        <AbTextfield #resumoField="AbTextfield"
+                                      [AbLayoutGridItem]="{sm:4}"
+                                      [AbTextfield]="{fieldLabel:'Telefone',readonly:true}"
+                                      [AbRecord]="[recordFinalizar,'pessoaId.telefonePrincipal']"
+                        >
+                        </AbTextfield>
+                        <AbTextfield #resumoField="AbTextfield"
+                                      [AbLayoutGridItem]="{sm:12}"
+                                      [AbTextfield]="{fieldLabel:'Descrição',readonly:true}"
+                                      [AbRecord]="[recordFinalizar,'casoId.resumo']"
+                        >
+                        </AbTextfield>
+                        <AbTextareafield
+                                [AbLayoutGridItem]="{sm:12,md:12}"
+                                style="height: 120px;"
+                                [AbTextareafield]="{fieldLabel:'Resolução',readonly:true}"
+                                [AbRecord]="[recordFinalizar,'casoId.descricao']">
+                        </AbTextareafield>
+                        <AbRangefield
+                                AbValidationRequired
+                                [AbLayoutGridItem]="{sm:12,md:12}"
+                                [AbRangefield]="{
+              fieldLabel:'Nota Atendimento',
+              slider:{
+                start: 1,
+	              step: 1,
+                animate: false,
+                connect: [true, false],
+                range: {
+                  'min': 1,
+                  'max': 10
+                },
+                pips: {
+                  mode: 'values',
+                  values: [1, 2,3,4,5,6,7,8,9,10],
+                  density: 100
+                }
+              }
+          }" [AbRecord]="[recordFinalizar,'avaliacaoNota']">
+                        </AbRangefield>
+                        <AbTextareafield
+                                [AbLayoutGridItem]="{sm:12,md:12}"
+                                style="height: 120px;"
+                                [AbTextareafield]="{fieldLabel:'Observação'}"
+                                [AbRecord]="[recordFinalizar,'avaliacaoComentario']">
+                        </AbTextareafield>
+                    </AbContainer>
+                </form>
+            </AbPanel>
+        </AbTemplate>
+    </AbContainer>
+</AbViewport>

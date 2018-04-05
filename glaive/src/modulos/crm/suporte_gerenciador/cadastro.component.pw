@@ -1,0 +1,278 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% import {FormModule} from "@paw/html" %>  
+<% import {AbViewport} from "@atomicburst/viewport" %>  
+<% import {AbToolbar} from "@atomicburst/toolbar" %>  
+<% import {AbButton} from "@atomicburst/button" %>  
+<% import {AbContainer} from "@atomicburst/container" %>  
+<% import {AbCombo} from "@atomicburst/combo" %>  
+<% import {AbPanel} from "@atomicburst/panel" %>  
+<% import {AbTextareafield} from "@atomicburst/textareafield" %>  
+<% apply HtmlModule %>  
+<% apply FormModule %>  
+<AbViewport>
+
+  <AbToolbar
+              [AbToolbar]="{
+                   position:'top',
+                   ui:'TOOLS-TOP'
+                }">
+    <div style="flex-grow: 1;"></div>
+    <AbButton [AbButton]="{text:'Concluir'}" (click)="concluir(form,modal1)">
+      <AbTemplate [AbTemplate]="{type:'icon'}">
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </AbTemplate>
+    </AbButton>
+    <AbButton [AbButton]="{text:'Salvar'}" (click)="salvar(form)">
+      <AbTemplate [AbTemplate]="{type:'icon'}">
+        <i class="fa fa-file-o" aria-hidden="true"></i>
+      </AbTemplate>
+    </AbButton>
+
+    <AbButton [AbButton]="{text:'Retornar'}" (click)="retornar()">
+      <AbTemplate [AbTemplate]="{type:'icon'}">
+        <i class="fa fa-sign-out" aria-hidden="true"></i>
+      </AbTemplate>
+    </AbButton>
+  </AbToolbar>
+  <form #form="ngForm" style="height: 100%">
+    <AbContainer  AbLayoutGrid style="height: 100%">
+      <AbCombo
+        #ComboAssunto
+        (next)="ComboPessoa.focus.emit()"
+        AbValidationRequired
+        [AbLayoutGridItem]="{sm:12,md:12}"
+        [AbStore]="{
+                service:casoService,
+                proxy:{
+                  read:{
+                    method:'listQueryCombo',
+                    extraParams:{
+                        codigo :'09'
+                    }
+                  }
+                },
+                columns:[{
+                    dataIndex:'resumo',
+                    field:'casoId.resumo'
+                },{
+                    dataIndex:'tarefaId',
+                    field:'casoId.tarefaId'
+                }]
+            }
+        "
+        [AbCombo]="{
+          fieldLabel:'Assunto' ,
+          displayField:'casoId.resumo',
+          keyField:'casoId.tarefaId',
+          valueField:'casoId.resumo'
+        }"
+        [AbRecord]="[record,'casoId.resumo']"
+      >
+      </AbCombo>
+      <AbCombo AbValidationRequired
+        #ComboPessoa
+        (next)="ComboColaboradorEntrada.focus.emit()"
+        [AbLayoutGridItem]="{sm:12,md:4}"
+        [AbCombo]="{
+          fieldLabel:'Cliente' ,
+          displayField:'apelido',
+          keyField:'pessoaId'
+        }"
+        [AbRecord]="[record,'pessoaId']"
+        [AbStore]="{
+                service:pessoaService,
+                proxy:{
+                      read:{
+                        method:'listQueryCombo'
+                      }
+                },
+                columns:[{
+                    dataIndex:'apelido',
+                    field:'apelido'
+                },{
+                    dataIndex:'nome',
+                    field:'nome'
+                },{
+                    dataIndex:'pessoaId',
+                    field:'pessoaId'
+                },{
+                    dataIndex:'nrDocumento',
+                    field:'nrDocumento'
+                }]
+            }
+        "
+      >
+        <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
+          <table>
+            <tr>
+              <th style="width: 65%"></th>
+              <th style="width: 35%"></th>
+            </tr>
+            <tr>
+              <td> <strong>Razão Social:</strong> {{r.get('nome')}}</td>
+              <td rowspan="2">{{r.get('nrDocumento')}}</td>
+            </tr>
+            <tr>
+              <td>  <strong>Nome Fantasia:</strong>  {{r.get('apelido')}}</td>
+            </tr>
+          </table>
+        </AbTemplate>
+      </AbCombo>
+      <AbCombo AbValidationRequired
+        #ComboColaboradorEntrada
+                (next)="ComboSistema.focus.emit()"
+        [AbLayoutGridItem]="{sm:12,md:4}"
+        [AbStore]="{
+
+                    service:usuarioService,
+                    rootField:'usuarioId',
+                proxy:{
+                  read:{
+                    method:'listQueryCombo',
+                    extraParams:{
+                        codigo :'01.03'
+                    }
+                  }
+                },
+                columns:[{
+                    dataIndex:'colaboradorApelido',
+                    field:'usuarioId.pessoaId.apelido'
+                },{
+                    dataIndex:'colaboradorNome',
+                    field:'usuarioId.pessoaId.nome'
+                },{
+                    dataIndex:'colaboradorId',
+                    field:'usuarioId.colaboradorId'
+                }]
+            }
+        "
+        [AbCombo]="{
+          fieldLabel:'Suporte' ,
+          displayField:'pessoaId.apelido',
+          keyField:'colaboradorId'
+        }"
+        [AbRecord]="[record,'casoId.colaboradorDestinoId']"
+      >
+        <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
+          {{r.get('pessoaId.nome')}}
+        </AbTemplate>
+      </AbCombo>
+      <AbCombo AbValidationRequired
+        #ComboSistema
+                (next)="ComboTipoAtendimento.focus.emit()"
+        [AbLayoutGridItem]="{sm:12,md:4}"
+
+        [AbStore]="{
+                service:categoriaService,
+                proxy:{
+                  read:{
+                    method:'listQueryCombo',
+                    extraParams:{
+                    codigo :'09'
+                    }
+                  }
+                },
+                columns:[{
+                    dataIndex:'categoriaId',
+                    field:'categoriaId'
+                },{
+                    dataIndex:'nome',
+                    field:'nome'
+                },{
+                    dataIndex:'codigo',
+                    field:'codigo'
+                }]
+            }
+        "
+        [AbCombo]="{
+          fieldLabel:'Sistema' ,
+          displayField:'nome',
+          keyField:'categoriaId'
+        }"
+
+        [AbStore]="{
+                columns:[{
+                    dataIndex:'categoriaId',
+                    field:'categoriaId'
+                },{
+                    dataIndex:'nome',
+                    field:'nome'
+                }]
+            }
+        "
+        [AbRecord]="[record,'casoId.categoriaId']"
+      >
+      </AbCombo>
+      <AbCombo AbValidationRequired
+        #ComboTipoAtendimento
+                (next)="ComboAssunto.focus.emit()"
+        [AbLayoutGridItem]="{sm:12,md:4}"
+        [AbStore]="{
+                service:causaService,
+                proxy:{
+                  read:{
+                    method:'listQueryCombo',
+                    extraParams:{
+                        status :'1'
+                    }
+                  }
+                },
+                columns:[{
+                    dataIndex:'causaId',
+                    field:'causaId'
+                },{
+                    dataIndex:'nome',
+                    field:'nome'
+                }]
+            }
+        "
+        [AbCombo]="{
+          fieldLabel:'Tipo de Atendimento' ,
+          displayField:'nome',
+          keyField:'causaId'
+        }"
+        [AbRecord]="[record,'causaId']"
+      >
+      </AbCombo>
+    </AbContainer>
+
+    <AbTemplate AbModal #modal1="AbModal" >
+
+      <AbPanel [hidden]="cadastro" [AbPanel]="{title:'Concluir'}" style="
+      padding: 40px;height: 300px;
+      font-size: 15px" >
+        <AbToolbar
+                    [AbToolbar]="{
+                   position:'top',
+                   ui:'TOOLS-TOP'
+                }">
+          <div style="flex-grow: 1;"></div>
+          <AbButton [AbButton]="{text:'Salvar'}" (click)="salvarConcluido(form,formConcluido)">
+            <AbTemplate [AbTemplate]="{type:'icon'}">
+              <i class="fa fa-check" aria-hidden="true"></i>
+            </AbTemplate>
+          </AbButton>
+
+          <AbButton [AbButton]="{text:'Cancelar'}" (click)="modal1.hide()">
+            <AbTemplate [AbTemplate]="{type:'icon'}">
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </AbTemplate>
+          </AbButton>
+
+
+        </AbToolbar>
+          <form #formConcluido="ngForm">
+            <AbContainer  AbLayoutGrid>
+              <AbTextareafield
+                AbValidationRequired
+                [AbLayoutGridItem]="{sm:12,md:12}"
+                style="height: 200px;"
+                [AbTextareafield]="{fieldLabel:'Descricao de Como foi resolvido o problema'}" [AbRecord]="[recordConcluido,'comentario']">
+              </AbTextareafield>
+            </AbContainer>
+          </form>
+      </AbPanel>
+    </AbTemplate>
+
+  </form>
+</AbViewport>

@@ -3,18 +3,18 @@ package org.paw.ide.intellijIdea.fileTypes;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.glaive.ide.intellijIdea.lang.GlaiveClassLanguage;
-import org.glaive.ide.intellijIdea.icons.GlaiveIcons;
+import org.paw.ide.intellijIdea.icons.PawIcons;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.paw.ide.intellijIdea.PawLanguage;
 
 import javax.swing.*;
 
 public class PawLanguageFileType extends LanguageFileType{
     public  static PawLanguageFileType INSTANCE = new PawLanguageFileType();
     public PawLanguageFileType(){
-        super(GlaiveClassLanguage.INSTANCE);
+        super( PawLanguage.INSTANCE);
     }
 
     @NonNls
@@ -23,13 +23,13 @@ public class PawLanguageFileType extends LanguageFileType{
     @NotNull
     @Override
     public String getName() {
-        return "Glaive Toolkit Module";
+        return "Paw Toolkit Module";
     }
 
     @NotNull
     @Override
     public String getDescription() {
-        return "A module that contains AMD modules written to take advantage of the Glaive Toolkit and used by Needs More Glaive. " +
+        return "A module that contains AMD modules written to take advantage of the Paw Toolkit and used by Needs More Paw. " +
                 "The module's content root should be the root of your most top level packages so that they can be imported correctly.";
 
     }
@@ -42,7 +42,7 @@ public class PawLanguageFileType extends LanguageFileType{
     @Nullable
     @Override
     public Icon getIcon() {
-        return GlaiveIcons.Glaive_16;
+        return PawIcons.Paw_16;
     }
 
     @Override

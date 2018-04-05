@@ -1,0 +1,3 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% apply HtmlModule %>  
+<router-outlet></router-outlet>

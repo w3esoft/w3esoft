@@ -1,0 +1,11 @@
+<% import {HtmlModule} from "@paw/html" %>  
+<% apply HtmlModule %>  
+<table #table class="display nowrap" cellspacing="0" width="100%">
+    <thead class="header">
+    <tr #theadTr>
+    </tr>
+    </thead>
+</table>
+
+
+<div class="DDfooter">{{summary}}</div>
