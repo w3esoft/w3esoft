@@ -25,7 +25,7 @@ public class PawLexer extends Lexer {
     public void start(@NotNull CharSequence charSequence, int i, int i1, int i2) {
         lexer = new org.paw.lang.lexer.PawLexer(new PawScan(charSequence));
         while (true){
-            token = lexer.tokinize();
+            PawLexerToken token = lexer.tokinize();
             tokens.add(token);
             if (token.is(PawLexerToken.TOKEN_EOF)){
                 break;

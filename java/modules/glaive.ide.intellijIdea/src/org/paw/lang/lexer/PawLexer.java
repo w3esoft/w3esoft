@@ -24,6 +24,7 @@ public class PawLexer {
     final static int CHAR_COMMA = 44;
     final static int CHAR_COLON = 58;
     final static int CHAR_EXCLAMATION = 33;
+    final static int CHAR_SLASH = 47;
     private String source;
     Deque<PawLexerToken> tokens = new LinkedList<PawLexerToken>();
     boolean isWord(int c) {
@@ -53,9 +54,12 @@ public class PawLexer {
         }else if (this.mode == LEXER_MODE_TEXT) {
             if (c == CHAR_MINOR) {
                 c = scan.read();
-                scan.addCache(c);
                 this.mode = LEXER_MODE_TAG_DEFINITION;
-                return new PawLexerToken(PawLexerToken.TOKEN_TAG_TOP_START, value, offset, len);
+                if (CHAR_SLASH==c) {
+                    return new PawLexerToken(PawLexerToken.TOKEN_TAG_START_END, value, offset, len);
+                }
+                scan.addCache(c);
+                return new PawLexerToken(PawLexerToken.TOKEN_TAG_START, value, offset, len);
             }else {
                 return new PawLexerToken(PawLexerToken.TOKEN_TOKEN_TEXT, value, offset, len);
             }
@@ -89,13 +93,19 @@ public class PawLexer {
                 scan.addCache(c);
                 return new PawLexerToken(PawLexerToken.TOKEN_TAG_NUMERIC,value, offset, len);
             }else if (CHAR_GREATER==c ){
-
-                return new PawLexerToken(PawLexerToken.TOKEN_TAG_TOP_END,value, offset, len);
-            } else {
-                return new PawLexerToken(PawLexerToken.TOKEN_ERROR, value, offset, len);
+                this.mode = LEXER_MODE_TEXT;
+                return new PawLexerToken(PawLexerToken.TOKEN_TAG_END,value, offset, len);
+            } else if (CHAR_SLASH==c) {
+                c = scan.read();
+                this.mode = LEXER_MODE_TAG_DEFINITION;
+                if (CHAR_GREATER==c) {
+                    return new PawLexerToken(PawLexerToken.TOKEN_TAG_START_END, value, offset, len);
+                }
+                return new PawLexerToken(PawLexerToken.TOKEN_TAG_START_END, value, offset, len);
             }
         } else {
             return new PawLexerToken(PawLexerToken.TOKEN_TAG_NUMERIC, value, offset, len);
         }
+        return null;
     }
 }

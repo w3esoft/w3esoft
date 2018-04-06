@@ -38,21 +38,21 @@ public class PawTokenType {
         switch (index) {
             case PawLexerToken.TOKEN_EOF:
                 return PawTokenType.EOF;
-            case PawLexerToken.TOKEN_TAG_TOP_END:
+            case PawLexerToken.TOKEN_TAG_END:
                 return PawTokenType.TAG_TOP_END;
-            case PawLexerToken.TOKEN_TAG_TOP_START:
+            case PawLexerToken.TOKEN_TAG_START:
                 return PawTokenType.TAG_TOP_START;
-            case PawLexerToken.TOKEN_TAG_TOP_BOTTOM_END:
+            case PawLexerToken.TOKEN_TAG_START_END:
                 return PawTokenType.TAG_TOP_BOTTOM_END;
             case PawLexerToken.TOKEN_TAG_IDENT:
                 return PawTokenType.TAG_TOP_ATTR_NORMAL;
-            case PawLexerToken.TOKEN_TAG_TOP_ATTR_TEMPLATE:
+            case PawLexerToken.TOKEN_TAG_TEMPLATE:
                 return PawTokenType.TAG_TOP_ATTR_TEMPLATE;
-            case PawLexerToken.TOKEN_TAG_TOP_ATTR_INPUT:
+            case PawLexerToken.TOKEN_TAG_INPUT:
                 return PawTokenType.TAG_TOP_ATTR_INPUT;
-            case PawLexerToken.TOKEN_TAG_TOP_ATTR_OUTPUT:
+            case PawLexerToken.TOKEN_TAG_OUTPUT:
                 return PawTokenType.TAG_TOP_ATTR_OUTPUT;
-            case PawLexerToken.TOKEN_TAG_TOP_ATTR_INPUT_OUTPUT:
+            case PawLexerToken.TOKEN_TAG_INPUT_OUTPUT:
                 return PawTokenType.TAG_TOP_ATTR_INPUT_OUTPUT;
             case PawLexerToken.TOKEN_TAG_STRING:
                 return PawTokenType.TAG_TOP_VALUE_STRING;
