@@ -14,12 +14,9 @@ import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import org.paw.ide.intellijIdea.PawLanguage;
 import org.jetbrains.annotations.NotNull;
-import org.paw.ide.intellijIdea.lang.token.PawToken;
+import org.paw.ide.intellijIdea.lang.token.PawTokenType;
 
 public class PawParserDefinition implements ParserDefinition {
-
-    public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
-    public static final TokenSet COMMENTS = TokenSet.create(PawToken.COMMENT);
 
     public static final IFileElementType FILE = new IFileElementType(Language.<PawLanguage>findInstance(PawLanguage.class));
 
@@ -43,13 +40,13 @@ public class PawParserDefinition implements ParserDefinition {
     @NotNull
     @Override
     public TokenSet getWhitespaceTokens() {
-        return WHITE_SPACES;
+        return PawTokenType.WHITE_SPACES;
     }
 
     @NotNull
     @Override
     public TokenSet getCommentTokens() {
-        return COMMENTS;
+        return PawTokenType.COMMENTS;
     }
 
     @NotNull
