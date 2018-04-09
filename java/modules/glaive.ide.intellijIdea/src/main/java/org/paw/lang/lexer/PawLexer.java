@@ -61,25 +61,25 @@ public class PawLexer {
         int offset = scan.getPosition();
         int len = 1;
         if (c == CHAR_EOF) {
-            return new PawLexerToken(PawLexerToken.TOKEN_EOF, value, offset, 0);
+            return new PawLexerToken(PawLexerTokenType.EOF, value, offset, 0);
         }else if (this.mode == LEXER_MODE_TEXT) {
             String text = "";
             if (c == CHAR_MINOR) {
                 c = scan.read();
                 this.mode = LEXER_MODE_TAG;
                 if (CHAR_SLASH==c) {
-                    return new PawLexerToken(PawLexerToken.TOKEN_TAG_START_END, value, offset, len);
+                    return new PawLexerToken(PawLexerTokenType.TAG_START_END, value, offset, len);
                 }
                 scan.addCache(c);
-                return new PawLexerToken(PawLexerToken.TOKEN_TAG_START, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.TAG_START, value, offset, len);
             } else if(c == CHAR_BRACE_OPEN){
                 c = scan.read();
                 if (CHAR_PERCENT_SIGN==c) {
                     this.mode = LEXER_MODE_STATEMENT;
-                    return new PawLexerToken(PawLexerToken.TOKEN_META_TAG_START, value, offset, len);
+                    return new PawLexerToken(PawLexerTokenType.META_TAG_START, value, offset, len);
                 }else if (CHAR_HASH==c) {
                     this.mode = LEXER_MODE_MACRO;
-                    return new PawLexerToken(PawLexerToken.TOKEN_META_TAG_START, value, offset, len);
+                    return new PawLexerToken(PawLexerTokenType.META_TAG_START, value, offset, len);
                 }
                 text= "{" +((char)c);
             }
@@ -105,7 +105,7 @@ public class PawLexer {
             }
 
 
-            return new PawLexerToken(PawLexerToken.TOKEN_TOKEN_TEXT, text, offset, len);
+            return new PawLexerToken(PawLexerTokenType.TOKEN_TEXT, text, offset, len);
 
         }else if (this.mode == LEXER_MODE_STATEMENT|| this.mode == LEXER_MODE_MACRO ||  this.mode == LEXER_MODE_TAG){
             if (isWhitespace(c)){
@@ -113,9 +113,9 @@ public class PawLexer {
                     c = scan.read();
                 }
                 scan.addCache(c);
-                return new PawLexerToken(PawLexerToken.TOKEN_WHITESPACE,value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.WHITESPACE,value, offset, len);
             }else if (c ==10){
-                return new PawLexerToken(PawLexerToken.TOKEN_LINE,value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.LINE,value, offset, len);
             }else if (isWord(c)||CHAR_DOLAR==c || CHAR_UNDERSCORE==c){
                 value =""+ ((char)c);
                 while (true){
@@ -132,7 +132,7 @@ public class PawLexer {
                     value = value+((char)c);
                 }
                 scan.addCache(c);
-                return new PawLexerToken(PawLexerToken.TOKEN_IDENT,value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.IDENT,value, offset, len);
             } else if (isNumeric(c)){
                 value ="";
                 while (isNumeric(c)){
@@ -140,54 +140,54 @@ public class PawLexer {
                     c = scan.read();
                 }
                 scan.addCache(c);
-                return new PawLexerToken(PawLexerToken.TOKEN_NUMERIC,value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.NUMERIC,value, offset, len);
             }else if (CHAR_GREATER==c && this.mode == LEXER_MODE_TAG){
                 this.mode = LEXER_MODE_TEXT;
-                return new PawLexerToken(PawLexerToken.TOKEN_TAG_END,value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.TAG_END,value, offset, len);
             } else if (CHAR_SLASH==c  && this.mode == LEXER_MODE_TAG) {
                 c = scan.read();
                 if (CHAR_GREATER==c) {
                     this.mode = LEXER_MODE_TEXT;
-                    return new PawLexerToken(PawLexerToken.TOKEN_TAG_START_END, value, offset, len);
+                    return new PawLexerToken(PawLexerTokenType.TAG_START_END, value, offset, len);
                 }
                 scan.addCache(c);
-                return new PawLexerToken(PawLexerToken.TOKEN_ERROR, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.ERROR, value, offset, len);
             }else if (CHAR_EQUAL==c) {
-                return new PawLexerToken(PawLexerToken.TOKEN_EQUAL, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.EQUAL, value, offset, len);
             } else if (CHAR_BRACE_OPEN ==c) {
-                return new PawLexerToken(PawLexerToken.TOKEN_BRACE_OPEN, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.BRACE_OPEN, value, offset, len);
             }else if (CHAR_BRACE_CLOSE ==c) {
-                return new PawLexerToken(PawLexerToken.TOKEN_BRACE_CLOSE, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.BRACE_CLOSE, value, offset, len);
             }else if (CHAR_BRACKET_OPEN ==c) {
-                return new PawLexerToken(PawLexerToken.TOKEN_BRACKET_OPEN, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.BRACKET_OPEN, value, offset, len);
             }else if (CHAR_BRACKET_CLOSE ==c) {
-                return new PawLexerToken(PawLexerToken.TOKEN_BRACKET_CLOSE, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.BRACKET_CLOSE, value, offset, len);
             }else if (CHAR_DOT ==c) {
-                return new PawLexerToken(PawLexerToken.TOKEN_DOT, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.DOT, value, offset, len);
             }else if (CHAR_PARENTHESIS_OPEN ==c) {
-                return new PawLexerToken(PawLexerToken.TOKEN_PARENTHESIS_OPEN, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.PARENTHESIS_OPEN, value, offset, len);
             }else if (CHAR_PARENTHESIS_CLOSE ==c) {
-                return new PawLexerToken(PawLexerToken.TOKEN_PARENTHESIS_CLOSE, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.PARENTHESIS_CLOSE, value, offset, len);
             }else if (CHAR_PERCENT_SIGN==c ) {
                 c = scan.read();
                 if (CHAR_BRACE_CLOSE ==c&& this.mode == LEXER_MODE_STATEMENT) {
                     this.mode = LEXER_MODE_TEXT;
-                    return new PawLexerToken(PawLexerToken.TOKEN_META_TAG_END, value, offset, len);
+                    return new PawLexerToken(PawLexerTokenType.META_TAG_END, value, offset, len);
                 }
                 scan.addCache(c);
-                return new PawLexerToken(PawLexerToken.TOKEN_PERCENT_SIGN, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.PERCENT_SIGN, value, offset, len);
             }else if (CHAR_HASH ==c ) {
                 c = scan.read();
                 if (CHAR_BRACE_CLOSE ==c&& this.mode == LEXER_MODE_MACRO) {
                     this.mode = LEXER_MODE_TEXT;
-                    return new PawLexerToken(PawLexerToken.TOKEN_META_TAG_END, value, offset, len);
+                    return new PawLexerToken(PawLexerTokenType.META_TAG_END, value, offset, len);
                 }
                 while (isWord(c)||isNumeric(c)||CHAR_DOLAR==c|| CHAR_UNDERSCORE==c){
                     value = value+((char)c);
                     c = scan.read();
                 }
                 scan.addCache(c);
-                return new PawLexerToken(PawLexerToken.TOKEN_HASH,value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.HASH,value, offset, len);
             }else if (CHAR_DOUBLE_QUOTATION_MARK==c ||CHAR_QUOTATION_MARK==c ){
                 int cc = c;
                 value ="";
@@ -196,16 +196,16 @@ public class PawLexer {
                     if (cc==c)
                         break;
                     if (CHAR_EOF==c)
-                        return new PawLexerToken(PawLexerToken.TOKEN_STRING_ERROR, value, offset, len);
+                        return new PawLexerToken(PawLexerTokenType.STRING_ERROR, value, offset, len);
                     value = value+((char)c);
                     c = scan.read();
                 }
-                return new PawLexerToken(PawLexerToken.TOKEN_STRING, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.STRING, value, offset, len);
             }else {
-                return new PawLexerToken(PawLexerToken.TOKEN_ERROR, value, offset, len);
+                return new PawLexerToken(PawLexerTokenType.ERROR, value, offset, len);
             }
         } else {
-            return new PawLexerToken(PawLexerToken.TOKEN_ERROR, value, offset, len);
+            return new PawLexerToken(PawLexerTokenType.ERROR, value, offset, len);
         }
     }
 }

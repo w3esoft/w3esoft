@@ -2,6 +2,7 @@ package org.paw.lang.lexer;
 
 public enum PawLexerTokenType {
     ERROR,
+    EOF,
     STRING_ERROR ,
     LINE,
     IDENT,

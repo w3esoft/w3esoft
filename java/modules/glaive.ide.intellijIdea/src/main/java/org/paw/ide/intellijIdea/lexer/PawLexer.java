@@ -9,6 +9,7 @@ import org.paw.ide.intellijIdea.fileTypes.PawSyntaxHighlighter;
 import org.paw.ide.intellijIdea.lang.token.PawTokenType;
 import org.paw.lang.PawScan;
 import org.paw.lang.lexer.PawLexerToken;
+import org.paw.lang.lexer.PawLexerTokenType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class PawLexer extends Lexer {
         while (true){
             PawLexerToken token = lexer.tokinize();
             tokens.add(token);
-            if (token.is(PawLexerToken.TOKEN_EOF)){
+            if (token.is(PawLexerTokenType.EOF)){
                 break;
             }
         }

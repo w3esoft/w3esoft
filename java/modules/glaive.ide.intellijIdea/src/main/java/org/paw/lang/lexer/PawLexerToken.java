@@ -3,13 +3,13 @@ package org.paw.lang.lexer;
 import com.intellij.lexer.LexerPosition;
 
 public class PawLexerToken {
-    private int index;
+    private PawLexerTokenType index;
     private LexerPosition currentPosition;
     private String value;
     private int offset;
     private int len;
 
-    public PawLexerToken(int index, String value, int offset, int len) {
+    public PawLexerToken(PawLexerTokenType index, String value, int offset, int len) {
         this.index = index;
         this.value = value;
         this.offset = offset;
@@ -25,7 +25,7 @@ public class PawLexerToken {
         return offset + len;
     }
 
-    public int getIndex() {
+    public PawLexerTokenType getIndex() {
         return index;
     }
 
@@ -33,35 +33,35 @@ public class PawLexerToken {
         return currentPosition;
     }
 
-    public boolean is(int index) {
-        return this.index == index;
+    public boolean is(PawLexerTokenType index) {
+        return this.index.name().contentEquals(index.name());
     }
 
-    public boolean not(int index) {
+    public boolean not(PawLexerTokenType index) {
         return !is(index);
     }
 
-    public boolean is(int i, String v) {
+    public boolean is(PawLexerTokenType i, String v) {
         return is(i, value) && v.contentEquals(this.value);
     }
 
-    public boolean not(int index, String value) {
+    public boolean not(PawLexerTokenType index, String value) {
         return !is(index, value);
     }
 
 
-    public boolean is(int[] indexs, String v) {
+    public boolean is(PawLexerTokenType[] indexs, String v) {
         boolean b = is(indexs);
         return b && v.contentEquals(this.value);
     }
 
-    public boolean not(int indexs[], String value) {
+    public boolean not(PawLexerTokenType indexs[], String value) {
         return !is(indexs, value);
     }
 
 
-    public boolean is(int[] indexs) {
-        for (int index : indexs) {
+    public boolean is(PawLexerTokenType[] indexs) {
+        for (PawLexerTokenType index : indexs) {
             boolean b = is(index, value) && value.contentEquals(this.value);
             ;
             if (b) {
@@ -71,7 +71,7 @@ public class PawLexerToken {
         return false;
     }
 
-    public boolean not(int indexs[]) {
+    public boolean not(PawLexerTokenType indexs[]) {
         return is(indexs);
     }
 

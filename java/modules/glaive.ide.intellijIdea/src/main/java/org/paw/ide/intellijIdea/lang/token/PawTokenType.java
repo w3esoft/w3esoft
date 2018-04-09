@@ -4,7 +4,6 @@ import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import org.paw.ide.intellijIdea.PawLanguage;
-import org.paw.lang.lexer.PawLexerToken;
 import org.paw.lang.lexer.PawLexerTokenType;
 
 public class PawTokenType {
@@ -37,31 +36,58 @@ public class PawTokenType {
         if (PawLexerTokenType.ERROR.name().contentEquals(t.name())) {
             return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.STRING_ERROR.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.LINE.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.IDENT.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.HASH.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.BRACKET_OPEN.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.BRACKET_CLOSE.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.PERCENT_SIGN.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.STRING.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.WHITESPACE.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.NUMERIC.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.TOKEN_TEXT.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.TAG_END.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.TAG_START.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.TAG_START_END.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.TAG_ATTR_TEMPLATE.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.TAG_ATTR_INPUT.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.TAG_ATTR_OUTPUT.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.TAG_ATTR_INPUT_OUTPUT.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.META_TAG_END.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.META_TAG_START.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.EQUAL.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.BRACE_OPEN.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.BRACE_CLOSE.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.PARENTHESIS_OPEN.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.PARENTHESIS_CLOSE.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.DOT.name().contentEquals(t.name())) {
+            return  ERROR_ELEMENT;
         }
+        return  ERROR_ELEMENT;
     }
 }

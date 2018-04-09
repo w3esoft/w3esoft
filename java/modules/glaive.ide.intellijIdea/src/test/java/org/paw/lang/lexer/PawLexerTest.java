@@ -3,8 +3,6 @@ package org.paw.lang.lexer;
 
 import org.junit.Test;
 import org.paw.lang.PawScan;
-
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -410,7 +408,7 @@ public class PawLexerTest {
        while (true){
            PawLexerToken token = lexer.tokinize();
            tokens.add(token);
-           if (token.is(PawLexerToken.TOKEN_EOF)){
+           if (token.is(PawLexerTokenType.EOF)){
                break;
            }
        }
