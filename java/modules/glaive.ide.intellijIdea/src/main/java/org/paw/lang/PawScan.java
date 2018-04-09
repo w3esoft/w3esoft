@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public class PawScan {
     private final InputStream input;
-    private int position=0;
+    private int position=-1;
     LinkedList<Integer> cacheChar = new LinkedList();
     public PawScan(CharSequence charSequence) {
         this(new ByteArrayInputStream(String.valueOf(charSequence).getBytes()));
