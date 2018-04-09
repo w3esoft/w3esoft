@@ -1,5 +1,5 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% apply HtmlModule %>  
+{% import {HtmlModule} from "@paw/html" %}  
+{% apply HtmlModule %}  
 <!doctype html>
 <html>
 <head>

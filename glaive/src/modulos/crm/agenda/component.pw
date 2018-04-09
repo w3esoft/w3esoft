@@ -1,114 +1,117 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {AbViewport} from "@atomicburst/viewport" %>  
-<% import {AbToolbar} from "@atomicburst/toolbar" %>  
-<% import {AbCombo} from "@atomicburst/combo" %>  
-<% import {AbCalendar} from "@atomicburst/calendar" %>  
-<% apply HtmlModule %>  
-<AbViewport>
-  <AbToolbar
-              [AbToolbar]="{
-                   position:'top',
-                   ui:'TOOLS-TOP'
-                }">
-    <div style="flex-grow: 1;"></div>
-    <AbCombo
-      style="margin: 0;padding: 0;"
-      #ComboColaboradorEntrada
-      (next)="pesquisar();"
-      [AbLayoutGridItem]="{sm:12,md:4}"
-      [AbStore]="{
-                service:usuarioService,
-                proxy:{
-                    read:{
-                      method:'listQueryCombo',
-                      extraParams:{
-                        codigo :['01.06','01.09']
-                      }
-                    }
-                },
-                columns:[{
-                    dataIndex:'colaboradorApelido',
-                    field:'usuarioId.pessoaId.apelido'
-                },{
-                    dataIndex:'colaboradorNome',
-                    field:'usuarioId.pessoaId.nome'
-                },{
-                    dataIndex:'colaboradorId',
-                    field:'usuarioId.colaboradorId'
-                }]
-            }
-       "
-      [AbCombo]="{
-          fieldLabel:'Suporte' ,
-          displayField:'pessoaId.nome',
-          keyField:'colaboradorId'
-        }"
-      [AbRecord]="[pesquisa,'colaboradorDestinoId']"
-    >
-      <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
-        {{r.get('pessoaId.nome')}}
-      </AbTemplate>
-    </AbCombo>
-  </AbToolbar>
-  <AbCalendar
-    #calendarStore="AbStore"
-    [AbStore]="{
-          service:casoService,
-          proxy:{
-                  read:{
-                    method:'listQueryCalendar',
-                    extraParams:{
-                      pesquisa:pesquisa
-                    }
-                  },
-                  update:{
-                    method:'updateDate'
-                  }
-          },
-          columns:[{
-              dataIndex:'tarefaId',
-              field:'casoId.tarefaId'
-          },{
-              dataIndex:'resumo',
-              field:'casoId.resumo'
-          },{
-              dataIndex:'dataInicio',
-              field:'casoId.dataInicio',
-              dateFormat: 'Y-m-d H:i:s.u'
-          },{
-              dataIndex:'dataPrevisao',
-              field:'casoId.dataPrevisao',
-              dateFormat: 'Y-m-d H:i:s.u'
-          }]
-      }
-   "
-    [AbCalendar]="{
-      views: ['month' ,'week','day'],
-      buttonToday:{
-        text:'Hoje'
-      },
-      dateStartField:'casoId.dataInicio',
-      dateEndField:'casoId.dataPrevisao',
-      displayField:'casoId.resumo',
-      configViews:{
-          day:{
-            button:{
-              text:'Dia'
-            }
-          },
-          week:{
-            button:{
-              text:'Semana'
-            }
-          },
-          month:{
-            button:{
-              text:'Mês'
-            }
-          }
-      }
-  }">
-  </AbCalendar>
-
-
-</AbViewport>
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {AbViewport} from "@atomicburst/viewport" %}  
+{% import {AbToolbar} from "@atomicburst/toolbar" %}  
+{% import {AbCombo} from "@atomicburst/combo" %}  
+{% import {AbCalendar} from "@atomicburst/calendar" %}  
+{% export CrmAgendaComponent %} 
+   {% apply HtmlModule %}  
+   <AbViewport>
+     <AbToolbar
+                 [AbToolbar]="{
+                      position:'top',
+                      ui:'TOOLS-TOP'
+                   }">
+       <div style="flex-grow: 1;"></div>
+       <AbCombo
+         style="margin: 0;padding: 0;"
+         #ComboColaboradorEntrada
+         (next)="pesquisar();"
+         [AbLayoutGridItem]="{sm:12,md:4}"
+         [AbStore]="{
+                   service:usuarioService,
+                   proxy:{
+                       read:{
+                         method:'listQueryCombo',
+                         extraParams:{
+                           codigo :['01.06','01.09']
+                         }
+                       }
+                   },
+                   columns:[{
+                       dataIndex:'colaboradorApelido',
+                       field:'usuarioId.pessoaId.apelido'
+                   },{
+                       dataIndex:'colaboradorNome',
+                       field:'usuarioId.pessoaId.nome'
+                   },{
+                       dataIndex:'colaboradorId',
+                       field:'usuarioId.colaboradorId'
+                   }]
+               }
+          "
+         [AbCombo]="{
+             fieldLabel:'Suporte' ,
+             displayField:'pessoaId.nome',
+             keyField:'colaboradorId'
+           }"
+         [AbRecord]="[pesquisa,'colaboradorDestinoId']"
+       >
+         <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
+           {{r.get('pessoaId.nome')}}
+         </AbTemplate>
+       </AbCombo>
+     </AbToolbar>
+     <AbCalendar
+       #calendarStore="AbStore"
+       [AbStore]="{
+             service:casoService,
+             proxy:{
+                     read:{
+                       method:'listQueryCalendar',
+                       extraParams:{
+                         pesquisa:pesquisa
+                       }
+                     },
+                     update:{
+                       method:'updateDate'
+                     }
+             },
+             columns:[{
+                 dataIndex:'tarefaId',
+                 field:'casoId.tarefaId'
+             },{
+                 dataIndex:'resumo',
+                 field:'casoId.resumo'
+             },{
+                 dataIndex:'dataInicio',
+                 field:'casoId.dataInicio',
+                 dateFormat: 'Y-m-d H:i:s.u'
+             },{
+                 dataIndex:'dataPrevisao',
+                 field:'casoId.dataPrevisao',
+                 dateFormat: 'Y-m-d H:i:s.u'
+             }]
+         }
+      "
+       [AbCalendar]="{
+         views: ['month' ,'week','day'],
+         buttonToday:{
+           text:'Hoje'
+         },
+         dateStartField:'casoId.dataInicio',
+         dateEndField:'casoId.dataPrevisao',
+         displayField:'casoId.resumo',
+         configViews:{
+             day:{
+               button:{
+                 text:'Dia'
+               }
+             },
+             week:{
+               button:{
+                 text:'Semana'
+               }
+             },
+             month:{
+               button:{
+                 text:'Mês'
+               }
+             }
+         }
+     }">
+     </AbCalendar>
+   
+   
+   </AbViewport>
+   
+{% endexport %} 

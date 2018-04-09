@@ -1,122 +1,124 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% apply HtmlModule %>  
-<div class="dtp" #dtp (click)="dtpclose($event)">
-    <div class="dtp-content" style="margin-left: -150px; top: 77.5px;">
-        <div class="dtp-date-view">
-            <header class="dtp-header">
-                <div class="dtp-actual-day">{{dayName}}</div>
-                <div class="dtp-close" (click)="close()" ><a >
-                    <i class="fa fa-close" aria-hidden="true"></i>
-                </a></div>
-            </header>
-            <div class="dtp-date">
-                <div>
-                    <div (click)="subtractMonth()" (touch)="subtractMonth()" class="left center p10">
-                        <a  lass="dtp-select-month-before">
-                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                    </a>
-                    </div>
-                    <div class="dtp-actual-month p80">{{abbreviatedMonthName}}</div>
-                    <div  (click)="addMonth()"  (touch)="addMonth()"  class="right center p10">
-                        <a  class="dtp-select-month-after">
-                         <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                    </a></div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="dtp-actual-num">{{day}}</div>
-                <div>
-                    <div  (click)="subtractYear()"   (touch)="subtractYear()" class="left center p10">
-                        <a   class="dtp-select-year-before">
-
-                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                    </a></div>
-                    <div class="dtp-actual-year p80">{{fullYear}}</div>
-                    <div
-                            (click)="addYear()"
-                            (touch)="addYear()"
-                            class="right center p10"
-                    >
-                        <a  class="dtp-select-year-after">
-
-                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-
-                    </a></div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="dtp-time hidden">
-                <div class="dtp-actual-maxtime">23:55</div>
-            </div>
-            <div class="dtp-picker">
-                <div class="dtp-picker-calendar">
-                    <div class="dtp-picker-month">{{monthName}} {{fullYear}}</div>
-                    <table class="table dtp-picker-days">
-                        <thead>
-                        <tr>
-                            <th>{{dayNames[0][0]}}</th>
-                            <th>{{dayNames[1][0]}}</th>
-                            <th>{{dayNames[2][0]}}</th>
-                            <th>{{dayNames[3][0]}}</th>
-                            <th>{{dayNames[4][0]}}</th>
-                            <th>{{dayNames[5][0]}}</th>
-                            <th>{{dayNames[6][0]}}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr></tr>
-                        <AbTemplate let-week ngFor [ngForOf]="weeks">
-                            <tr>
-                                <AbTemplate let-day ngFor [ngForOf]="week">
-                                    <td [attr.data-date]="day.dataDate" (click)="clickDay(day)">
-                                        <a
-                                                [class.dtp-select-day]="day.activeMonth"
-                                                [class.selected] ="day.activeDate"
-                                        >
-                                            {{day.date}}
-                                        </a>
-                                    </td>
-                                </AbTemplate>
-                            </tr>
-                        </AbTemplate>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="dtp-picker-datetime hidden">
-                    <div class="dtp-actual-meridien">
-                        <div class="left p20"><a class="dtp-meridien-am" >AM</a></div>
-                        <div class="dtp-actual-time p60"></div>
-                        <div class="right p20"><a class="dtp-meridien-pm" >PM</a></div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div id="dtp-svg-clock"></div>
-                </div>
-                <div class="dtp-picker-year hidden">
-                    <div><a  class="btn btn-default dtp-select-year-range before"
-                            style="margin: 0;">
-                        <i class="fa fa-arrow-up" aria-hidden="true"></i>
-                    </a></div>
-                    <div class="year-picker-item" data-year="2014">2014</div>
-                    <div class="year-picker-item" data-year="2015">2015</div>
-                    <div class="year-picker-item" data-year="2016">2016</div>
-                    <div class="year-picker-item" data-year="2017">2017</div>
-                    <div class="year-picker-item" data-year="2018">2018</div>
-                    <div class="year-picker-item" data-year="2019">2019</div>
-                    <div class="year-picker-item" data-year="2020">2020</div>
-                    <div><a  class="btn btn-default dtp-select-year-range after"
-                            style="margin: 0;">
-
-                        <i class="fa fa-arrow-down" aria-hidden="true"></i>
-
-                    </a></div>
-                </div>
-            </div>
-        </div>
-        <div class="dtp-buttons">
-            <button (click)="now()" class="dtp-btn-now btn btn-flat btn-sm">{{nowName}}</button>
-            <button (click)="clear()" class="dtp-btn-clear btn btn-flat btn-sm">{{_actionsClear}}</button>
-            <button (click)="cancel()" class="dtp-btn-cancel btn btn-flat btn-sm">{{_actionsCancel}}</button>
-            <button (click)="save()" class="dtp-btn-ok btn btn-flat btn-sm">{{_actionsOK}}</button>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
+{% import {HtmlModule} from "@paw/html" %}  
+{% export DatePickerComponent %} 
+   {% apply HtmlModule %}  
+   <div class="dtp" #dtp (click)="dtpclose($event)">
+       <div class="dtp-content" style="margin-left: -150px; top: 77.5px;">
+           <div class="dtp-date-view">
+               <header class="dtp-header">
+                   <div class="dtp-actual-day">{{dayName}}</div>
+                   <div class="dtp-close" (click)="close()" ><a >
+                       <i class="fa fa-close" aria-hidden="true"></i>
+                   </a></div>
+               </header>
+               <div class="dtp-date">
+                   <div>
+                       <div (click)="subtractMonth()" (touch)="subtractMonth()" class="left center p10">
+                           <a  lass="dtp-select-month-before">
+                           <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                       </a>
+                       </div>
+                       <div class="dtp-actual-month p80">{{abbreviatedMonthName}}</div>
+                       <div  (click)="addMonth()"  (touch)="addMonth()"  class="right center p10">
+                           <a  class="dtp-select-month-after">
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                       </a></div>
+                       <div class="clearfix"></div>
+                   </div>
+                   <div class="dtp-actual-num">{{day}}</div>
+                   <div>
+                       <div  (click)="subtractYear()"   (touch)="subtractYear()" class="left center p10">
+                           <a   class="dtp-select-year-before">
+   
+                           <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                       </a></div>
+                       <div class="dtp-actual-year p80">{{fullYear}}</div>
+                       <div
+                               (click)="addYear()"
+                               (touch)="addYear()"
+                               class="right center p10"
+                       >
+                           <a  class="dtp-select-year-after">
+   
+                           <i class="fa fa-chevron-right" aria-hidden="true"></i>
+   
+                       </a></div>
+                       <div class="clearfix"></div>
+                   </div>
+               </div>
+               <div class="dtp-time hidden">
+                   <div class="dtp-actual-maxtime">23:55</div>
+               </div>
+               <div class="dtp-picker">
+                   <div class="dtp-picker-calendar">
+                       <div class="dtp-picker-month">{{monthName}} {{fullYear}}</div>
+                       <table class="table dtp-picker-days">
+                           <thead>
+                           <tr>
+                               <th>{{dayNames[0][0]}}</th>
+                               <th>{{dayNames[1][0]}}</th>
+                               <th>{{dayNames[2][0]}}</th>
+                               <th>{{dayNames[3][0]}}</th>
+                               <th>{{dayNames[4][0]}}</th>
+                               <th>{{dayNames[5][0]}}</th>
+                               <th>{{dayNames[6][0]}}</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                           <tr></tr>
+                           <AbTemplate let-week ngFor [ngForOf]="weeks">
+                               <tr>
+                                   <AbTemplate let-day ngFor [ngForOf]="week">
+                                       <td [attr.data-date]="day.dataDate" (click)="clickDay(day)">
+                                           <a
+                                                   [class.dtp-select-day]="day.activeMonth"
+                                                   [class.selected] ="day.activeDate"
+                                           >
+                                               {{day.date}}
+                                           </a>
+                                       </td>
+                                   </AbTemplate>
+                               </tr>
+                           </AbTemplate>
+                           </tbody>
+                       </table>
+                   </div>
+                   <div class="dtp-picker-datetime hidden">
+                       <div class="dtp-actual-meridien">
+                           <div class="left p20"><a class="dtp-meridien-am" >AM</a></div>
+                           <div class="dtp-actual-time p60"></div>
+                           <div class="right p20"><a class="dtp-meridien-pm" >PM</a></div>
+                           <div class="clearfix"></div>
+                       </div>
+                       <div id="dtp-svg-clock"></div>
+                   </div>
+                   <div class="dtp-picker-year hidden">
+                       <div><a  class="btn btn-default dtp-select-year-range before"
+                               style="margin: 0;">
+                           <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                       </a></div>
+                       <div class="year-picker-item" data-year="2014">2014</div>
+                       <div class="year-picker-item" data-year="2015">2015</div>
+                       <div class="year-picker-item" data-year="2016">2016</div>
+                       <div class="year-picker-item" data-year="2017">2017</div>
+                       <div class="year-picker-item" data-year="2018">2018</div>
+                       <div class="year-picker-item" data-year="2019">2019</div>
+                       <div class="year-picker-item" data-year="2020">2020</div>
+                       <div><a  class="btn btn-default dtp-select-year-range after"
+                               style="margin: 0;">
+   
+                           <i class="fa fa-arrow-down" aria-hidden="true"></i>
+   
+                       </a></div>
+                   </div>
+               </div>
+           </div>
+           <div class="dtp-buttons">
+               <button (click)="now()" class="dtp-btn-now btn btn-flat btn-sm">{{nowName}}</button>
+               <button (click)="clear()" class="dtp-btn-clear btn btn-flat btn-sm">{{_actionsClear}}</button>
+               <button (click)="cancel()" class="dtp-btn-cancel btn btn-flat btn-sm">{{_actionsCancel}}</button>
+               <button (click)="save()" class="dtp-btn-ok btn btn-flat btn-sm">{{_actionsOK}}</button>
+               <div class="clearfix"></div>
+           </div>
+       </div>
+   </div>
+{% endexport %} 

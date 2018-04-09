@@ -1,81 +1,84 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {AbViewport} from "@atomicburst/viewport" %>  
-<% import {AbToolbar} from "@atomicburst/toolbar" %>  
-<% import {AbButton} from "@atomicburst/button" %>  
-<% import {AbContainer} from "@atomicburst/container" %>  
-<% import {AbDatatable} from "@atomicburst/datatable" %>  
-<% import {AbDatatable_column} from "@atomicburst/datatable_column" %>  
-<% apply HtmlModule %>  
-<AbViewport>
-    <AbToolbar
-            [AbToolbar]="{
-                   position:'top',
-                   ui:'dam-usuario'
-                }">
-        <div style="flex-grow: 1;"></div>
-        <AbButton [AbButton]="{text:'Novo'}" (click)="novo()">
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-file-o" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-        <AbButton [AbButton]="{text:'Pesquisar'}" (click)="pesquisar()">
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-    </AbToolbar>
-    <!--<AbContainer  [AbLayoutGrid]="{units:24}">-->
-    <!--<AbTextfield  [AbLayoutGridItem]="{mm:24}" [AbTextfield]="{fieldLabel:'Caminho'}"-->
-    <!--style="width:250px" [AbRecord]="[pesquisa,'caminho']" >-->
-    <!--</AbTextfield>-->
-    <!--</AbContainer>-->
-    <AbContainer [AbLayout_flex]="{'orientation':'vertical'}" style="width:100%;height:100%" >
-    <AbDatatable
-            [AbLayout_flex_item]="{flex:1}"
-            #datatableStore="AbStore"
-            (AbStore-select)="edit($event)"
-            [AbStore]="{
-                service:usuarioService,
-                proxy:{
-                  read:{
-                    method:'listQueryGrid',
-                    extraParams:{
-                      pesquisa:pesquisa
-                    }
-                  }
-                },
-                columns:[{
-                    field:'usuarioId',
-                    dataIndex:'CO_USUARIO'
-                },{
-                    field:'email',
-                    dataIndex:'DS_EMAIL'
-                },{
-                    field:'nome',
-                    dataIndex:'NO_USUARIO'
-                }]
-    }"
-    >
-        <AbDatatable_column [AbDatatable_column]="{
-            title:'Codigo',
-            dataIndex:'CO_USUARIO',
-            minWidth:'90px'
-          }">
-        </AbDatatable_column>
-        <AbDatatable_column [AbDatatable_column]="{
-            title:'Email',
-            dataIndex:'DS_EMAIL',
-            width:'45%',
-            minWidth:'150px'
-          }">
-        </AbDatatable_column>
-        <AbDatatable_column [AbDatatable_column]="{
-            title:'Nome',
-            dataIndex:'NO_USUARIO',
-            width:'45%',
-            minWidth:'150px'
-          }">
-        </AbDatatable_column>
-    </AbDatatable>
-    </AbContainer>
-</AbViewport>
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {AbViewport} from "@atomicburst/viewport" %}  
+{% import {AbToolbar} from "@atomicburst/toolbar" %}  
+{% import {AbButton} from "@atomicburst/button" %}  
+{% import {AbContainer} from "@atomicburst/container" %}  
+{% import {AbDatatable} from "@atomicburst/datatable" %}  
+{% import {AbDatatable_column} from "@atomicburst/datatable_column" %}  
+{% export LmfUsuarioListaComponent %} 
+   {% apply HtmlModule %}  
+   <AbViewport>
+       <AbToolbar
+               [AbToolbar]="{
+                      position:'top',
+                      ui:'dam-usuario'
+                   }">
+           <div style="flex-grow: 1;"></div>
+           <AbButton [AbButton]="{text:'Novo'}" (click)="novo()">
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-file-o" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+           <AbButton [AbButton]="{text:'Pesquisar'}" (click)="pesquisar()">
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-search" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+       </AbToolbar>
+       <!--<AbContainer  [AbLayoutGrid]="{units:24}">-->
+       <!--<AbTextfield  [AbLayoutGridItem]="{mm:24}" [AbTextfield]="{fieldLabel:'Caminho'}"-->
+       <!--style="width:250px" [AbRecord]="[pesquisa,'caminho']" >-->
+       <!--</AbTextfield>-->
+       <!--</AbContainer>-->
+       <AbContainer [AbLayout_flex]="{'orientation':'vertical'}" style="width:100%;height:100%" >
+       <AbDatatable
+               [AbLayout_flex_item]="{flex:1}"
+               #datatableStore="AbStore"
+               (AbStore-select)="edit($event)"
+               [AbStore]="{
+                   service:usuarioService,
+                   proxy:{
+                     read:{
+                       method:'listQueryGrid',
+                       extraParams:{
+                         pesquisa:pesquisa
+                       }
+                     }
+                   },
+                   columns:[{
+                       field:'usuarioId',
+                       dataIndex:'CO_USUARIO'
+                   },{
+                       field:'email',
+                       dataIndex:'DS_EMAIL'
+                   },{
+                       field:'nome',
+                       dataIndex:'NO_USUARIO'
+                   }]
+       }"
+       >
+           <AbDatatable_column [AbDatatable_column]="{
+               title:'Codigo',
+               dataIndex:'CO_USUARIO',
+               minWidth:'90px'
+             }">
+           </AbDatatable_column>
+           <AbDatatable_column [AbDatatable_column]="{
+               title:'Email',
+               dataIndex:'DS_EMAIL',
+               width:'45%',
+               minWidth:'150px'
+             }">
+           </AbDatatable_column>
+           <AbDatatable_column [AbDatatable_column]="{
+               title:'Nome',
+               dataIndex:'NO_USUARIO',
+               width:'45%',
+               minWidth:'150px'
+             }">
+           </AbDatatable_column>
+       </AbDatatable>
+       </AbContainer>
+   </AbViewport>
+   
+{% endexport %} 

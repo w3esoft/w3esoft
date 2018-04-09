@@ -1,30 +1,32 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {AbButton} from "@atomicburst/button" %>  
-<% import {AbDatepicker} from "@atomicburst/datepicker" %>  
-<% apply HtmlModule %>  
-<div id="{{id}}-inner" class="AbField-inner">
-  <label   class="AbField-label"  attr.for="{{id}}-input">{{config?.fieldLabel }}</label>
-  <div  class="AbField-input-group"  >
-    <div class="AbField-input">
-      <input   [AbMask-embedded]="true" AbMask_date class="AbField-input-inner"
-                (focus)= "_onFocus()"
-                [readonly]="readonly"
-                (focusout)="_onFocusout()"
-                (keydown)="_onKeydown($event)"
-                autocomplete="off"
-                (blur)="_onBlur($event)"
-                (input)="_onInput($event)"
-                type="text" type="{{config?.inputType}}"
-                name="{{id}}-input" id="{{id}}-input">
-      <div class="hr"></div>
-    </div>
-    <AbButton [hidden]="config.readonly" style="height: 16px;width: 15px;" (click)="openPicker()" >
-      <AbTemplate [AbTemplate]="{type:'icon'}">
-        <i class="fa fa-calendar" aria-hidden="true"></i>
-      </AbTemplate>
-    </AbButton>
-    <div *ngIf="invalid" class="AbField-error">{{messageError}}</div>
-  </div>
-  <AbDatepicker [AbRecord]="[recordDatepicker,'date']">
-  </AbDatepicker>
-</div>
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {AbButton} from "@atomicburst/button" %}  
+{% import {AbDatepicker} from "@atomicburst/datepicker" %}  
+{% export DateFieldComponent %} 
+   {% apply HtmlModule %}  
+   <div id="{{id}}-inner" class="AbField-inner">
+     <label   class="AbField-label"  attr.for="{{id}}-input">{{config?.fieldLabel }}</label>
+     <div  class="AbField-input-group"  >
+       <div class="AbField-input">
+         <input   [AbMask-embedded]="true" AbMask_date class="AbField-input-inner"
+                   (focus)= "_onFocus()"
+                   [readonly]="readonly"
+                   (focusout)="_onFocusout()"
+                   (keydown)="_onKeydown($event)"
+                   autocomplete="off"
+                   (blur)="_onBlur($event)"
+                   (input)="_onInput($event)"
+                   type="text" type="{{config?.inputType}}"
+                   name="{{id}}-input" id="{{id}}-input">
+         <div class="hr"></div>
+       </div>
+       <AbButton [hidden]="config.readonly" style="height: 16px;width: 15px;" (click)="openPicker()" >
+         <AbTemplate [AbTemplate]="{type:'icon'}">
+           <i class="fa fa-calendar" aria-hidden="true"></i>
+         </AbTemplate>
+       </AbButton>
+       <div *ngIf="invalid" class="AbField-error">{{messageError}}</div>
+     </div>
+     <AbDatepicker [AbRecord]="[recordDatepicker,'date']">
+     </AbDatepicker>
+   </div>
+{% endexport %} 

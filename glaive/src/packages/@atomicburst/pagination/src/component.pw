@@ -1,37 +1,39 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {AbMenu} from "@atomicburst/menu" %>  
-<% import {AbButton} from "@atomicburst/button" %>  
-<% import {*ngif} from "@atomicburst/common" %> 
-<% apply HtmlModule %>  
-<AbMenu [attr.ui]="{ui:'pagination'}">
-    <AbButton class="btn" *ngIf="btns['begin']" [hidden]="!btns['begin'].show"     (click)="moveToBeginPage()"           >
-        <AbTemplate [AbTemplate]="{type:'icon'}">
-            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-        </AbTemplate>
-    </AbButton>
-    <AbButton class="btn" *ngIf="btns['previous']" [hidden]="!btns['previous'].show"  (click)="move(-1)">
-        <AbTemplate [AbTemplate]="{type:'icon'}">
-            <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        </AbTemplate>
-    </AbButton>
-    <AbTemplate ngFor let-index [ngForOf]="btnsIndex" let-i="index">
-        <AbButton
-                *ngIf="btns[index]"   [hidden]="!btns[index].show"  class="btn"
-                [class.active]="btns[index].active"
-                (click)="move(index)">
-            <AbTemplate [AbTemplate]="{type:'text'}">
-                {{btns[index].text}}
-            </AbTemplate>
-        </AbButton>
-    </AbTemplate>
-    <AbButton class="btn"  *ngIf="btns['next']"  [hidden]="!btns['next'].show" (click)="move(1)">
-        <AbTemplate [AbTemplate]="{type:'icon'}">
-         <i class="fa fa-chevron-right" aria-hidden="true"></i>
-        </AbTemplate>
-    </AbButton>
-    <AbButton class="btn"  *ngIf="btns['end']"  [hidden]="!btns['end'].show" (click)="moveToEndPage()">
-        <AbTemplate [AbTemplate]="{type:'icon'}">
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-        </AbTemplate>
-    </AbButton>
-</AbMenu>
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {AbMenu} from "@atomicburst/menu" %}  
+{% import {AbButton} from "@atomicburst/button" %}  
+{% import {*ngif} from "@atomicburst/common" %} 
+{% export PaginationComponent %} 
+   {% apply HtmlModule %}  
+   <AbMenu [attr.ui]="{ui:'pagination'}">
+       <AbButton class="btn" *ngIf="btns['begin']" [hidden]="!btns['begin'].show"     (click)="moveToBeginPage()"           >
+           <AbTemplate [AbTemplate]="{type:'icon'}">
+               <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+           </AbTemplate>
+       </AbButton>
+       <AbButton class="btn" *ngIf="btns['previous']" [hidden]="!btns['previous'].show"  (click)="move(-1)">
+           <AbTemplate [AbTemplate]="{type:'icon'}">
+               <i class="fa fa-chevron-left" aria-hidden="true"></i>
+           </AbTemplate>
+       </AbButton>
+       <AbTemplate ngFor let-index [ngForOf]="btnsIndex" let-i="index">
+           <AbButton
+                   *ngIf="btns[index]"   [hidden]="!btns[index].show"  class="btn"
+                   [class.active]="btns[index].active"
+                   (click)="move(index)">
+               <AbTemplate [AbTemplate]="{type:'text'}">
+                   {{btns[index].text}}
+               </AbTemplate>
+           </AbButton>
+       </AbTemplate>
+       <AbButton class="btn"  *ngIf="btns['next']"  [hidden]="!btns['next'].show" (click)="move(1)">
+           <AbTemplate [AbTemplate]="{type:'icon'}">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+           </AbTemplate>
+       </AbButton>
+       <AbButton class="btn"  *ngIf="btns['end']"  [hidden]="!btns['end'].show" (click)="moveToEndPage()">
+           <AbTemplate [AbTemplate]="{type:'icon'}">
+               <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+           </AbTemplate>
+       </AbButton>
+   </AbMenu>
+{% endexport %} 

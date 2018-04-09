@@ -1,350 +1,353 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {AbViewport} from "@atomicburst/viewport" %>  
-<% import {AbToolbar} from "@atomicburst/toolbar" %>  
-<% import {AbButton} from "@atomicburst/button" %>  
-<% import {AbContainer} from "@atomicburst/container" %>  
-<% import {AbTextfield} from "@atomicburst/textfield" %>  
-<% import {AbCombo} from "@atomicburst/combo" %>  
-<% import {AbDatefield} from "@atomicburst/datefield" %>  
-<% import {AbDatatable} from "@atomicburst/datatable" %>  
-<% import {AbDatatable_column} from "@atomicburst/datatable_column" %>  
-<% apply HtmlModule %>  
-<AbViewport AbLayout_vbox>
-  <AbToolbar
-              [AbToolbar]="{
-                   position:'top',
-                   ui:'TOOLS-TOP'
-                }">
-    <div style="flex-grow: 1;"></div>
-    <AbButton [AbButton]="{text:'Graficos'}" (click)="chart()">
-      <AbTemplate [AbTemplate]="{type:'icon'}">
-        <i class="fa fa-pie-chart" aria-hidden="true"></i>
-      </AbTemplate>
-    </AbButton>
-    <AbButton [AbButton]="{text:'Pesquisar'}" (click)="pesquisar()">
-      <AbTemplate [AbTemplate]="{type:'icon'}">
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </AbTemplate>
-    </AbButton>
-  </AbToolbar>
-  <AbContainer AbLayoutGrid [AbLayoutGrid]="{units:24}"  style="padding:0px 5px 5px 5px">
-    <AbTextfield     [AbLayoutGridItem]="{sm:12,md:10}"
-                      #nomeCasoField="AbTextfield"
-                      (next)="nomeClienteNome.focus.emit();pesquisar();"
-                      [AbTextfield]="{fieldLabel:'Resumo'}"
-                      style="width:250px"
-                      [AbRecord]="[pesquisa,'resumo']"
-    >
-    </AbTextfield>
-    <AbTextfield [AbLayoutGridItem]="{sm:12,md:8}"
-                  #nomeClienteNome="AbTextfield"
-                  (next)="ComboColaboradorEntrada.focus.emit();pesquisar();"
-                  [AbTextfield]="{fieldLabel:'Cliente'}"
-                  style="width:250px"
-                  [AbRecord]="[pesquisa,'clienteNome']"
-    >
-    </AbTextfield>
-
-    <AbCombo
-              #ComboColaboradorEntrada
-              (next)="ComboSistema.focus.emit();pesquisar();"
-              [AbLayoutGridItem]="{sm:12,md:6}"
-              [AbStore]="{
-
-                    service:usuarioService,
-                    rootField:'usuarioId',
-                  proxy:{
-                    read:{
-                      method:'listQueryCombo',
-                      extraParams:{
-                        codigo :'01.03'
-                      }
-                    }
-                  },
-                  columns:[{
-                      dataIndex:'colaboradorApelido',
-                      field:'usuarioId.pessoaId.apelido'
-                  },{
-                      dataIndex:'colaboradorNome',
-                      field:'usuarioId.pessoaId.nome'
-                  },{
-                      dataIndex:'colaboradorId',
-                      field:'usuarioId.colaboradorId'
-                  }]
-              }"
-              [AbCombo]="{
-                clearButton:true,
-                fieldLabel:'Suporte' ,
-                displayField:'pessoaId.apelido',
-                keyField:'colaboradorId'
-              }"
-              [AbRecord]="[pesquisa,'casoId.colaboradorDestinoId']"
-    >
-      <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
-        {{r.get('pessoaId.nome')}}
-      </AbTemplate>
-    </AbCombo>
-    <AbCombo
-      #ComboSistema
-      (next)="statusCombo.focus.emit();pesquisar();"
-      [AbLayoutGridItem]="{sm:12,md:5}"
-
-      [AbStore]="{
-                service:categoriaService,
-                proxy:{
-                  read:{
-                    method:'listQueryCombo',
-                    extraParams:{
-                      codigo :'09'
-                    }
-                  }
-                },
-                columns:[{
-                    dataIndex:'categoriaId',
-                    field:'categoriaId'
-                },{
-                    dataIndex:'nome',
-                    field:'nome'
-                },{
-                    dataIndex:'codigo',
-                    field:'codigo'
-                }]
-            }
-        "
-      [AbCombo]="{
-
-          clearButton:true,
-          fieldLabel:'Sistema' ,
-          displayField:'nome',
-          keyField:'categoriaId'
-        }"
-
-      [AbStore]="{
-                columns:[{
-                    dataIndex:'categoriaId',
-                    field:'categoriaId'
-                },{
-                    dataIndex:'nome',
-                    field:'nome'
-                }]
-            }
-        "
-      [AbRecord]="[pesquisa,'casoId.categoriaId']"
-    >
-    </AbCombo>
-    <AbCombo  #statusCombo
-               [AbLayoutGridItem]="{sm:12,md:5}" #cb="AbCombo"
-               [AbCombo]="{
-                   clearButton:true,
-                        fieldLabel:'Status',
-                        displayField:'nome',
-                        keyField:'codigo',
-                        localQuery:true
-                   }"
-               (next)="ComboTipoAtendimento.focus.emit();pesquisar();"
-               [AbStore]="{
-                   proxy:{
-                     read:[{
-                        nome:'Aberto',
-                        codigo:1
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {AbViewport} from "@atomicburst/viewport" %}  
+{% import {AbToolbar} from "@atomicburst/toolbar" %}  
+{% import {AbButton} from "@atomicburst/button" %}  
+{% import {AbContainer} from "@atomicburst/container" %}  
+{% import {AbTextfield} from "@atomicburst/textfield" %}  
+{% import {AbCombo} from "@atomicburst/combo" %}  
+{% import {AbDatefield} from "@atomicburst/datefield" %}  
+{% import {AbDatatable} from "@atomicburst/datatable" %}  
+{% import {AbDatatable_column} from "@atomicburst/datatable_column" %}  
+{% export CrmSuporteGerenciadorListaComponent %} 
+   {% apply HtmlModule %}  
+   <AbViewport AbLayout_vbox>
+     <AbToolbar
+                 [AbToolbar]="{
+                      position:'top',
+                      ui:'TOOLS-TOP'
+                   }">
+       <div style="flex-grow: 1;"></div>
+       <AbButton [AbButton]="{text:'Graficos'}" (click)="chart()">
+         <AbTemplate [AbTemplate]="{type:'icon'}">
+           <i class="fa fa-pie-chart" aria-hidden="true"></i>
+         </AbTemplate>
+       </AbButton>
+       <AbButton [AbButton]="{text:'Pesquisar'}" (click)="pesquisar()">
+         <AbTemplate [AbTemplate]="{type:'icon'}">
+           <i class="fa fa-search" aria-hidden="true"></i>
+         </AbTemplate>
+       </AbButton>
+     </AbToolbar>
+     <AbContainer AbLayoutGrid [AbLayoutGrid]="{units:24}"  style="padding:0px 5px 5px 5px">
+       <AbTextfield     [AbLayoutGridItem]="{sm:12,md:10}"
+                         #nomeCasoField="AbTextfield"
+                         (next)="nomeClienteNome.focus.emit();pesquisar();"
+                         [AbTextfield]="{fieldLabel:'Resumo'}"
+                         style="width:250px"
+                         [AbRecord]="[pesquisa,'resumo']"
+       >
+       </AbTextfield>
+       <AbTextfield [AbLayoutGridItem]="{sm:12,md:8}"
+                     #nomeClienteNome="AbTextfield"
+                     (next)="ComboColaboradorEntrada.focus.emit();pesquisar();"
+                     [AbTextfield]="{fieldLabel:'Cliente'}"
+                     style="width:250px"
+                     [AbRecord]="[pesquisa,'clienteNome']"
+       >
+       </AbTextfield>
+   
+       <AbCombo
+                 #ComboColaboradorEntrada
+                 (next)="ComboSistema.focus.emit();pesquisar();"
+                 [AbLayoutGridItem]="{sm:12,md:6}"
+                 [AbStore]="{
+   
+                       service:usuarioService,
+                       rootField:'usuarioId',
+                     proxy:{
+                       read:{
+                         method:'listQueryCombo',
+                         extraParams:{
+                           codigo :'01.03'
+                         }
+                       }
+                     },
+                     columns:[{
+                         dataIndex:'colaboradorApelido',
+                         field:'usuarioId.pessoaId.apelido'
                      },{
-                        nome:'Liberados',
-                        codigo:2
+                         dataIndex:'colaboradorNome',
+                         field:'usuarioId.pessoaId.nome'
                      },{
-                        nome:'Finalizados',
-                        codigo:3
+                         dataIndex:'colaboradorId',
+                         field:'usuarioId.colaboradorId'
                      }]
-                   }
-               }"
-               [AbRecord]="[pesquisa,'statusNome']">
-    </AbCombo>
-    <AbCombo
-      #ComboTipoAtendimento
-      (next)="dataInicioCombo.focus.emit();pesquisar();"
-      [AbLayoutGridItem]="{sm:12,md:5}"
-      [AbStore]="{
-                service:causaService,
-                proxy:{
-                  read:{
-                    method:'listQueryCombo',
-                    extraParams:{
-                      codigo :'09'
-                    }
-                  }
-                },
-                columns:[{
-                    dataIndex:'causaId',
-                    field:'causaId'
-                },{
-                    dataIndex:'nome',
-                    field:'nome'
-                }]
-            }
-        "
-      [AbCombo]="{
-          clearButton:true,
-          fieldLabel:'Tipo de Atendimento' ,
-          displayField:'nome',
-          keyField:'causaId'
-        }"
-      [AbRecord]="[pesquisa,'causaId']"
-    >
-    </AbCombo>
-    <AbDatefield #dataInicioCombo [AbLayoutGridItem]="{sm:12,md:4}"
-                  [AbDatefield]="{fieldLabel:'Data Inicio'}"
-                  [AbRecord]="[pesquisa,'dtInicio']"
-
-                  (next)="dataFinalCombo.focus.emit();pesquisar();"
-    >
-    </AbDatefield>
-    <AbDatefield #dataFinalCombo [AbLayoutGridItem]="{sm:12,md:4}"
-                  [AbDatefield]="{fieldLabel:'Data Final'}"
-                  [AbRecord]="[pesquisa,'dtFinal']"
-                  (next)="nomeCasoField.focus.emit();pesquisar();"
-    >
-    </AbDatefield>
-  </AbContainer>
-  <AbDatatable
-    #datatableStore="AbStore"
-    [AbLayout_flex_item]="{flex:1}"
-    (AbStore-select)="edit($event)"
-    [AbStore]="{
-                service:casoService,
-                proxy:{
-                    read:{
-                      method:'listQueryGridSuporte',
-                      extraParams:{
-                        pesquisa:pesquisa
+                 }"
+                 [AbCombo]="{
+                   clearButton:true,
+                   fieldLabel:'Suporte' ,
+                   displayField:'pessoaId.apelido',
+                   keyField:'colaboradorId'
+                 }"
+                 [AbRecord]="[pesquisa,'casoId.colaboradorDestinoId']"
+       >
+         <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
+           {{r.get('pessoaId.nome')}}
+         </AbTemplate>
+       </AbCombo>
+       <AbCombo
+         #ComboSistema
+         (next)="statusCombo.focus.emit();pesquisar();"
+         [AbLayoutGridItem]="{sm:12,md:5}"
+   
+         [AbStore]="{
+                   service:categoriaService,
+                   proxy:{
+                     read:{
+                       method:'listQueryCombo',
+                       extraParams:{
+                         codigo :'09'
+                       }
+                     }
+                   },
+                   columns:[{
+                       dataIndex:'categoriaId',
+                       field:'categoriaId'
+                   },{
+                       dataIndex:'nome',
+                       field:'nome'
+                   },{
+                       dataIndex:'codigo',
+                       field:'codigo'
+                   }]
+               }
+           "
+         [AbCombo]="{
+   
+             clearButton:true,
+             fieldLabel:'Sistema' ,
+             displayField:'nome',
+             keyField:'categoriaId'
+           }"
+   
+         [AbStore]="{
+                   columns:[{
+                       dataIndex:'categoriaId',
+                       field:'categoriaId'
+                   },{
+                       dataIndex:'nome',
+                       field:'nome'
+                   }]
+               }
+           "
+         [AbRecord]="[pesquisa,'casoId.categoriaId']"
+       >
+       </AbCombo>
+       <AbCombo  #statusCombo
+                  [AbLayoutGridItem]="{sm:12,md:5}" #cb="AbCombo"
+                  [AbCombo]="{
+                      clearButton:true,
+                           fieldLabel:'Status',
+                           displayField:'nome',
+                           keyField:'codigo',
+                           localQuery:true
+                      }"
+                  (next)="ComboTipoAtendimento.focus.emit();pesquisar();"
+                  [AbStore]="{
+                      proxy:{
+                        read:[{
+                           nome:'Aberto',
+                           codigo:1
+                        },{
+                           nome:'Liberados',
+                           codigo:2
+                        },{
+                           nome:'Finalizados',
+                           codigo:3
+                        }]
                       }
-                    }
-                },
-
-                columnsDisplay:[
-                    {
-                        dataIndex:'statusNome',
-                        field:'statusNome',
-                        displayField:'statusNome'
-                    }
-                ],
-                columns:[{
-                    field:'casoId.tarefaId',
-                    dataIndex:'tarefaId'
-                },{
-                    field:'casoId.colaboradorDestinoId.pessoaId.apelido',
-                    dataIndex:'colaboradorDestinoApelido'
-                },{
-                    field:'casoId.colaboradorEntradaId.pessoaId.apelido',
-                    dataIndex:'colaboradorEntradaApelido'
-                },{
-                    field:'pessoaId.nome',
-                    dataIndex:'clienteNome'
-                },{
-                    field:'casoId.dataAlteracao',
-                    dataIndex:'dataAlteracao',
-                    dateFormat: 'Y-m-d H:i:s.u'
-                },{
-                    field:'casoId.resumo',
-                    dataIndex:'resumo'
-               },{
-                    field:'casoId.descricao',
-                    dataIndex:'descricao'
-               },{
-                    field:'avaliacaoComentario',
-                    dataIndex:'avaliacaoComentario'
-               },{
-                    field:'avaliacaoNota',
-                    dataIndex:'avaliacaoNota'
-               },{
-                    field:'casoId.status',
-                    dataIndex:'status'
-               },{
-                    field:'casoId.etapaId.etapaId',
-                    dataIndex:'etapaId'
-               },{
-                    field:'causaId.nome',
-                    dataIndex:'causaNome'
-                },{
-                    field:'causaId.causaId',
-                    dataIndex:'causaId'
-                }
-         ]
-    }
-    "
-    [AbDatatable]="{pagination:'bottom'}"
-  >
-    <AbDatatable_column [AbDatatable_column]="{
-            title:'Resumo',
-            maxWidth:'250px',
-            minWidth:'150px',
-            dataIndex:'resumo'
-          }">
-    </AbDatatable_column>
-    <AbDatatable_column [AbDatatable_column]="{
-            title:'Conclusão',
-            maxWidth:'250px',
-            minWidth:'150px',
-            dataIndex:'descricao'
-          }">
-    </AbDatatable_column>
-    <AbDatatable_column [AbDatatable_column]="{
-            title:'Avaliacao Comentario',
-            maxWidth:'250px',
-            minWidth:'150px',
-            dataIndex:'avaliacaoComentario'
-          }">
-    </AbDatatable_column>
-    <AbDatatable_column [AbDatatable_column]="{
-            title:'Nota',
-            maxWidth:'250px',
-            minWidth:'100px',
-            dataIndex:'avaliacaoNota'
-          }">
-    </AbDatatable_column>
-
-   <AbDatatable_column [AbDatatable_column]="{
-            title:'Cliente',
-            maxWidth:'250px',
-            minWidth:'150px',
-            dataIndex:'clienteNome'
-          }">
-    </AbDatatable_column>
-
-    <AbDatatable_column [AbDatatable_column]="{
-            dataIndex:'colaboradorDestinoApelido',
-            title:'Destino',
-            maxWidth:'250px',
-            minWidth:'150px'
-          }">
-    </AbDatatable_column>
-    <AbDatatable_column [AbDatatable_column]="{
-            dataIndex:'colaboradorEntradaApelido',
-            title:'Entrada',
-            maxWidth:'250px',
-            minWidth:'150px'
-          }">
-    </AbDatatable_column>
-    <AbDatatable_column [AbDatatable_column]="{
-        title:'Status',
-        minWidth:'90px',
-        dataIndex:'statusNome'
-      }"
-    >
-    </AbDatatable_column>
-    <AbDatatable_column [AbDatatable_column]="{
-                title:'Tipo de Atendimento',
-            dataIndex:'causaNome',
-            minWidth:'220px'
-          }">
-    </AbDatatable_column>
-    <AbDatatable_column [AbDatatable_column]="{
-            dataIndex:'dataAlteracao',
-            title:'Data',
-            width:'20%',
-            minWidth:'150px',
-            sort:'DESC',
-            dateFormat: 'd/m/Y H:i:s'
-          }">
-
-    </AbDatatable_column>
-  </AbDatatable>
-</AbViewport>
+                  }"
+                  [AbRecord]="[pesquisa,'statusNome']">
+       </AbCombo>
+       <AbCombo
+         #ComboTipoAtendimento
+         (next)="dataInicioCombo.focus.emit();pesquisar();"
+         [AbLayoutGridItem]="{sm:12,md:5}"
+         [AbStore]="{
+                   service:causaService,
+                   proxy:{
+                     read:{
+                       method:'listQueryCombo',
+                       extraParams:{
+                         codigo :'09'
+                       }
+                     }
+                   },
+                   columns:[{
+                       dataIndex:'causaId',
+                       field:'causaId'
+                   },{
+                       dataIndex:'nome',
+                       field:'nome'
+                   }]
+               }
+           "
+         [AbCombo]="{
+             clearButton:true,
+             fieldLabel:'Tipo de Atendimento' ,
+             displayField:'nome',
+             keyField:'causaId'
+           }"
+         [AbRecord]="[pesquisa,'causaId']"
+       >
+       </AbCombo>
+       <AbDatefield #dataInicioCombo [AbLayoutGridItem]="{sm:12,md:4}"
+                     [AbDatefield]="{fieldLabel:'Data Inicio'}"
+                     [AbRecord]="[pesquisa,'dtInicio']"
+   
+                     (next)="dataFinalCombo.focus.emit();pesquisar();"
+       >
+       </AbDatefield>
+       <AbDatefield #dataFinalCombo [AbLayoutGridItem]="{sm:12,md:4}"
+                     [AbDatefield]="{fieldLabel:'Data Final'}"
+                     [AbRecord]="[pesquisa,'dtFinal']"
+                     (next)="nomeCasoField.focus.emit();pesquisar();"
+       >
+       </AbDatefield>
+     </AbContainer>
+     <AbDatatable
+       #datatableStore="AbStore"
+       [AbLayout_flex_item]="{flex:1}"
+       (AbStore-select)="edit($event)"
+       [AbStore]="{
+                   service:casoService,
+                   proxy:{
+                       read:{
+                         method:'listQueryGridSuporte',
+                         extraParams:{
+                           pesquisa:pesquisa
+                         }
+                       }
+                   },
+   
+                   columnsDisplay:[
+                       {
+                           dataIndex:'statusNome',
+                           field:'statusNome',
+                           displayField:'statusNome'
+                       }
+                   ],
+                   columns:[{
+                       field:'casoId.tarefaId',
+                       dataIndex:'tarefaId'
+                   },{
+                       field:'casoId.colaboradorDestinoId.pessoaId.apelido',
+                       dataIndex:'colaboradorDestinoApelido'
+                   },{
+                       field:'casoId.colaboradorEntradaId.pessoaId.apelido',
+                       dataIndex:'colaboradorEntradaApelido'
+                   },{
+                       field:'pessoaId.nome',
+                       dataIndex:'clienteNome'
+                   },{
+                       field:'casoId.dataAlteracao',
+                       dataIndex:'dataAlteracao',
+                       dateFormat: 'Y-m-d H:i:s.u'
+                   },{
+                       field:'casoId.resumo',
+                       dataIndex:'resumo'
+                  },{
+                       field:'casoId.descricao',
+                       dataIndex:'descricao'
+                  },{
+                       field:'avaliacaoComentario',
+                       dataIndex:'avaliacaoComentario'
+                  },{
+                       field:'avaliacaoNota',
+                       dataIndex:'avaliacaoNota'
+                  },{
+                       field:'casoId.status',
+                       dataIndex:'status'
+                  },{
+                       field:'casoId.etapaId.etapaId',
+                       dataIndex:'etapaId'
+                  },{
+                       field:'causaId.nome',
+                       dataIndex:'causaNome'
+                   },{
+                       field:'causaId.causaId',
+                       dataIndex:'causaId'
+                   }
+            ]
+       }
+       "
+       [AbDatatable]="{pagination:'bottom'}"
+     >
+       <AbDatatable_column [AbDatatable_column]="{
+               title:'Resumo',
+               maxWidth:'250px',
+               minWidth:'150px',
+               dataIndex:'resumo'
+             }">
+       </AbDatatable_column>
+       <AbDatatable_column [AbDatatable_column]="{
+               title:'Conclusão',
+               maxWidth:'250px',
+               minWidth:'150px',
+               dataIndex:'descricao'
+             }">
+       </AbDatatable_column>
+       <AbDatatable_column [AbDatatable_column]="{
+               title:'Avaliacao Comentario',
+               maxWidth:'250px',
+               minWidth:'150px',
+               dataIndex:'avaliacaoComentario'
+             }">
+       </AbDatatable_column>
+       <AbDatatable_column [AbDatatable_column]="{
+               title:'Nota',
+               maxWidth:'250px',
+               minWidth:'100px',
+               dataIndex:'avaliacaoNota'
+             }">
+       </AbDatatable_column>
+   
+      <AbDatatable_column [AbDatatable_column]="{
+               title:'Cliente',
+               maxWidth:'250px',
+               minWidth:'150px',
+               dataIndex:'clienteNome'
+             }">
+       </AbDatatable_column>
+   
+       <AbDatatable_column [AbDatatable_column]="{
+               dataIndex:'colaboradorDestinoApelido',
+               title:'Destino',
+               maxWidth:'250px',
+               minWidth:'150px'
+             }">
+       </AbDatatable_column>
+       <AbDatatable_column [AbDatatable_column]="{
+               dataIndex:'colaboradorEntradaApelido',
+               title:'Entrada',
+               maxWidth:'250px',
+               minWidth:'150px'
+             }">
+       </AbDatatable_column>
+       <AbDatatable_column [AbDatatable_column]="{
+           title:'Status',
+           minWidth:'90px',
+           dataIndex:'statusNome'
+         }"
+       >
+       </AbDatatable_column>
+       <AbDatatable_column [AbDatatable_column]="{
+                   title:'Tipo de Atendimento',
+               dataIndex:'causaNome',
+               minWidth:'220px'
+             }">
+       </AbDatatable_column>
+       <AbDatatable_column [AbDatatable_column]="{
+               dataIndex:'dataAlteracao',
+               title:'Data',
+               width:'20%',
+               minWidth:'150px',
+               sort:'DESC',
+               dateFormat: 'd/m/Y H:i:s'
+             }">
+   
+       </AbDatatable_column>
+     </AbDatatable>
+   </AbViewport>
+   
+{% endexport %} 

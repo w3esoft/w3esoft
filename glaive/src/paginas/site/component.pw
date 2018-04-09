@@ -1,574 +1,576 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {AbViewport} from "@atomicburst/viewport" %>  
-<% import {AbToolbar} from "@atomicburst/toolbar" %>  
-<% import {AbButton} from "@atomicburst/button" %>  
-<% apply HtmlModule %>  
-<AbViewport #viewPort>
-    <AbToolbar style="background-color: #000" [hidden]="!(viewPort.offsetWidth< 520)">
-        <AbButton (click)="Toolbar.open()">
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-bars" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-    </AbToolbar>
-    <AbToolbar #Toolbar="AbToolbar" [AbToolbar]="{
-      floating: viewPort.offsetWidth< 520,
-      position: (viewPort.offsetWidth< 520) ? 'left' : 'top'
-  }">
-        <div *ngIf="viewPort.offsetWidth> 520" style="flex-grow: 1;" ></div>
-        <AbButton
-                (click)="scrollY.scrollTop=equipamentos.offsetTop- 20"
-                [AbButton]="{
-                  text:'Equipamentos'
-        }"
-        >
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-home" aria-hidden="true"></i>
-            </AbTemplate>
-
-        </AbButton>
-        <AbButton
-                (click)="scrollY.scrollTop=sistemas.offsetTop- 20"
-                [AbButton]="{
-                  text:'Sistemas'
-        }"
-
-        >
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-area-chart " aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-        <AbButton
-                (click)="scrollY.scrollTop=contatos.offsetTop- 20"
-                [AbButton]="{
-                  text:'contatos'
-        }"
-        >
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-phone" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-        <AbButton
-                (click)="scrollY.scrollTop=damOnline.offsetTop - 20"
-                [AbButton]="{
-                  text:'DAM Online'
-        }"
-        >
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-building-o" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-        <AbButton
-                (click)="scrollY.scrollTop=damOnline.offsetTop - 20"
-                [AbButton]="{
-                  href:environment.site.crmDam ,
-                  text:'CRM DAM'
-        }"
-        >
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-building-o" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-        <AbButton
-                (click)="scrollY.scrollTop=damOnline.offsetTop - 20"
-                [AbButton]="{
-                  href:environment.site.crmVortex ,
-                  text:'CRM Vortex'
-        }"
-        >
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-building-o" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-
-        <!--<AbButton-->
-        <!--(click)="scrollY.scrollTop=damOnline.offsetTop - 20"-->
-        <!--[AbButton]="{-->
-        <!--routerLink:'/damcloud',-->
-        <!--text:'Dam Cloud'-->
-        <!--}"-->
-        <!--&gt;-->
-        <!--<AbTemplate [AbTemplate]="{type:'icon'}">-->
-        <!--<i class="fa fa-cloud" aria-hidden="true"></i>-->
-        <!--</AbTemplate>-->
-        <!--</AbButton>-->
-
-        <AbButton
-                [AbButton]="{
-                  href:environment.site.damgerenciador,
-                  text:'Dam Gerenciador'
-        }"
-        >
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-file-code-o" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-
-        <AbButton
-                [AbButton]="{
-                  href:environment.site.consultaXml,
-                  text:'Consulta Xml'
-        }"
-        >
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-file-code-o" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-        <AbButton
-                [AbButton]="{
-                  href:environment.site.forum,
-                  text:'Forum DAM'
-        }"
-        >
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-comments" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-    </AbToolbar>
-
-    <div #scrollY class="scrollY">
-        <div style="position: relative;width: 100%;height: 60px">
-
-            <div class="page-top-backgound">
-                <img src="/assets/raiodesol.svg" style="width: 100%;position: absolute;bottom: 0px;">
-            </div>
-        </div>
-        <div style="text-align: center;display: block;">
-            <div class="page-top">
-                <img class="page-top-logo" src="assets/logo.svg">
-                <span>
-        HÁ MAIS DE 20 ANOS TRAZENDO SOLUÇÕES COMPLETAS PARA SUA EMPRESA
-      </span>
-                <br>
-                <AbButton
-
-                        [AbButton]="{
-           text:'Entrar',
-           routerLink:'/damonline'
-        }"
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {AbViewport} from "@atomicburst/viewport" %}  
+{% import {AbToolbar} from "@atomicburst/toolbar" %}  
+{% import {AbButton} from "@atomicburst/button" %}  
+{% export SiteComponent %} 
+   {% apply HtmlModule %}  
+   <AbViewport #viewPort>
+       <AbToolbar style="background-color: #000" [hidden]="!(viewPort.offsetWidth< 520)">
+           <AbButton (click)="Toolbar.open()">
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-bars" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+       </AbToolbar>
+       <AbToolbar #Toolbar="AbToolbar" [AbToolbar]="{
+         floating: viewPort.offsetWidth< 520,
+         position: (viewPort.offsetWidth< 520) ? 'left' : 'top'
+     }">
+           <div *ngIf="viewPort.offsetWidth> 520" style="flex-grow: 1;" ></div>
+           <AbButton
+                   (click)="scrollY.scrollTop=equipamentos.offsetTop- 20"
+                   [AbButton]="{
+                     text:'Equipamentos'
+           }"
+           >
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-home" aria-hidden="true"></i>
+               </AbTemplate>
+   
+           </AbButton>
+           <AbButton
+                   (click)="scrollY.scrollTop=sistemas.offsetTop- 20"
+                   [AbButton]="{
+                     text:'Sistemas'
+           }"
+   
+           >
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-area-chart " aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+           <AbButton
+                   (click)="scrollY.scrollTop=contatos.offsetTop- 20"
+                   [AbButton]="{
+                     text:'contatos'
+           }"
+           >
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-phone" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+           <AbButton
+                   (click)="scrollY.scrollTop=damOnline.offsetTop - 20"
+                   [AbButton]="{
+                     text:'DAM Online'
+           }"
+           >
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-building-o" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+           <AbButton
+                   (click)="scrollY.scrollTop=damOnline.offsetTop - 20"
+                   [AbButton]="{
+                     href:environment.site.crmDam ,
+                     text:'CRM DAM'
+           }"
+           >
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-building-o" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+           <AbButton
+                   (click)="scrollY.scrollTop=damOnline.offsetTop - 20"
+                   [AbButton]="{
+                     href:environment.site.crmVortex ,
+                     text:'CRM Vortex'
+           }"
+           >
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-building-o" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+   
+           <!--<AbButton-->
+           <!--(click)="scrollY.scrollTop=damOnline.offsetTop - 20"-->
+           <!--[AbButton]="{-->
+           <!--routerLink:'/damcloud',-->
+           <!--text:'Dam Cloud'-->
+           <!--}"-->
+           <!--&gt;-->
+           <!--<AbTemplate [AbTemplate]="{type:'icon'}">-->
+           <!--<i class="fa fa-cloud" aria-hidden="true"></i>-->
+           <!--</AbTemplate>-->
+           <!--</AbButton>-->
+   
+           <AbButton
+                   [AbButton]="{
+                     href:environment.site.damgerenciador,
+                     text:'Dam Gerenciador'
+           }"
+           >
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-file-code-o" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+   
+           <AbButton
+                   [AbButton]="{
+                     href:environment.site.consultaXml,
+                     text:'Consulta Xml'
+           }"
+           >
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-file-code-o" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+           <AbButton
+                   [AbButton]="{
+                     href:environment.site.forum,
+                     text:'Forum DAM'
+           }"
+           >
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-comments" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+       </AbToolbar>
+   
+       <div #scrollY class="scrollY">
+           <div style="position: relative;width: 100%;height: 60px">
+   
+               <div class="page-top-backgound">
+                   <img src="/assets/raiodesol.svg" style="width: 100%;position: absolute;bottom: 0px;">
+               </div>
+           </div>
+           <div style="text-align: center;display: block;">
+               <div class="page-top">
+                   <img class="page-top-logo" src="assets/logo.svg">
+                   <span>
+           HÁ MAIS DE 20 ANOS TRAZENDO SOLUÇÕES COMPLETAS PARA SUA EMPRESA
+         </span>
+                   <br>
+                   <AbButton
+   
+                           [AbButton]="{
+              text:'Entrar',
+              routerLink:'/damonline'
+           }"
+                           style="
+               background: #328ce8;
+               padding: 15px;
+               margin-top: 95px;
+               border: solid;
+               font-size: larger;
+   "
+                   >
+                       <AbTemplate [AbTemplate]="{type:'icon'}">
+                           <i class="fa fa-sign-in " aria-hidden="true"></i>
+                       </AbTemplate>
+                   </AbButton>
+               </div>
+               <div class="page-main">
+                   <div #equipamentos class="equipamentos">
+   
+                       <div class="equipamentos-header">
+                           <h1>Equipamentos</h1>
+                           <p>Nossos principais equipamentos.</p>
+                       </div>
+                       <div class="equipamentos-list">
+                           <div class="equipamentos-item">
+                               <img src="/assets/site/equipamento/11-BalancaPRIX5-Toledo.jpg" class="img-responsive img-circle" alt="">
+                               <h4>Balanças</h4>
+                               <p class="text-muted"></p>
+                           </div>
+                           <div class="equipamentos-item">
+                               <img src="/assets/site/equipamento/gaveta.jpg" class="img-responsive img-circle" alt="">
+                               <h4>Gavetas Eletrônicas</h4>
+                               <p class="text-muted"></p>
+                           </div>
+                           <div class="equipamentos-item">
+   
+   
+                               <!--<a data-fancybox="gallery" href="/assets/site/equipamento/mp4000_01.jpg" >-->
+                               <!--<div data-fancybox-close class="fancybox-close-small modal-close">Button</div>-->
+   
+                               <!--</a>-->
+   
+                               <img src="/assets/site/equipamento/mp4000_01.jpg">
+   
+                               <!-- Trigger the Modal -->
+                               <!--<img class="myImg" src="/assets/site/equipamento/mp4000_01.jpg" alt="Trolltunga, Norway" width="300" height="200">-->
+   
+                               <h4>Impressoras Fiscais</h4>
+                           </div>
+                       </div>
+                   </div>
+                   <div #parceiros class="parceiros">
+                       <div style="padding:0px 20%;">
+                           <h1 style="text-align: left">Parceiros</h1>
+                       </div>
+                       <img src="/assets/site/1-LogoBematech.svg">
+                       <img src="/assets/site/2-logo_daruma.svg">
+                       <img src="/assets/site/3-LogoElgin.svg">
+                       <img src="/assets/site/4_BNDS_A.svg">
+                   </div>
+                   <div class="pg1">
+   
+                       <div #sistemas class="sistemas" >
+                           <div class="sistemas-inner">
+                               <div class="sistema">
+                                   <div class="inner">
+   
+                                       <div class="header">
+                                           <h1>
+                                               Gerencial
+                                           </h1>
+                                           <p>
+                                               Supermecados
+                                           </p>
+                                       </div>
+                                       <div class="body">
+                                           <ul>
+                                               <li>
+                                                   Gerencia de compras e cotação
+                                               </li>
+                                               <li>
+                                                   Gerencia de atualização de gôndola e promoções
+                                               </li>
+                                               <li>
+                                                   Financeiro integrado
+                                               </li>
+                                               <li>
+                                                   Contabilidade integrada
+                                               </li>
+                                           </ul>
+                                           <AbButton
+                                                   [AbButton]="{
+                     text:'Conheça mais'
+                   }"
+                                                   class="conheca-mais"
+                                           >
+                                               <AbTemplate [AbTemplate]="{type:'icon'}">
+                                                   <i class="fa fa-sign-in " aria-hidden="true"></i>
+                                               </AbTemplate>
+                                           </AbButton>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="sistema">
+                                   <div class="inner">
+   
+                                       <div class="header">
+                                           <h1>
+                                               Infosac
+                                           </h1>
+                                           <p>
+                                               Pequenas empresas e lojas
+                                           </p>
+                                       </div>
+                                       <div class="body">
+                                           <ul>
+                                               <li>Controle de Estoque, compras e vendas</li>
+                                               <li>Controle fácilmente seu financeiro</li>
+                                               <li>NF-e e NFC-e integrado</li>
+                                               <li>Ordem de serviço</li>
+                                               <li>
+                                               </li>
+                                           </ul>
+                                           <AbButton
+   
+                                                   [AbButton]="{
+                     text:'Conheça mais'
+                   }"
+                                                   class="conheca-mais"
+                                           >
+                                               <AbTemplate [AbTemplate]="{type:'icon'}">
+                                                   <i class="fa fa-sign-in " aria-hidden="true"></i>
+                                               </AbTemplate>
+                                           </AbButton>
+                                       </div>
+                                   </div>
+                                   <div>
+                                   </div>
+                               </div>
+                               <div class="sistema">
+                                   <div class="inner">
+                                       <div class="header">
+                                           <h1>
+                                               PDV
+                                           </h1>
+                                           <p>
+                                               Frente de loja
+                                           </p>
+                                       </div>
+                                       <div class="body">
+                                           <ul>
+                                               <li>
+                                                   Realize vendas fácilmente com emissão de NFC-e e NF-e integrado
+                                               </li>
+                                               <li>
+                                                   Totalmente desconectado, suas vendas não param por falta de internet
+                                               </li>
+                                               <li>
+                                                   Integrado com o financeiro e contabilidade
+                                               </li>
+                                               <li>
+                                                   Fácil, confiável e rápido
+                                               </li>
+                                           </ul>
+                                           <AbButton
+   
+                                                   [AbButton]="{
+                     text:'Conheça mais'
+                   }"
+                                                   class="conheca-mais"
+                                           >
+                                               <AbTemplate [AbTemplate]="{type:'icon'}">
+                                                   <i class="fa fa-sign-in " aria-hidden="true"></i>
+                                               </AbTemplate>
+                                           </AbButton>
+                                       </div>
+                                   </div>
+                                   <div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div #damOnline
                         style="
-            background: #328ce8;
-            padding: 15px;
-            margin-top: 95px;
-            border: solid;
-            font-size: larger;
-"
-                >
-                    <AbTemplate [AbTemplate]="{type:'icon'}">
-                        <i class="fa fa-sign-in " aria-hidden="true"></i>
-                    </AbTemplate>
-                </AbButton>
-            </div>
-            <div class="page-main">
-                <div #equipamentos class="equipamentos">
-
-                    <div class="equipamentos-header">
-                        <h1>Equipamentos</h1>
-                        <p>Nossos principais equipamentos.</p>
-                    </div>
-                    <div class="equipamentos-list">
-                        <div class="equipamentos-item">
-                            <img src="/assets/site/equipamento/11-BalancaPRIX5-Toledo.jpg" class="img-responsive img-circle" alt="">
-                            <h4>Balanças</h4>
-                            <p class="text-muted"></p>
-                        </div>
-                        <div class="equipamentos-item">
-                            <img src="/assets/site/equipamento/gaveta.jpg" class="img-responsive img-circle" alt="">
-                            <h4>Gavetas Eletrônicas</h4>
-                            <p class="text-muted"></p>
-                        </div>
-                        <div class="equipamentos-item">
-
-
-                            <!--<a data-fancybox="gallery" href="/assets/site/equipamento/mp4000_01.jpg" >-->
-                            <!--<div data-fancybox-close class="fancybox-close-small modal-close">Button</div>-->
-
-                            <!--</a>-->
-
-                            <img src="/assets/site/equipamento/mp4000_01.jpg">
-
-                            <!-- Trigger the Modal -->
-                            <!--<img class="myImg" src="/assets/site/equipamento/mp4000_01.jpg" alt="Trolltunga, Norway" width="300" height="200">-->
-
-                            <h4>Impressoras Fiscais</h4>
-                        </div>
-                    </div>
-                </div>
-                <div #parceiros class="parceiros">
-                    <div style="padding:0px 20%;">
-                        <h1 style="text-align: left">Parceiros</h1>
-                    </div>
-                    <img src="/assets/site/1-LogoBematech.svg">
-                    <img src="/assets/site/2-logo_daruma.svg">
-                    <img src="/assets/site/3-LogoElgin.svg">
-                    <img src="/assets/site/4_BNDS_A.svg">
-                </div>
-                <div class="pg1">
-
-                    <div #sistemas class="sistemas" >
-                        <div class="sistemas-inner">
-                            <div class="sistema">
-                                <div class="inner">
-
-                                    <div class="header">
-                                        <h1>
-                                            Gerencial
-                                        </h1>
-                                        <p>
-                                            Supermecados
-                                        </p>
-                                    </div>
-                                    <div class="body">
-                                        <ul>
-                                            <li>
-                                                Gerencia de compras e cotação
-                                            </li>
-                                            <li>
-                                                Gerencia de atualização de gôndola e promoções
-                                            </li>
-                                            <li>
-                                                Financeiro integrado
-                                            </li>
-                                            <li>
-                                                Contabilidade integrada
-                                            </li>
-                                        </ul>
-                                        <AbButton
-                                                [AbButton]="{
-                  text:'Conheça mais'
-                }"
-                                                class="conheca-mais"
-                                        >
-                                            <AbTemplate [AbTemplate]="{type:'icon'}">
-                                                <i class="fa fa-sign-in " aria-hidden="true"></i>
-                                            </AbTemplate>
-                                        </AbButton>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sistema">
-                                <div class="inner">
-
-                                    <div class="header">
-                                        <h1>
-                                            Infosac
-                                        </h1>
-                                        <p>
-                                            Pequenas empresas e lojas
-                                        </p>
-                                    </div>
-                                    <div class="body">
-                                        <ul>
-                                            <li>Controle de Estoque, compras e vendas</li>
-                                            <li>Controle fácilmente seu financeiro</li>
-                                            <li>NF-e e NFC-e integrado</li>
-                                            <li>Ordem de serviço</li>
-                                            <li>
-                                            </li>
-                                        </ul>
-                                        <AbButton
-
-                                                [AbButton]="{
-                  text:'Conheça mais'
-                }"
-                                                class="conheca-mais"
-                                        >
-                                            <AbTemplate [AbTemplate]="{type:'icon'}">
-                                                <i class="fa fa-sign-in " aria-hidden="true"></i>
-                                            </AbTemplate>
-                                        </AbButton>
-                                    </div>
-                                </div>
-                                <div>
-                                </div>
-                            </div>
-                            <div class="sistema">
-                                <div class="inner">
-                                    <div class="header">
-                                        <h1>
-                                            PDV
-                                        </h1>
-                                        <p>
-                                            Frente de loja
-                                        </p>
-                                    </div>
-                                    <div class="body">
-                                        <ul>
-                                            <li>
-                                                Realize vendas fácilmente com emissão de NFC-e e NF-e integrado
-                                            </li>
-                                            <li>
-                                                Totalmente desconectado, suas vendas não param por falta de internet
-                                            </li>
-                                            <li>
-                                                Integrado com o financeiro e contabilidade
-                                            </li>
-                                            <li>
-                                                Fácil, confiável e rápido
-                                            </li>
-                                        </ul>
-                                        <AbButton
-
-                                                [AbButton]="{
-                  text:'Conheça mais'
-                }"
-                                                class="conheca-mais"
-                                        >
-                                            <AbTemplate [AbTemplate]="{type:'icon'}">
-                                                <i class="fa fa-sign-in " aria-hidden="true"></i>
-                                            </AbTemplate>
-                                        </AbButton>
-                                    </div>
-                                </div>
-                                <div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div #damOnline
-                     style="
-              height: 450px;
-              display: none;
-              background: #ffffff;
-              color: #328ce8;
-              padding: 15px;
-            "
-                >
-                    <div style="padding:15px 5%;">
-                        <h1 style="
-
-    text-align: left;
-    padding-bottom: 10px;
-    font-size: 25px;
-    border-bottom: 3px solid #328ce8;
-
-
-">
-                            <i  style="font-size: 50px" class="fa fa-building-o" aria-hidden="true">
-                            </i>
-                            DAM Online
-                        </h1>
-                        <div class="sistemas">
-                            <div class="sistema">
-                                <div class="inner"  style="width: 300px;">
-
-                                    <div class="header">
-                                        <h1>
-                                            Microempreendedor
-                                        </h1>
-                                        <p>
-                                            Pra você Organizar suas finanças
-                                        </p>
-                                    </div>
-                                    <div class="body">
-                                        <ul>
-                                            <li>
-                                                Controler de recebimentos e pagamentos
-                                            </li>
-                                            <li>
-                                                Agenda de Tarefas e compromissos
-                                            </li>
-                                            <li>
-                                                Emissão de NotaFisical
-                                            </li>
-                                            <li>
-                                                suporte a 4 usuarios
-                                            </li>
-                                        </ul>
-                                        <AbButton
-                                                [AbButton]="{
-                        text:'Contratar',
-                        routerLink:'damonline/contratar/1'
-                      }"
-                                                class="conheca-mais"
-                                        >
-                                            <AbTemplate [AbTemplate]="{type:'icon'}">
-                                                <i class="fa fa-sign-in " aria-hidden="true"></i>
-                                            </AbTemplate>
-                                        </AbButton>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sistema">
-                                <div class="inner">
-
-                                    <div class="header">
-                                        <h1>
-                                            Médias empresas
-                                        </h1>
-                                        <p>
-                                            Fundamental para medias empresas
-                                        </p>
-                                    </div>
-                                    <div class="body">
-                                        <ul>
-                                            <li>
-                                                Host on your server
-                                            </li>
-                                            <li>
-                                                Host on your server
-                                            </li>
-                                            <li>
-                                                Host on your server
-                                            </li>
-                                            <li>
-                                                suporte a 25 usuarios
-                                            </li>
-                                        </ul>
-                                        <AbButton
-
-                                                [AbButton]="{
-                        text:'Contratar',
-                        routerLink:'damonline/contratar/2'
-                      }"
-                                                class="conheca-mais"
-                                        >
-                                            <AbTemplate [AbTemplate]="{type:'icon'}">
-                                                <i class="fa fa-sign-in " aria-hidden="true"></i>
-                                            </AbTemplate>
-                                        </AbButton>
-                                    </div>
-                                </div>
-                                <div>
-                                </div>
-                            </div>
-                            <div class="sistema">
-                                <div class="inner">
-                                    <div class="header">
-                                        <h1>
-                                            Grandes empresas
-                                        </h1>
-                                        <p>
-                                            Fundamental para grandes empresas
-                                        </p>
-                                    </div>
-                                    <div class="body">
-                                        <ul>
-                                            <li>
-                                                Host on your server
-                                            </li>
-                                            <li>
-                                                Host on your server
-                                            </li>
-                                            <li>
-                                                Host on your server
-                                            </li>
-                                            <li>
-                                                suporte a 80 usuarios
-                                            </li>
-                                        </ul>
-                                        <AbButton
-
-                                                [AbButton]="{
-                        text:'Contratar',
-                        routerLink:'damonline/contratar/3'
-                      }"
-                                                class="conheca-mais"
-                                        >
-                                            <AbTemplate [AbTemplate]="{type:'icon'}">
-                                                <i class="fa fa-sign-in " aria-hidden="true"></i>
-                                            </AbTemplate>
-                                        </AbButton>
-                                    </div>
-                                </div>
-                                <div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--<div style="padding: 15px;">-->
-                        <!--<div style="float: left;text-align: left" class="body">-->
-                        <!--<ul>-->
-                        <!--<li>-->
-                        <!--<i class="fa fa-check" aria-hidden="true"></i>PDV-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<i class="fa fa-check" aria-hidden="true"></i>CRM-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<i class="fa fa-check" aria-hidden="true"></i>Tributação-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<i class="fa fa-check" aria-hidden="true"></i>Cotação de Produtos-->
-                        <!--</li>-->
-                        <!--</ul>-->
-                        <!--</div>-->
-                        <!--<AbButton-->
-                        <!--style="height: 50px;float: right;"-->
-                        <!--[AbButton]="{-->
-                        <!--routerLink:'/damonline/contratar',-->
-                        <!--text:'Contratar'-->
-                        <!--}"-->
-                        <!--class="conheca-mais"-->
-                        <!--&gt;-->
-                        <!--<AbTemplate [AbTemplate]="{type:'icon'}">-->
-                        <!--<i class="fa fa-check" aria-hidden="true"></i>-->
-                        <!--</AbTemplate>-->
-                        <!--</AbButton>-->
-                        <!--</div>-->
-                    </div>
-
-                </div>
-                <div #contatos class="footer">
-                    <div class="container">
-
-                        <div class="inner">
-                            <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m23!1m10!1m3!1d1056.5390057776206!2d-41.902542!3d-21.197399!2m1!3f0!3m2!1i1024!2i768!4f13.1!4m10!1i0!3e0!4m1!2sDAM+SISTEMAS+E+TECNOLOGIA!4m5!1s0xbc603ee33be6c7%3A0x77c9be9e2cf01376!2sAv.+Pres.+Rosevelt%2C+255%2C+Itaperuna+-+RJ%2C+28300-000%2C+Brasil!3m2!1d-21.1974286!2d-41.9025421!5e1!3m2!1spt-BR!2sbr!4v1426573454345"
-                            >
-                            </iframe>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="inner" style="width: 350px; height: 200px">
-                            <h1>
-
-                                Itaperuna (Matriz):
-                            </h1>
-                            <hr class="divider">
-                            <span>
-            Tel: (22) 3811-0660
-            e-mail:damsistemas@damsistemas.com.br
-            Endereço: Av. Presidente Franklin Roosevelt, 255
-            Bairro: Cidade Nova
-            Cidade: Itaperuna - RJ
-            CEP: 28300-000
-            Pais: Brasil
-          </span>
-                        </div>
-
-                    </div>
-                    <div class="container">
-                        <div class="inner" style="width: 350px; height: 200px">
-                            <h1>
-                                Macaé (Filial):
-                            </h1>
-                            <hr class="divider">
-                            <span>
-            Endereço: (Atualizando o site)
-            Bairro: (Atualizando o site)
-            Cidade: Macaé - RJ
-            CEP: 00000-000
-            Pais: Brasil
-          </span>
-                        </div>
-                    </div>
-
-
-                    <hr class="divider">
-                    <div class="container">
-                        <div class="inner center">
-          <span>
-            D.A.M. Sistemas e Tecnologia Ltda
-            Copyright © 1989-2015. Todos os Direitos Reservados.
-          </span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-</AbViewport>
+                 height: 450px;
+                 display: none;
+                 background: #ffffff;
+                 color: #328ce8;
+                 padding: 15px;
+               "
+                   >
+                       <div style="padding:15px 5%;">
+                           <h1 style="
+   
+       text-align: left;
+       padding-bottom: 10px;
+       font-size: 25px;
+       border-bottom: 3px solid #328ce8;
+   
+   
+   ">
+                               <i  style="font-size: 50px" class="fa fa-building-o" aria-hidden="true">
+                               </i>
+                               DAM Online
+                           </h1>
+                           <div class="sistemas">
+                               <div class="sistema">
+                                   <div class="inner"  style="width: 300px;">
+   
+                                       <div class="header">
+                                           <h1>
+                                               Microempreendedor
+                                           </h1>
+                                           <p>
+                                               Pra você Organizar suas finanças
+                                           </p>
+                                       </div>
+                                       <div class="body">
+                                           <ul>
+                                               <li>
+                                                   Controler de recebimentos e pagamentos
+                                               </li>
+                                               <li>
+                                                   Agenda de Tarefas e compromissos
+                                               </li>
+                                               <li>
+                                                   Emissão de NotaFisical
+                                               </li>
+                                               <li>
+                                                   suporte a 4 usuarios
+                                               </li>
+                                           </ul>
+                                           <AbButton
+                                                   [AbButton]="{
+                           text:'Contratar',
+                           routerLink:'damonline/contratar/1'
+                         }"
+                                                   class="conheca-mais"
+                                           >
+                                               <AbTemplate [AbTemplate]="{type:'icon'}">
+                                                   <i class="fa fa-sign-in " aria-hidden="true"></i>
+                                               </AbTemplate>
+                                           </AbButton>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="sistema">
+                                   <div class="inner">
+   
+                                       <div class="header">
+                                           <h1>
+                                               Médias empresas
+                                           </h1>
+                                           <p>
+                                               Fundamental para medias empresas
+                                           </p>
+                                       </div>
+                                       <div class="body">
+                                           <ul>
+                                               <li>
+                                                   Host on your server
+                                               </li>
+                                               <li>
+                                                   Host on your server
+                                               </li>
+                                               <li>
+                                                   Host on your server
+                                               </li>
+                                               <li>
+                                                   suporte a 25 usuarios
+                                               </li>
+                                           </ul>
+                                           <AbButton
+   
+                                                   [AbButton]="{
+                           text:'Contratar',
+                           routerLink:'damonline/contratar/2'
+                         }"
+                                                   class="conheca-mais"
+                                           >
+                                               <AbTemplate [AbTemplate]="{type:'icon'}">
+                                                   <i class="fa fa-sign-in " aria-hidden="true"></i>
+                                               </AbTemplate>
+                                           </AbButton>
+                                       </div>
+                                   </div>
+                                   <div>
+                                   </div>
+                               </div>
+                               <div class="sistema">
+                                   <div class="inner">
+                                       <div class="header">
+                                           <h1>
+                                               Grandes empresas
+                                           </h1>
+                                           <p>
+                                               Fundamental para grandes empresas
+                                           </p>
+                                       </div>
+                                       <div class="body">
+                                           <ul>
+                                               <li>
+                                                   Host on your server
+                                               </li>
+                                               <li>
+                                                   Host on your server
+                                               </li>
+                                               <li>
+                                                   Host on your server
+                                               </li>
+                                               <li>
+                                                   suporte a 80 usuarios
+                                               </li>
+                                           </ul>
+                                           <AbButton
+   
+                                                   [AbButton]="{
+                           text:'Contratar',
+                           routerLink:'damonline/contratar/3'
+                         }"
+                                                   class="conheca-mais"
+                                           >
+                                               <AbTemplate [AbTemplate]="{type:'icon'}">
+                                                   <i class="fa fa-sign-in " aria-hidden="true"></i>
+                                               </AbTemplate>
+                                           </AbButton>
+                                       </div>
+                                   </div>
+                                   <div>
+                                   </div>
+                               </div>
+                           </div>
+                           <!--<div style="padding: 15px;">-->
+                           <!--<div style="float: left;text-align: left" class="body">-->
+                           <!--<ul>-->
+                           <!--<li>-->
+                           <!--<i class="fa fa-check" aria-hidden="true"></i>PDV-->
+                           <!--</li>-->
+                           <!--<li>-->
+                           <!--<i class="fa fa-check" aria-hidden="true"></i>CRM-->
+                           <!--</li>-->
+                           <!--<li>-->
+                           <!--<i class="fa fa-check" aria-hidden="true"></i>Tributação-->
+                           <!--</li>-->
+                           <!--<li>-->
+                           <!--<i class="fa fa-check" aria-hidden="true"></i>Cotação de Produtos-->
+                           <!--</li>-->
+                           <!--</ul>-->
+                           <!--</div>-->
+                           <!--<AbButton-->
+                           <!--style="height: 50px;float: right;"-->
+                           <!--[AbButton]="{-->
+                           <!--routerLink:'/damonline/contratar',-->
+                           <!--text:'Contratar'-->
+                           <!--}"-->
+                           <!--class="conheca-mais"-->
+                           <!--&gt;-->
+                           <!--<AbTemplate [AbTemplate]="{type:'icon'}">-->
+                           <!--<i class="fa fa-check" aria-hidden="true"></i>-->
+                           <!--</AbTemplate>-->
+                           <!--</AbButton>-->
+                           <!--</div>-->
+                       </div>
+   
+                   </div>
+                   <div #contatos class="footer">
+                       <div class="container">
+   
+                           <div class="inner">
+                               <iframe
+                                       src="https://www.google.com/maps/embed?pb=!1m23!1m10!1m3!1d1056.5390057776206!2d-41.902542!3d-21.197399!2m1!3f0!3m2!1i1024!2i768!4f13.1!4m10!1i0!3e0!4m1!2sDAM+SISTEMAS+E+TECNOLOGIA!4m5!1s0xbc603ee33be6c7%3A0x77c9be9e2cf01376!2sAv.+Pres.+Rosevelt%2C+255%2C+Itaperuna+-+RJ%2C+28300-000%2C+Brasil!3m2!1d-21.1974286!2d-41.9025421!5e1!3m2!1spt-BR!2sbr!4v1426573454345"
+                               >
+                               </iframe>
+                           </div>
+                       </div>
+                       <div class="container">
+                           <div class="inner" style="width: 350px; height: 200px">
+                               <h1>
+   
+                                   Itaperuna (Matriz):
+                               </h1>
+                               <hr class="divider">
+                               <span>
+               Tel: (22) 3811-0660
+               e-mail:damsistemas@damsistemas.com.br
+               Endereço: Av. Presidente Franklin Roosevelt, 255
+               Bairro: Cidade Nova
+               Cidade: Itaperuna - RJ
+               CEP: 28300-000
+               Pais: Brasil
+             </span>
+                           </div>
+   
+                       </div>
+                       <div class="container">
+                           <div class="inner" style="width: 350px; height: 200px">
+                               <h1>
+                                   Macaé (Filial):
+                               </h1>
+                               <hr class="divider">
+                               <span>
+               Endereço: (Atualizando o site)
+               Bairro: (Atualizando o site)
+               Cidade: Macaé - RJ
+               CEP: 00000-000
+               Pais: Brasil
+             </span>
+                           </div>
+                       </div>
+   
+   
+                       <hr class="divider">
+                       <div class="container">
+                           <div class="inner center">
+             <span>
+               D.A.M. Sistemas e Tecnologia Ltda
+               Copyright © 1989-2015. Todos os Direitos Reservados.
+             </span>
+                           </div>
+                       </div>
+   
+                   </div>
+               </div>
+   
+   
+           </div>
+       </div>
+   </AbViewport>
+{% endexport %} 

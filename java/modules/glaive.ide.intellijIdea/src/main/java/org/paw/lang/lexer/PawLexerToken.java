@@ -3,21 +3,6 @@ package org.paw.lang.lexer;
 import com.intellij.lexer.LexerPosition;
 
 public class PawLexerToken {
-    public static final int TOKEN_EOF = 1;
-    public static final int TOKEN_TAG_END = 1101;
-    public static final int TOKEN_TAG_START = 1102;
-    public static final int TOKEN_TAG_START_END = 1103;
-    public static final int TOKEN_TAG_IDENT = 1104;
-    public static final int TOKEN_TAG_TEMPLATE = 1105;
-    public static final int TOKEN_TAG_INPUT = 1106;
-    public static final int TOKEN_TAG_OUTPUT = 1107;
-    public static final int TOKEN_TAG_INPUT_OUTPUT = 1108;
-    public static final int TOKEN_TAG_STRING = 1201;
-    public static final int TOKEN_TAG_NUMERIC = 1202;
-    public static final int TOKEN_TOKEN_TEXT = 2000;
-    public static final int TOKEN_WHITESPACE = 3000;
-    public static final int TOKEN_LINE = 4000;
-    public static final int TOKEN_ERROR = -1;
     private int index;
     private LexerPosition currentPosition;
     private String value;

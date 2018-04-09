@@ -1,198 +1,201 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {AbViewport} from "@atomicburst/viewport" %>  
-<% import {AbToolbar} from "@atomicburst/toolbar" %>  
-<% import {AbButton} from "@atomicburst/button" %>  
-<% import {AbContainer} from "@atomicburst/container" %>  
-<% import {AbTextfield} from "@atomicburst/textfield" %>  
-<% import {AbDatatable} from "@atomicburst/datatable" %>  
-<% import {AbDatatable_column} from "@atomicburst/datatable_column" %>  
-<% apply HtmlModule %>  
-<AbViewport>
-    <AbToolbar
-            [AbToolbar]="{
-                   position:'top',
-                   ui:'dam-sincmaster'
-                }">
-        <div style="flex-grow: 1;"></div>
-        <!--<AbButton [AbButton]="{text:'Limpar'}" (click)="limpar()">-->
-        <!--<AbTemplate [AbTemplate]="{type:'icon'}">-->
-        <!--<i class="fa fa-eraser" aria-hidden="true"></i>-->
-        <!--</AbTemplate>-->
-        <!--</AbButton>-->
-        <AbButton (click)="atualizarAll()" [AbButton]="{text:'atualizar',iconCls:'fa fa-atualizar'}">
-        </AbButton>
-        <AbButton [AbButton]="{text:'Pesquisar'}" (click)="pesquisar()">
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-    </AbToolbar>
-    <AbContainer [AbLayout_flex]="{'orientation':'vertical'}" style="width:100%;height:100%">
-        <AbContainer [AbLayoutGrid]="{units:24}">
-            <AbTextfield [AbLayoutGridItem]="{mm:24}" [AbTextfield]="{fieldLabel:'Descricao'}"
-                          style="width:250px" [AbRecord]="[pesquisa,'descricao']">
-            </AbTextfield>
-        </AbContainer>
-        <AbDatatable
-                [AbLayout_flex_item]="{flex:1}"
-                #datatableStore="AbStore"
-
-                [AbStore]="{
-                service:processoStatusService,
-                proxy:{
-                  read:{
-                    method:'listQueryGrid',
-                    extraParams:{
-                      pesquisa:pesquisa
-                    }
-                  }
-                },
-
-
-                columnsDisplay:[
-                    {
-                        dataIndex:'iniciar',
-                        field:'iniciar',
-                        displayField:'iniciar'
-                    },
-                    {
-                        dataIndex:'pausar',
-                        field:'pausar',
-                        displayField:'pausar'
-                    },
-                    {
-                        dataIndex:'reiniciar',
-                        field:'reiniciar',
-                        displayField:'reiniciar'
-                    },
-                    {
-                        dataIndex:'atualizar',
-                        field:'atualizar',
-                        displayField:'atualizar'
-                    },
-                    {
-                        dataIndex:'$processo1',
-                        field:'$processo1',
-                        displayField:'$processo1'
-                    },
-                    {
-                        dataIndex:'$limpar',
-                        field:'$limpar',
-                        displayField:'$limpar'
-                    }
-                ],
-                columns:[{
-                    field:'statusId',
-                    dataIndex:'statusId'
-                },{
-                    field:'processoId.dispositivoId.dispositivoId',
-                    dataIndex:'dispositivoId'
-                },{
-                    field:'processo1',
-                    dataIndex:'processo1'
-                },{
-                    field:'processoId.nome',
-                    dataIndex:'nome'
-                },{
-                    field:'processoId.processoId',
-                    dataIndex:'processoId'
-                },{
-                    field:'status',
-                    dataIndex:'status'
-                },{
-                    field:'descricao',
-                    dataIndex:'descricao'
-                },{
-                    field:'data',
-                    dataIndex:'data',
-                    dateFormat: 'Y-m-d H:i:s.u'
-                },{
-                    field:'versao',
-                    dataIndex:'versao'
-                }]
-    }"
-        >
-            <!--<AbDatatable_column [AbDatatable_column]="{-->
-            <!--title:'dispositivoId',-->
-            <!--dataIndex:'dispositivoId',-->
-            <!--width:'15%',-->
-            <!--width:'50px'-->
-            <!--}">-->
-            <!--</AbDatatable_column>-->
-            <AbDatatable_column [AbDatatable_column]="{
-            title:'descricao',
-            dataIndex:'descricao',
-            width:'90px'
-          }">
-
-            </AbDatatable_column>
-
-            <AbDatatable_column [AbDatatable_column]="{
-            title:'',
-            dataIndex:'iniciar',
-            width:'65px'
-     }  " (AbDatatable_column_cellClick)="iniciar($event)"
-            >
-            </AbDatatable_column>
-            <AbDatatable_column [AbDatatable_column]="{
-            title:'',
-            dataIndex:'pausar',
-            width:'65px'
-     }  " (AbDatatable_column_cellClick)="pausar($event)"
-            >
-            </AbDatatable_column>
-            <AbDatatable_column [AbDatatable_column]="{
-            title:'',
-            dataIndex:'reiniciar',
-            width:'65px'
-     }  " (AbDatatable_column_cellClick)="reiniciar($event)"
-            >
-            </AbDatatable_column>
-            <AbDatatable_column [AbDatatable_column]="{
-            title:'',
-            dataIndex:'atualizar',
-            width:'65px'
-     }  " (AbDatatable_column_cellClick)="atualizar($event)"
-            >
-            </AbDatatable_column>
-            <AbDatatable_column [AbDatatable_column]="{
-            title:'',
-            dataIndex:'$limpar',
-            width:'65px'
-     }  " (AbDatatable_column_cellClick)="limparByProcessoId($event)"
-            >
-            </AbDatatable_column>
-            <AbDatatable_column [AbDatatable_column]="{
-            title:'nome',
-            dataIndex:'nome',
-            width:'85px'
-          }">
-            </AbDatatable_column>
-            <AbDatatable_column [AbDatatable_column]="{
-            title:'%',
-            dataIndex:'$processo1',
-            width:'40px'
-          }">
-            </AbDatatable_column>
-            <AbDatatable_column [AbDatatable_column]="{
-            title:'versao',
-            dataIndex:'versao',
-            width:'45px'
-          }">
-            </AbDatatable_column>
-            <AbDatatable_column [AbDatatable_column]="{
-            title:'status',
-            dataIndex:'status',
-            width:'45px'
-          }">
-            </AbDatatable_column>
-            <AbDatatable_column [AbDatatable_column]="{
-            title:'Data',
-            dataIndex:'data',
-            width:'150px',
-            dateFormat: 'd/m/Y H:i:s'
-          }">
-            </AbDatatable_column>
-        </AbDatatable>
-    </AbContainer>
-</AbViewport>
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {AbViewport} from "@atomicburst/viewport" %}  
+{% import {AbToolbar} from "@atomicburst/toolbar" %}  
+{% import {AbButton} from "@atomicburst/button" %}  
+{% import {AbContainer} from "@atomicburst/container" %}  
+{% import {AbTextfield} from "@atomicburst/textfield" %}  
+{% import {AbDatatable} from "@atomicburst/datatable" %}  
+{% import {AbDatatable_column} from "@atomicburst/datatable_column" %}  
+{% export GdrProcessoStatusListaComponent %} 
+   {% apply HtmlModule %}  
+   <AbViewport>
+       <AbToolbar
+               [AbToolbar]="{
+                      position:'top',
+                      ui:'dam-sincmaster'
+                   }">
+           <div style="flex-grow: 1;"></div>
+           <!--<AbButton [AbButton]="{text:'Limpar'}" (click)="limpar()">-->
+           <!--<AbTemplate [AbTemplate]="{type:'icon'}">-->
+           <!--<i class="fa fa-eraser" aria-hidden="true"></i>-->
+           <!--</AbTemplate>-->
+           <!--</AbButton>-->
+           <AbButton (click)="atualizarAll()" [AbButton]="{text:'atualizar',iconCls:'fa fa-atualizar'}">
+           </AbButton>
+           <AbButton [AbButton]="{text:'Pesquisar'}" (click)="pesquisar()">
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-search" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+       </AbToolbar>
+       <AbContainer [AbLayout_flex]="{'orientation':'vertical'}" style="width:100%;height:100%">
+           <AbContainer [AbLayoutGrid]="{units:24}">
+               <AbTextfield [AbLayoutGridItem]="{mm:24}" [AbTextfield]="{fieldLabel:'Descricao'}"
+                             style="width:250px" [AbRecord]="[pesquisa,'descricao']">
+               </AbTextfield>
+           </AbContainer>
+           <AbDatatable
+                   [AbLayout_flex_item]="{flex:1}"
+                   #datatableStore="AbStore"
+   
+                   [AbStore]="{
+                   service:processoStatusService,
+                   proxy:{
+                     read:{
+                       method:'listQueryGrid',
+                       extraParams:{
+                         pesquisa:pesquisa
+                       }
+                     }
+                   },
+   
+   
+                   columnsDisplay:[
+                       {
+                           dataIndex:'iniciar',
+                           field:'iniciar',
+                           displayField:'iniciar'
+                       },
+                       {
+                           dataIndex:'pausar',
+                           field:'pausar',
+                           displayField:'pausar'
+                       },
+                       {
+                           dataIndex:'reiniciar',
+                           field:'reiniciar',
+                           displayField:'reiniciar'
+                       },
+                       {
+                           dataIndex:'atualizar',
+                           field:'atualizar',
+                           displayField:'atualizar'
+                       },
+                       {
+                           dataIndex:'$processo1',
+                           field:'$processo1',
+                           displayField:'$processo1'
+                       },
+                       {
+                           dataIndex:'$limpar',
+                           field:'$limpar',
+                           displayField:'$limpar'
+                       }
+                   ],
+                   columns:[{
+                       field:'statusId',
+                       dataIndex:'statusId'
+                   },{
+                       field:'processoId.dispositivoId.dispositivoId',
+                       dataIndex:'dispositivoId'
+                   },{
+                       field:'processo1',
+                       dataIndex:'processo1'
+                   },{
+                       field:'processoId.nome',
+                       dataIndex:'nome'
+                   },{
+                       field:'processoId.processoId',
+                       dataIndex:'processoId'
+                   },{
+                       field:'status',
+                       dataIndex:'status'
+                   },{
+                       field:'descricao',
+                       dataIndex:'descricao'
+                   },{
+                       field:'data',
+                       dataIndex:'data',
+                       dateFormat: 'Y-m-d H:i:s.u'
+                   },{
+                       field:'versao',
+                       dataIndex:'versao'
+                   }]
+       }"
+           >
+               <!--<AbDatatable_column [AbDatatable_column]="{-->
+               <!--title:'dispositivoId',-->
+               <!--dataIndex:'dispositivoId',-->
+               <!--width:'15%',-->
+               <!--width:'50px'-->
+               <!--}">-->
+               <!--</AbDatatable_column>-->
+               <AbDatatable_column [AbDatatable_column]="{
+               title:'descricao',
+               dataIndex:'descricao',
+               width:'90px'
+             }">
+   
+               </AbDatatable_column>
+   
+               <AbDatatable_column [AbDatatable_column]="{
+               title:'',
+               dataIndex:'iniciar',
+               width:'65px'
+        }  " (AbDatatable_column_cellClick)="iniciar($event)"
+               >
+               </AbDatatable_column>
+               <AbDatatable_column [AbDatatable_column]="{
+               title:'',
+               dataIndex:'pausar',
+               width:'65px'
+        }  " (AbDatatable_column_cellClick)="pausar($event)"
+               >
+               </AbDatatable_column>
+               <AbDatatable_column [AbDatatable_column]="{
+               title:'',
+               dataIndex:'reiniciar',
+               width:'65px'
+        }  " (AbDatatable_column_cellClick)="reiniciar($event)"
+               >
+               </AbDatatable_column>
+               <AbDatatable_column [AbDatatable_column]="{
+               title:'',
+               dataIndex:'atualizar',
+               width:'65px'
+        }  " (AbDatatable_column_cellClick)="atualizar($event)"
+               >
+               </AbDatatable_column>
+               <AbDatatable_column [AbDatatable_column]="{
+               title:'',
+               dataIndex:'$limpar',
+               width:'65px'
+        }  " (AbDatatable_column_cellClick)="limparByProcessoId($event)"
+               >
+               </AbDatatable_column>
+               <AbDatatable_column [AbDatatable_column]="{
+               title:'nome',
+               dataIndex:'nome',
+               width:'85px'
+             }">
+               </AbDatatable_column>
+               <AbDatatable_column [AbDatatable_column]="{
+               title:'%',
+               dataIndex:'$processo1',
+               width:'40px'
+             }">
+               </AbDatatable_column>
+               <AbDatatable_column [AbDatatable_column]="{
+               title:'versao',
+               dataIndex:'versao',
+               width:'45px'
+             }">
+               </AbDatatable_column>
+               <AbDatatable_column [AbDatatable_column]="{
+               title:'status',
+               dataIndex:'status',
+               width:'45px'
+             }">
+               </AbDatatable_column>
+               <AbDatatable_column [AbDatatable_column]="{
+               title:'Data',
+               dataIndex:'data',
+               width:'150px',
+               dateFormat: 'd/m/Y H:i:s'
+             }">
+               </AbDatatable_column>
+           </AbDatatable>
+       </AbContainer>
+   </AbViewport>
+   
+{% endexport %} 

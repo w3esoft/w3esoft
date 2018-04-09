@@ -1,665 +1,667 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {FormModule} from "@paw/html" %>  
-<% import {AbViewport} from "@atomicburst/viewport" %>  
-<% import {AbToolbar} from "@atomicburst/toolbar" %>  
-<% import {AbButton} from "@atomicburst/button" %>  
-<% import {AbContainer} from "@atomicburst/container" %>  
-<% import {AbPanel} from "@atomicburst/panel" %>  
-<% import {AbTextfield} from "@atomicburst/textfield" %>  
-<% import {AbCombo} from "@atomicburst/combo" %>  
-<% import {AbDatefield} from "@atomicburst/datefield" %>  
-<% apply HtmlModule %>  
-<% apply FormModule %>  
-<AbViewport>
-
-    <AbToolbar
-            [AbToolbar]="{
-                   position:'top',
-                   ui:'dam-usuario'
-                }">
-        <div style="flex-grow: 1;"></div>
-        <AbButton [AbButton]="{text:'Salvar'}" (click)="salvar(form)">
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-file-o" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-        <AbButton [AbButton]="{text:'Retornar'}" (click)="retornar()">
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-sign-out" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-    </AbToolbar>
-    <form #form="ngForm" style="height: 100%">
-        <AbContainer [AbContainer]="{body:{style:{'overflow-y': 'auto',width:'100%'}}}" [AbLayoutGrid]="{units:24}" style="height: 100%">
-            <AbPanel [AbPanel]="{title:'Dados Pessoais'}"
-                      [AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:24}">
-                <AbTextfield #NO_USUARIO (next)="NU_CNPJ_CPF.focus.emit()"
-                              [AbLayoutGridItem]="{sm:14,md:9}"
-                              [AbTextfield]="{fieldLabel:'Nome'}"
-                              [AbRecord]="[record,'nome']"
-                >
-                </AbTextfield>
-                <AbTextfield AbMask_cpfCnpf #NU_CNPJ_CPF (next)="st_ATIVO.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:4}"
-                              [AbTextfield]="{fieldLabel:'CPF/CNPJ'}"
-                              [AbRecord]="[record,'cnpjCpf']"
-                >
-                </AbTextfield>
-
-                <AbCombo #st_ATIVO
-                          [AbLayoutGridItem]="{mm:12,sm:4,md:4}"
-                          #cb="AbCombo"
-                          [AbCombo]="{
-                            fieldLabel:'Ativo',
-                            displayField:'nome',
-                            valueField:'codigo',
-                            localQuery:true
-                       }"
-                          (next)="tp_PESSOA.focus.emit()"
-                          [AbStore]="{
-                           proxy:{
-                                read:[{
-                                  nome:'Sim',
-                                  codigo:'S'
-                               },{
-                                  nome:'Não',
-                                  codigo:'N'
-                               }]
-                           }
-                      }"
-                          [AbRecord]="[record,'ativo']"
-                >
-                </AbCombo>
-
-                <AbCombo #tp_PESSOA
-                          [AbLayoutGridItem]="{mm:12,sm:4,md:4}"
-                          #cb="AbCombo"
-                          [AbCombo]="{
-                            fieldLabel:'Tipo',
-                            displayField:'nome',
-                            valueField:'codigo',
-                            localQuery:true
-                       }"
-                          (next)="DS_EMAIL.focus.emit()"
-                          [AbStore]="{
-                           proxy:{
-                                read:[{
-                                  nome:'Física',
-                                  codigo:'F'
-                               },{
-                                  nome:'Jurídica',
-                                  codigo:'J'
-                               }]
-                           }
-                      }"
-                          [AbRecord]="[record,'tipoPessoa']"
-                >
-                </AbCombo>
-
-
-                <AbTextfield AbValidationRequired AbValidation-email #DS_EMAIL (next)="DS_SENHA.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:4}"
-                              [AbTextfield]="{fieldLabel:'Email'}"
-                              [AbRecord]="[record,'email']"
-                >
-                </AbTextfield>
-                <AbTextfield #DS_SENHA (next)="CO_PERFIL.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:4}"
-                              [AbTextfield]="{fieldLabel:'Senha'}"
-                              [AbRecord]="[record,'senha']"
-                >
-                </AbTextfield>
-                <AbTextfield #CO_PERFIL (next)="NO_CONTATO.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:3}"
-                              [AbTextfield]="{fieldLabel:'Perfil'}"
-                              [AbRecord]="[record,'perfilId']"
-                >
-                </AbTextfield>
-
-
-                <AbTextfield #NO_CONTATO (next)="DT_CADASTRO.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:3}"
-                              [AbTextfield]="{fieldLabel:'Contato'}"
-                              [AbRecord]="[record,'nomeContato']"
-                >
-                </AbTextfield>
-                <AbDatefield
-                        #DT_CADASTRO
-                        (next)="NO_USUARIO_APP.focus.emit()"
-                        [AbLayoutGridItem]="{sm:12,md:4}"
-                        [AbDatefield]="{fieldLabel:'Data Cadastro'}"
-                        [AbRecord]="[record,'dataCadastro']"
-                >
-                </AbDatefield>
-                <AbTextfield #NO_USUARIO_APP (next)="NU_CEP.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:3}"
-                              [AbTextfield]="{fieldLabel:'Usuario App'}"
-                              [AbRecord]="[record,'appNomeUsuario']"
-                >
-                </AbTextfield>
-            </AbPanel>
-
-            <!--<AbPanel-->
-                    <!--[AbPanel]="{title:'Licenças',body:{style:{height:'200px'}}}"-->
-                    <!--[AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:12}">-->
-
-                <!--<AbViewport>-->
-
-                    <!--<AbToolbar-->
-                            <!--[AbToolbar]="{-->
-                   <!--position:'top',-->
-                   <!--ui:'dam-usuario'-->
-                <!--}">-->
-                        <!--<div style="flex-grow: 1;"></div>-->
-                        <!--<AbButton [AbButton]="{text:'Novo'}" (click)="editLicencaItemRecordNovo(form)">-->
-                            <!--<AbTemplate [AbTemplate]="{type:'icon'}">-->
-                                <!--<i class="fa fa-file-o" aria-hidden="true"></i>-->
-                            <!--</AbTemplate>-->
-                        <!--</AbButton>-->
-                    <!--</AbToolbar>-->
-                    <!--<AbContainer-->
-                            <!--[AbLayoutGridItem]="{md:12}" [AbLayout_flex]="{'orientation':'vertical'}"-->
-                            <!--style="width:100%;height:100%">-->
-                        <!--<AbDatatable-->
-                                <!--[AbLayout_flex_item]="{flex:1}"-->
-                                <!--#datatableStoreLicenca="AbStore"-->
-                                <!--#datatableLicenca="AbDatatable"-->
-                                <!--(AbStore-select)="editLicencaItemRecord($event,modal1)"-->
-                                <!--[AbStore]="{-->
-                                <!--service:licencaService,-->
-                                <!--proxy:{-->
-                                  <!--read:{-->
-                                    <!--method:'listQueryGrid'-->
-                                  <!--}-->
-                                <!--},-->
-                                <!--columns:[{-->
-                                    <!--field:'sistemaId.nome',-->
-                                    <!--dataIndex:'sistemaNome'-->
-                                <!--},{-->
-                                    <!--field:'sistemaId.sistemaId',-->
-                                    <!--dataIndex:'sistemaId'-->
-                                <!--},{-->
-                                    <!--field:'emissao',-->
-                                    <!--dataIndex:'emissao',-->
-                                    <!--dateFormat: 'Y-m-d'-->
-                                <!--},{-->
-                                    <!--field:'validade',-->
-                                    <!--dataIndex:'validade',-->
-                                    <!--dateFormat: 'Y-m-d'-->
-                                <!--},{-->
-                                    <!--field:'totalLicenca',-->
-                                    <!--dataIndex:'TOTAL_LICENCA'-->
-                                <!--}]-->
-                            <!--}"-->
-                        <!--&gt;-->
-                            <!--<AbDatatable_column [AbDatatable_column]="{-->
-                            <!--title:'Sistema',-->
-                            <!--dataIndex:'sistemaNome',-->
-                            <!--minWidth:'90px'-->
-                          <!--}">-->
-                            <!--</AbDatatable_column>-->
-                            <!--<AbDatatable_column [AbDatatable_column]="{-->
-                            <!--title:'Total de licenças',-->
-                            <!--dataIndex:'TOTAL_LICENCA',-->
-                            <!--minWidth:'150px'-->
-                          <!--}">-->
-                            <!--</AbDatatable_column>-->
-                            <!--<AbDatatable_column [AbDatatable_column]="{-->
-                            <!--title:'Data Emissao',-->
-                            <!--dataIndex:'emissao',-->
-                            <!--dateFormat: 'd/m/Y',-->
-                            <!--minWidth:'150px'-->
-                         <!--}">-->
-                            <!--</AbDatatable_column>-->
-                            <!--<AbDatatable_column [AbDatatable_column]="{-->
-                            <!--title:'Validade',-->
-                            <!--dateFormat: 'd/m/Y',-->
-                            <!--dataIndex:'validade',-->
-                            <!--minWidth:'150px',-->
-                            <!--sort:'DESC'-->
-                          <!--}">-->
-                            <!--</AbDatatable_column>-->
-                        <!--</AbDatatable>-->
-
-                    <!--</AbContainer>-->
-
-                <!--</AbViewport>-->
-            <!--</AbPanel>-->
-            <AbPanel
-                    [AbPanel]="{title:'Endereço'}"
-                    [AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:24}">
-                <AbTextfield #NU_CEP AbMask_cep (next)="NO_CIDADE.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:3}"
-                              [AbTextfield]="{fieldLabel:'CEP'}"
-                              [AbRecord]="[record,'enderecoCep']"
-                >
-                </AbTextfield>
-                <AbTextfield #NO_CIDADE (next)="SG_UF.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:3}"
-                              [AbTextfield]="{fieldLabel:'Cidade'}"
-                              [AbRecord]="[record,'enderecoCidade']"
-                >
-                </AbTextfield>
-
-
-                <AbCombo #SG_UF
-                          [AbLayoutGridItem]="{mm:12,sm:4,md:4}"
-                          #cb="AbCombo"
-                          [AbCombo]="{
-                            fieldLabel:'Estado',
-                            displayField:'nome',
-                            valueField:'codigo',
-                            localQuery:true
-                       }"
-                          (next)="NO_LOGRADOURO.focus.emit()"
-                          [AbStore]="{
-                           proxy:{
-                                read:[
-                                    {nome:'Acre'				,	codigo :'AC'},
-                                    {nome:'Alagoas'				,	codigo :'AL'},
-                                    {nome:'Amapá'				,	codigo :'AP'},
-                                    {nome:'Amazonas'			,	codigo :'AM'},
-                                    {nome:'Bahia'				,	codigo :'BA'},
-                                    {nome:'Ceará'				,	codigo :'CE'},
-                                    {nome:'Distrito Federal'	,	codigo :'DF'},
-                                    {nome:'Espírito Santo'		,	codigo :'ES'},
-                                    {nome:'Goiás'				,	codigo :'GO'},
-                                    {nome:'Maranhão'			,   codigo :'MA'},
-                                    {nome:'Mato Grosso'			,	codigo :'MT'},
-                                    {nome:'Mato Grosso do Sul'	,	codigo :'MS'},
-                                    {nome:'Minas Gerais'		,	codigo :'MG'},
-                                    {nome:'Pará'				,	codigo :'PA'},
-                                    {nome:'Paraíba'				,	codigo :'PB'},
-                                    {nome:'Paraná'				,	codigo :'PR'},
-                                    {nome:'Pernambuco'			,	codigo :'PE'},
-                                    {nome:'Piauí'				,	codigo :'PI'},
-                                    {nome:'Rio de Janeiro'		,	codigo :'RJ'},
-                                    {nome:'Rio Grande do Norte'	,	codigo :'RN'},
-                                    {nome:'Rio Grande do Sul'	,	codigo :'RS'},
-                                    {nome:'Rondônia'			,	codigo :'RO'},
-                                    {nome:'Roraima'				,	codigo :'RR'},
-                                    {nome:'Santa Catarina'		,	codigo :'SC'},
-                                    {nome:'São Paulo'			,	codigo :'SP'},
-                                    {nome:'Sergipe'				,	codigo :'SE'},
-                                    {nome:'Tocantins'			,	codigo :'TO'}
-                                ]
-                           }
-                      }"
-                          [AbRecord]="[record,'enderecoEstado']"
-                >
-                </AbCombo>
-
-                <AbTextfield #NO_LOGRADOURO (next)="NU_NUMERO.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:8}"
-                              [AbTextfield]="{fieldLabel:'Logradouro'}"
-                              [AbRecord]="[record,'enderecoLogradouro']"
-                >
-                </AbTextfield>
-                <AbTextfield #NU_NUMERO AbMask_number (next)="NO_BAIRRO.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:3}"
-                              [AbTextfield]="{fieldLabel:'Numero'}"
-                              [AbRecord]="[record,'enderecoNumero']"
-                >
-                </AbTextfield>
-                <AbTextfield #NO_BAIRRO (next)="DS_COMPLEMENTO.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:3}"
-                              [AbTextfield]="{fieldLabel:'Bairro'}"
-                              [AbRecord]="[record,'enderecoBairro']"
-                >
-                </AbTextfield>
-                <AbTextfield #DS_COMPLEMENTO (next)="NU_CEL.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:3}"
-                              [AbTextfield]="{fieldLabel:'Complemento'}"
-                              [AbRecord]="[record,'enderecoComplemento']"
-                >
-                </AbTextfield>
-                <AbTextfield AbMask_cellPhone #NU_CEL (next)="NU_TEL.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:4}"
-                              [AbTextfield]="{fieldLabel:'Celular'}"
-                              [AbRecord]="[record,'enderecoCelular']"
-                >
-                </AbTextfield>
-                <AbTextfield AbMask_cellPhone #NU_TEL (next)="DT_NASCIMENTO.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:4}"
-                              [AbTextfield]="{fieldLabel:'Telefone'}"
-                              [AbRecord]="[record,'enderecoTelefone']"
-                >
-                </AbTextfield>
-                <AbDatefield
-                        #DT_NASCIMENTO
-                        (next)="NO_BANCO.focus.emit()"
-                        [AbLayoutGridItem]="{sm:12,md:4}"
-                        [AbDatefield]="{fieldLabel:'Data Nascimento'}"
-                        [AbRecord]="[record,'dataNascimento']"
-                >
-                </AbDatefield>
-            </AbPanel>
-            <AbPanel
-                    [AbPanel]="{title:'Dados Bancários'}"
-                    [AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:12}">
-
-                <AbTextfield #NO_BANCO (next)="NU_AGENCIA.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:4}"
-                              [AbTextfield]="{fieldLabel:'Banco'}"
-                              [AbRecord]="[record,'bancoNome']"
-                >
-                </AbTextfield>
-                <AbTextfield #NU_AGENCIA (next)="NU_CONTA.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:4}"
-                              [AbTextfield]="{fieldLabel:'Agencia'}"
-                              [AbRecord]="[record,'bancoNumeroAgencia']"
-                >
-                </AbTextfield>
-                <AbTextfield #NU_CONTA (next)="NO_TITULAR.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:4}"
-                              [AbTextfield]="{fieldLabel:'Conta'}"
-                              [AbRecord]="[record,'bancoNumeroConta']"
-                >
-                </AbTextfield>
-                <AbTextfield #NO_TITULAR (next)="DS_EMAIL_PAGSEGURO.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:4}"
-                              [AbTextfield]="{fieldLabel:'Titular'}"
-                              [AbRecord]="[record,'bancoNomeTitular']"
-                >
-                </AbTextfield>
-
-
-            </AbPanel>
-            <AbPanel
-                    [AbPanel]="{title:'PagSeguro'}"
-                    [AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:24}">
-
-                <AbTextfield #DS_EMAIL_PAGSEGURO (next)="DS_SENHA_PAGSEGURO.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:3}"
-                              [AbTextfield]="{fieldLabel:'Email'}"
-                              [AbRecord]="[record,'pagSeguroEmail']"
-                >
-                </AbTextfield>
-                <AbTextfield #DS_SENHA_PAGSEGURO (next)="TOKEN_PAGSEGURO.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:3}"
-                              [AbTextfield]="{fieldLabel:'Senha'}"
-                              [AbRecord]="[record,'pagSeguroSenha']"
-                >
-                </AbTextfield>
-                <AbTextfield #TOKEN_PAGSEGURO (next)="HAB_FPAG_PAGSEGURO.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:3}"
-                              [AbTextfield]="{fieldLabel:'Token'}"
-                              [AbRecord]="[record,'pagSeguroToken']"
-                >
-                </AbTextfield>
-                <AbCombo #HAB_FPAG_PAGSEGURO
-                          [AbLayoutGridItem]="{mm:12,sm:4,md:4}"
-                          #cb="AbCombo"
-                          [AbCombo]="{
-                            fieldLabel:'Habilitar',
-                            displayField:'nome',
-                            valueField:'codigo',
-                            localQuery:true
-                       }"
-                          (next)="OCULTAR_TAB_PRECO.focus.emit()"
-                          [AbStore]="{
-                           proxy:{
-                                read:[{
-                                  nome:'Sim',
-                                  codigo:'S'
-                               },{
-                                  nome:'Não',
-                                  codigo:'N'
-                               }]
-                           }
-                      }"
-                          [AbRecord]="[record,'pagSeguroHabFpag']"
-                >
-                </AbCombo>
-
-            </AbPanel>
-            <AbPanel
-                    [AbPanel]="{title:'Outras Opções'}"
-                    [AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:24}">
-
-                <AbCombo #OCULTAR_TAB_PRECO
-                          [AbLayoutGridItem]="{mm:12,sm:5,md:5}"
-                          #cb="AbCombo"
-                          [AbCombo]="{
-                            fieldLabel:'Ocultar Tabela Preco',
-                            displayField:'nome',
-                            valueField:'codigo',
-                            localQuery:true
-                       }"
-                          (next)="MOSTRAR_DADOS_CONTA_REV.focus.emit()"
-                          [AbStore]="{
-                           proxy:{
-                                read:[{
-                                  nome:'Sim',
-                                  codigo:'S'
-                               },{
-                                  nome:'Não',
-                                  codigo:'N'
-                               }]
-                           }
-                      }"
-                          [AbRecord]="[record,'ocultarTabPreco']"
-                >
-                </AbCombo>
-                <AbCombo #MOSTRAR_DADOS_CONTA_REV
-                          [AbLayoutGridItem]="{mm:12,sm:5,md:5}"
-                          #cb="AbCombo"
-                          [AbCombo]="{
-                            fieldLabel:'Mostrar Dados Conta Rev',
-                            displayField:'nome',
-                            valueField:'codigo',
-                            localQuery:true
-                       }"
-                          (next)="URL_IMG_LOGO.focus.emit()"
-                          [AbStore]="{
-                           proxy:{
-                                read:[{
-                                  nome:'Sim',
-                                  codigo:'S'
-                               },{
-                                  nome:'Não',
-                                  codigo:'N'
-                               }]
-                           }
-                      }"
-                          [AbRecord]="[record,'mostrarDadosContaRev']"
-                >
-                </AbCombo>
-                <AbTextfield #URL_IMG_LOGO (next)="MOSTRAR_LISTA_APP.focus.emit()"
-                              [AbLayoutGridItem]="{sm:12,md:5}"
-                              [AbTextfield]="{fieldLabel:'Url Img Logo'}"
-                              [AbRecord]="[record,'urlImgLogo']"
-                >
-                </AbTextfield>
-                <AbCombo #MOSTRAR_LISTA_APP
-                          [AbLayoutGridItem]="{mm:12,sm:5,md:5}"
-                          #cb="AbCombo"
-                          [AbCombo]="{
-                            fieldLabel:'Mostrar Lista App',
-                            displayField:'nome',
-                            valueField:'codigo',
-                            localQuery:true
-                       }"
-                          (next)="MOSTRAR_NO_ICOMPRAS.focus.emit()"
-                          [AbStore]="{
-                           proxy:{
-                                read:[{
-                                  nome:'Sim',
-                                  codigo:'S'
-                               },{
-                                  nome:'Não',
-                                  codigo:'N'
-                               }]
-                           }
-                      }"
-                          [AbRecord]="[record,'appMostraLista']"
-                >
-                </AbCombo>
-                <AbCombo #MOSTRAR_NO_ICOMPRAS
-                          [AbLayoutGridItem]="{mm:12,sm:5,md:5}"
-                          #cb="AbCombo"
-                          [AbCombo]="{
-                            fieldLabel:'Mostrar No Icompras',
-                            displayField:'nome',
-                            valueField:'codigo',
-                            localQuery:true
-                       }"
-                          (next)="HAB_ENV_EMAIL_ENTREGA.focus.emit()"
-                          [AbStore]="{
-                           proxy:{
-                                read:[{
-                                  nome:'Sim',
-                                  codigo:'S'
-                               },{
-                                  nome:'Não',
-                                  codigo:'N'
-                               }]
-                           }
-                      }"
-                          [AbRecord]="[record,'icomprasMostra']"
-                >
-                </AbCombo>
-
-                <AbCombo #HAB_ENV_EMAIL_ENTREGA
-                          [AbLayoutGridItem]="{mm:12,sm:5,md:5}"
-                          #cb="AbCombo"
-                          [AbCombo]="{
-                            fieldLabel:'Habilitar Envio Email Entrega',
-                            displayField:'nome',
-                            valueField:'codigo',
-                            localQuery:true
-                       }"
-                          (next)="HAB_FPAG_PEDIDO.focus.emit()"
-                          [AbStore]="{
-                           proxy:{
-                                read:[{
-                                  nome:'Sim',
-                                  codigo:'S'
-                               },{
-                                  nome:'Não',
-                                  codigo:'N'
-                               }]
-                           }
-                      }"
-                          [AbRecord]="[record,'habEnvEmailEntrega']"
-                >
-                </AbCombo>
-                <AbCombo #HAB_FPAG_PEDIDO
-                          [AbLayoutGridItem]="{mm:12,sm:5,md:5}"
-                          #cb="AbCombo"
-                          [AbCombo]="{
-                            fieldLabel:'Habilitar FPAG Pedido',
-                            displayField:'nome',
-                            valueField:'codigo',
-                            localQuery:true
-                       }"
-                          (next)="NO_USUARIO.focus.emit()"
-                          [AbStore]="{
-                           proxy:{
-                                read:[{
-                                  nome:'Sim',
-                                  codigo:'S'
-                               },{
-                                  nome:'Não',
-                                  codigo:'N'
-                               }]
-                           }
-                      }"
-                          [AbRecord]="[record,'habFpagPedido']"
-                >
-                </AbCombo>
-            </AbPanel>
-        </AbContainer>
-
-        <!--<AbTemplate AbModal #modal1="AbModal">-->
-            <!--<AbPanel-->
-                    <!--style="-->
-                        <!--height: calc( 100% - 200px );-->
-                        <!--width: calc( 100% - 200px );-->
-                        <!--margin-left: 100px;-->
-                        <!--margin-top: 100px;-->
-                    <!--"-->
-                    <!--[AbPanel]="{title:'Licença'}">-->
-                <!--<AbViewport>-->
-                    <!--<AbToolbar-->
-                            <!--[AbToolbar]="{-->
-                               <!--position:'top',-->
-                               <!--ui:'dam-usuario'-->
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {FormModule} from "@paw/html" %}  
+{% import {AbViewport} from "@atomicburst/viewport" %}  
+{% import {AbToolbar} from "@atomicburst/toolbar" %}  
+{% import {AbButton} from "@atomicburst/button" %}  
+{% import {AbContainer} from "@atomicburst/container" %}  
+{% import {AbPanel} from "@atomicburst/panel" %}  
+{% import {AbTextfield} from "@atomicburst/textfield" %}  
+{% import {AbCombo} from "@atomicburst/combo" %}  
+{% import {AbDatefield} from "@atomicburst/datefield" %}  
+{% export LmfUsuarioCadastroComponent %} 
+   {% apply FormModule %}  
+   {% apply HtmlModule %}  
+   <AbViewport>
+   
+       <AbToolbar
+               [AbToolbar]="{
+                      position:'top',
+                      ui:'dam-usuario'
+                   }">
+           <div style="flex-grow: 1;"></div>
+           <AbButton [AbButton]="{text:'Salvar'}" (click)="salvar(form)">
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-file-o" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+           <AbButton [AbButton]="{text:'Retornar'}" (click)="retornar()">
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-sign-out" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+       </AbToolbar>
+       <form #form="ngForm" style="height: 100%">
+           <AbContainer [AbContainer]="{body:{style:{'overflow-y': 'auto',width:'100%'}}}" [AbLayoutGrid]="{units:24}" style="height: 100%">
+               <AbPanel [AbPanel]="{title:'Dados Pessoais'}"
+                         [AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:24}">
+                   <AbTextfield #NO_USUARIO (next)="NU_CNPJ_CPF.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:14,md:9}"
+                                 [AbTextfield]="{fieldLabel:'Nome'}"
+                                 [AbRecord]="[record,'nome']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield AbMask_cpfCnpf #NU_CNPJ_CPF (next)="st_ATIVO.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:4}"
+                                 [AbTextfield]="{fieldLabel:'CPF/CNPJ'}"
+                                 [AbRecord]="[record,'cnpjCpf']"
+                   >
+                   </AbTextfield>
+   
+                   <AbCombo #st_ATIVO
+                             [AbLayoutGridItem]="{mm:12,sm:4,md:4}"
+                             #cb="AbCombo"
+                             [AbCombo]="{
+                               fieldLabel:'Ativo',
+                               displayField:'nome',
+                               valueField:'codigo',
+                               localQuery:true
+                          }"
+                             (next)="tp_PESSOA.focus.emit()"
+                             [AbStore]="{
+                              proxy:{
+                                   read:[{
+                                     nome:'Sim',
+                                     codigo:'S'
+                                  },{
+                                     nome:'Não',
+                                     codigo:'N'
+                                  }]
+                              }
+                         }"
+                             [AbRecord]="[record,'ativo']"
+                   >
+                   </AbCombo>
+   
+                   <AbCombo #tp_PESSOA
+                             [AbLayoutGridItem]="{mm:12,sm:4,md:4}"
+                             #cb="AbCombo"
+                             [AbCombo]="{
+                               fieldLabel:'Tipo',
+                               displayField:'nome',
+                               valueField:'codigo',
+                               localQuery:true
+                          }"
+                             (next)="DS_EMAIL.focus.emit()"
+                             [AbStore]="{
+                              proxy:{
+                                   read:[{
+                                     nome:'Física',
+                                     codigo:'F'
+                                  },{
+                                     nome:'Jurídica',
+                                     codigo:'J'
+                                  }]
+                              }
+                         }"
+                             [AbRecord]="[record,'tipoPessoa']"
+                   >
+                   </AbCombo>
+   
+   
+                   <AbTextfield AbValidationRequired AbValidation-email #DS_EMAIL (next)="DS_SENHA.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:4}"
+                                 [AbTextfield]="{fieldLabel:'Email'}"
+                                 [AbRecord]="[record,'email']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield #DS_SENHA (next)="CO_PERFIL.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:4}"
+                                 [AbTextfield]="{fieldLabel:'Senha'}"
+                                 [AbRecord]="[record,'senha']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield #CO_PERFIL (next)="NO_CONTATO.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:3}"
+                                 [AbTextfield]="{fieldLabel:'Perfil'}"
+                                 [AbRecord]="[record,'perfilId']"
+                   >
+                   </AbTextfield>
+   
+   
+                   <AbTextfield #NO_CONTATO (next)="DT_CADASTRO.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:3}"
+                                 [AbTextfield]="{fieldLabel:'Contato'}"
+                                 [AbRecord]="[record,'nomeContato']"
+                   >
+                   </AbTextfield>
+                   <AbDatefield
+                           #DT_CADASTRO
+                           (next)="NO_USUARIO_APP.focus.emit()"
+                           [AbLayoutGridItem]="{sm:12,md:4}"
+                           [AbDatefield]="{fieldLabel:'Data Cadastro'}"
+                           [AbRecord]="[record,'dataCadastro']"
+                   >
+                   </AbDatefield>
+                   <AbTextfield #NO_USUARIO_APP (next)="NU_CEP.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:3}"
+                                 [AbTextfield]="{fieldLabel:'Usuario App'}"
+                                 [AbRecord]="[record,'appNomeUsuario']"
+                   >
+                   </AbTextfield>
+               </AbPanel>
+   
+               <!--<AbPanel-->
+                       <!--[AbPanel]="{title:'Licenças',body:{style:{height:'200px'}}}"-->
+                       <!--[AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:12}">-->
+   
+                   <!--<AbViewport>-->
+   
+                       <!--<AbToolbar-->
+                               <!--[AbToolbar]="{-->
+                      <!--position:'top',-->
+                      <!--ui:'dam-usuario'-->
+                   <!--}">-->
+                           <!--<div style="flex-grow: 1;"></div>-->
+                           <!--<AbButton [AbButton]="{text:'Novo'}" (click)="editLicencaItemRecordNovo(form)">-->
+                               <!--<AbTemplate [AbTemplate]="{type:'icon'}">-->
+                                   <!--<i class="fa fa-file-o" aria-hidden="true"></i>-->
+                               <!--</AbTemplate>-->
+                           <!--</AbButton>-->
+                       <!--</AbToolbar>-->
+                       <!--<AbContainer-->
+                               <!--[AbLayoutGridItem]="{md:12}" [AbLayout_flex]="{'orientation':'vertical'}"-->
+                               <!--style="width:100%;height:100%">-->
+                           <!--<AbDatatable-->
+                                   <!--[AbLayout_flex_item]="{flex:1}"-->
+                                   <!--#datatableStoreLicenca="AbStore"-->
+                                   <!--#datatableLicenca="AbDatatable"-->
+                                   <!--(AbStore-select)="editLicencaItemRecord($event,modal1)"-->
+                                   <!--[AbStore]="{-->
+                                   <!--service:licencaService,-->
+                                   <!--proxy:{-->
+                                     <!--read:{-->
+                                       <!--method:'listQueryGrid'-->
+                                     <!--}-->
+                                   <!--},-->
+                                   <!--columns:[{-->
+                                       <!--field:'sistemaId.nome',-->
+                                       <!--dataIndex:'sistemaNome'-->
+                                   <!--},{-->
+                                       <!--field:'sistemaId.sistemaId',-->
+                                       <!--dataIndex:'sistemaId'-->
+                                   <!--},{-->
+                                       <!--field:'emissao',-->
+                                       <!--dataIndex:'emissao',-->
+                                       <!--dateFormat: 'Y-m-d'-->
+                                   <!--},{-->
+                                       <!--field:'validade',-->
+                                       <!--dataIndex:'validade',-->
+                                       <!--dateFormat: 'Y-m-d'-->
+                                   <!--},{-->
+                                       <!--field:'totalLicenca',-->
+                                       <!--dataIndex:'TOTAL_LICENCA'-->
+                                   <!--}]-->
+                               <!--}"-->
+                           <!--&gt;-->
+                               <!--<AbDatatable_column [AbDatatable_column]="{-->
+                               <!--title:'Sistema',-->
+                               <!--dataIndex:'sistemaNome',-->
+                               <!--minWidth:'90px'-->
+                             <!--}">-->
+                               <!--</AbDatatable_column>-->
+                               <!--<AbDatatable_column [AbDatatable_column]="{-->
+                               <!--title:'Total de licenças',-->
+                               <!--dataIndex:'TOTAL_LICENCA',-->
+                               <!--minWidth:'150px'-->
+                             <!--}">-->
+                               <!--</AbDatatable_column>-->
+                               <!--<AbDatatable_column [AbDatatable_column]="{-->
+                               <!--title:'Data Emissao',-->
+                               <!--dataIndex:'emissao',-->
+                               <!--dateFormat: 'd/m/Y',-->
+                               <!--minWidth:'150px'-->
                             <!--}">-->
-                        <!--<div style="flex-grow: 1;"></div>-->
-                        <!--<AbButton [AbButton]="{text:'Salvar'}" (click)="salvarLicencaItem(licencaItemForm,modal1)">-->
-                            <!--<AbTemplate [AbTemplate]="{type:'icon'}">-->
-                                <!--<i class="fa fa-file-o" aria-hidden="true"></i>-->
-                            <!--</AbTemplate>-->
-                        <!--</AbButton>-->
-                        <!--<AbButton [AbButton]="{text:'Cancelar'}" (click)="cancelarLicencaItem(modal1)">-->
-                            <!--<AbTemplate [AbTemplate]="{type:'icon'}">-->
-                                <!--<i class="fa fa-sign-out" aria-hidden="true"></i>-->
-                            <!--</AbTemplate>-->
-                        <!--</AbButton>-->
-                    <!--</AbToolbar>-->
-                    <!--<form #licencaItemForm="ngForm" style="height: 100%; height: 100%">-->
-                        <!--<AbContainer-->
-                                <!--[AbLayoutGrid]="{units:12}" style="width:100%;height:100%">-->
-                            <!--<AbTextfield #totalLicenca_1 AbMask_number (next)="validade_1.focus.emit()"-->
-                                          <!--[AbLayoutGridItem]="{sm:12,md:3}"-->
-                                          <!--[AbTextfield]="{fieldLabel:'Total Licenca'}"-->
-                                          <!--[AbRecord]="[licencaItemRecord,'totalLicenca']"-->
-                            <!--&gt;-->
-                            <!--</AbTextfield>-->
-                            <!--<AbDatefield-->
-                                    <!--#emissao_1-->
-                                    <!--(next)="validade_1.focus.emit()"-->
-                                    <!--[AbLayoutGridItem]="{sm:12,md:4}"-->
-                                    <!--[AbDatefield]="{fieldLabel:'Data Emissao',readonly:true}"-->
-                                    <!--[AbRecord]="[licencaItemRecord,'emissao']"-->
-                            <!--&gt;-->
-                            <!--</AbDatefield>-->
-                            <!--<AbDatefield-->
-                                    <!--#validade_1-->
-                                    <!--(next)="ComboSistema_1.focus.emit()"-->
-                                    <!--[AbLayoutGridItem]="{sm:12,md:4}"-->
-                                    <!--[AbDatefield]="{fieldLabel:'Data Validade'}"-->
-                                    <!--[AbRecord]="[licencaItemRecord,'validade']"-->
-                            <!--&gt;-->
-                            <!--</AbDatefield>-->
-
-                            <!--<AbCombo AbValidationRequired-->
-                                      <!--#ComboSistema_1-->
-                                      <!--(next)="totalLicenca_1.focus.emit()"-->
-                                      <!--[AbLayoutGridItem]="{sm:12,md:4}"-->
-                                      <!--[AbCombo]="{-->
-                                        <!--fieldLabel:'Sistema' ,-->
-                                        <!--displayField:'nome',-->
-                                        <!--keyField:'sistemaId'-->
-                                      <!--}"-->
-                                      <!--[AbRecord]="[licencaItemRecord,'sistemaId']"-->
-                                      <!--[AbStore]="{-->
-                                            <!--service:sistemaService,-->
-                                            <!--proxy:{-->
-                                               <!--read:{-->
-                                                    <!--method:'listQueryCombo'-->
-                                               <!--}-->
-                                            <!--},-->
-                                            <!--columns:[{-->
-                                                <!--dataIndex:'nome',-->
-                                                <!--field:'nome'-->
-                                            <!--},{-->
-                                                <!--dataIndex:'sistemaId',-->
-                                                <!--field:'sistemaId'-->
-                                            <!--}]-->
-                                        <!--}-->
-                                    <!--"-->
-                            <!--&gt;-->
-                                <!--<AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">-->
-                                    <!--{{r.get('nome')}}-->
-                                <!--</AbTemplate>-->
-                            <!--</AbCombo>-->
-                        <!--</AbContainer>-->
-                    <!--</form>-->
-                <!--</AbViewport>-->
-            <!--</AbPanel>-->
-        <!--</AbTemplate>-->
-    </form>
-
-</AbViewport>
+                               <!--</AbDatatable_column>-->
+                               <!--<AbDatatable_column [AbDatatable_column]="{-->
+                               <!--title:'Validade',-->
+                               <!--dateFormat: 'd/m/Y',-->
+                               <!--dataIndex:'validade',-->
+                               <!--minWidth:'150px',-->
+                               <!--sort:'DESC'-->
+                             <!--}">-->
+                               <!--</AbDatatable_column>-->
+                           <!--</AbDatatable>-->
+   
+                       <!--</AbContainer>-->
+   
+                   <!--</AbViewport>-->
+               <!--</AbPanel>-->
+               <AbPanel
+                       [AbPanel]="{title:'Endereço'}"
+                       [AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:24}">
+                   <AbTextfield #NU_CEP AbMask_cep (next)="NO_CIDADE.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:3}"
+                                 [AbTextfield]="{fieldLabel:'CEP'}"
+                                 [AbRecord]="[record,'enderecoCep']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield #NO_CIDADE (next)="SG_UF.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:3}"
+                                 [AbTextfield]="{fieldLabel:'Cidade'}"
+                                 [AbRecord]="[record,'enderecoCidade']"
+                   >
+                   </AbTextfield>
+   
+   
+                   <AbCombo #SG_UF
+                             [AbLayoutGridItem]="{mm:12,sm:4,md:4}"
+                             #cb="AbCombo"
+                             [AbCombo]="{
+                               fieldLabel:'Estado',
+                               displayField:'nome',
+                               valueField:'codigo',
+                               localQuery:true
+                          }"
+                             (next)="NO_LOGRADOURO.focus.emit()"
+                             [AbStore]="{
+                              proxy:{
+                                   read:[
+                                       {nome:'Acre'				,	codigo :'AC'},
+                                       {nome:'Alagoas'				,	codigo :'AL'},
+                                       {nome:'Amapá'				,	codigo :'AP'},
+                                       {nome:'Amazonas'			,	codigo :'AM'},
+                                       {nome:'Bahia'				,	codigo :'BA'},
+                                       {nome:'Ceará'				,	codigo :'CE'},
+                                       {nome:'Distrito Federal'	,	codigo :'DF'},
+                                       {nome:'Espírito Santo'		,	codigo :'ES'},
+                                       {nome:'Goiás'				,	codigo :'GO'},
+                                       {nome:'Maranhão'			,   codigo :'MA'},
+                                       {nome:'Mato Grosso'			,	codigo :'MT'},
+                                       {nome:'Mato Grosso do Sul'	,	codigo :'MS'},
+                                       {nome:'Minas Gerais'		,	codigo :'MG'},
+                                       {nome:'Pará'				,	codigo :'PA'},
+                                       {nome:'Paraíba'				,	codigo :'PB'},
+                                       {nome:'Paraná'				,	codigo :'PR'},
+                                       {nome:'Pernambuco'			,	codigo :'PE'},
+                                       {nome:'Piauí'				,	codigo :'PI'},
+                                       {nome:'Rio de Janeiro'		,	codigo :'RJ'},
+                                       {nome:'Rio Grande do Norte'	,	codigo :'RN'},
+                                       {nome:'Rio Grande do Sul'	,	codigo :'RS'},
+                                       {nome:'Rondônia'			,	codigo :'RO'},
+                                       {nome:'Roraima'				,	codigo :'RR'},
+                                       {nome:'Santa Catarina'		,	codigo :'SC'},
+                                       {nome:'São Paulo'			,	codigo :'SP'},
+                                       {nome:'Sergipe'				,	codigo :'SE'},
+                                       {nome:'Tocantins'			,	codigo :'TO'}
+                                   ]
+                              }
+                         }"
+                             [AbRecord]="[record,'enderecoEstado']"
+                   >
+                   </AbCombo>
+   
+                   <AbTextfield #NO_LOGRADOURO (next)="NU_NUMERO.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:8}"
+                                 [AbTextfield]="{fieldLabel:'Logradouro'}"
+                                 [AbRecord]="[record,'enderecoLogradouro']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield #NU_NUMERO AbMask_number (next)="NO_BAIRRO.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:3}"
+                                 [AbTextfield]="{fieldLabel:'Numero'}"
+                                 [AbRecord]="[record,'enderecoNumero']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield #NO_BAIRRO (next)="DS_COMPLEMENTO.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:3}"
+                                 [AbTextfield]="{fieldLabel:'Bairro'}"
+                                 [AbRecord]="[record,'enderecoBairro']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield #DS_COMPLEMENTO (next)="NU_CEL.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:3}"
+                                 [AbTextfield]="{fieldLabel:'Complemento'}"
+                                 [AbRecord]="[record,'enderecoComplemento']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield AbMask_cellPhone #NU_CEL (next)="NU_TEL.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:4}"
+                                 [AbTextfield]="{fieldLabel:'Celular'}"
+                                 [AbRecord]="[record,'enderecoCelular']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield AbMask_cellPhone #NU_TEL (next)="DT_NASCIMENTO.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:4}"
+                                 [AbTextfield]="{fieldLabel:'Telefone'}"
+                                 [AbRecord]="[record,'enderecoTelefone']"
+                   >
+                   </AbTextfield>
+                   <AbDatefield
+                           #DT_NASCIMENTO
+                           (next)="NO_BANCO.focus.emit()"
+                           [AbLayoutGridItem]="{sm:12,md:4}"
+                           [AbDatefield]="{fieldLabel:'Data Nascimento'}"
+                           [AbRecord]="[record,'dataNascimento']"
+                   >
+                   </AbDatefield>
+               </AbPanel>
+               <AbPanel
+                       [AbPanel]="{title:'Dados Bancários'}"
+                       [AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:12}">
+   
+                   <AbTextfield #NO_BANCO (next)="NU_AGENCIA.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:4}"
+                                 [AbTextfield]="{fieldLabel:'Banco'}"
+                                 [AbRecord]="[record,'bancoNome']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield #NU_AGENCIA (next)="NU_CONTA.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:4}"
+                                 [AbTextfield]="{fieldLabel:'Agencia'}"
+                                 [AbRecord]="[record,'bancoNumeroAgencia']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield #NU_CONTA (next)="NO_TITULAR.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:4}"
+                                 [AbTextfield]="{fieldLabel:'Conta'}"
+                                 [AbRecord]="[record,'bancoNumeroConta']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield #NO_TITULAR (next)="DS_EMAIL_PAGSEGURO.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:4}"
+                                 [AbTextfield]="{fieldLabel:'Titular'}"
+                                 [AbRecord]="[record,'bancoNomeTitular']"
+                   >
+                   </AbTextfield>
+   
+   
+               </AbPanel>
+               <AbPanel
+                       [AbPanel]="{title:'PagSeguro'}"
+                       [AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:24}">
+   
+                   <AbTextfield #DS_EMAIL_PAGSEGURO (next)="DS_SENHA_PAGSEGURO.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:3}"
+                                 [AbTextfield]="{fieldLabel:'Email'}"
+                                 [AbRecord]="[record,'pagSeguroEmail']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield #DS_SENHA_PAGSEGURO (next)="TOKEN_PAGSEGURO.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:3}"
+                                 [AbTextfield]="{fieldLabel:'Senha'}"
+                                 [AbRecord]="[record,'pagSeguroSenha']"
+                   >
+                   </AbTextfield>
+                   <AbTextfield #TOKEN_PAGSEGURO (next)="HAB_FPAG_PAGSEGURO.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:3}"
+                                 [AbTextfield]="{fieldLabel:'Token'}"
+                                 [AbRecord]="[record,'pagSeguroToken']"
+                   >
+                   </AbTextfield>
+                   <AbCombo #HAB_FPAG_PAGSEGURO
+                             [AbLayoutGridItem]="{mm:12,sm:4,md:4}"
+                             #cb="AbCombo"
+                             [AbCombo]="{
+                               fieldLabel:'Habilitar',
+                               displayField:'nome',
+                               valueField:'codigo',
+                               localQuery:true
+                          }"
+                             (next)="OCULTAR_TAB_PRECO.focus.emit()"
+                             [AbStore]="{
+                              proxy:{
+                                   read:[{
+                                     nome:'Sim',
+                                     codigo:'S'
+                                  },{
+                                     nome:'Não',
+                                     codigo:'N'
+                                  }]
+                              }
+                         }"
+                             [AbRecord]="[record,'pagSeguroHabFpag']"
+                   >
+                   </AbCombo>
+   
+               </AbPanel>
+               <AbPanel
+                       [AbPanel]="{title:'Outras Opções'}"
+                       [AbLayoutGridItem]="{md:24}" [AbLayoutGrid]="{units:24}">
+   
+                   <AbCombo #OCULTAR_TAB_PRECO
+                             [AbLayoutGridItem]="{mm:12,sm:5,md:5}"
+                             #cb="AbCombo"
+                             [AbCombo]="{
+                               fieldLabel:'Ocultar Tabela Preco',
+                               displayField:'nome',
+                               valueField:'codigo',
+                               localQuery:true
+                          }"
+                             (next)="MOSTRAR_DADOS_CONTA_REV.focus.emit()"
+                             [AbStore]="{
+                              proxy:{
+                                   read:[{
+                                     nome:'Sim',
+                                     codigo:'S'
+                                  },{
+                                     nome:'Não',
+                                     codigo:'N'
+                                  }]
+                              }
+                         }"
+                             [AbRecord]="[record,'ocultarTabPreco']"
+                   >
+                   </AbCombo>
+                   <AbCombo #MOSTRAR_DADOS_CONTA_REV
+                             [AbLayoutGridItem]="{mm:12,sm:5,md:5}"
+                             #cb="AbCombo"
+                             [AbCombo]="{
+                               fieldLabel:'Mostrar Dados Conta Rev',
+                               displayField:'nome',
+                               valueField:'codigo',
+                               localQuery:true
+                          }"
+                             (next)="URL_IMG_LOGO.focus.emit()"
+                             [AbStore]="{
+                              proxy:{
+                                   read:[{
+                                     nome:'Sim',
+                                     codigo:'S'
+                                  },{
+                                     nome:'Não',
+                                     codigo:'N'
+                                  }]
+                              }
+                         }"
+                             [AbRecord]="[record,'mostrarDadosContaRev']"
+                   >
+                   </AbCombo>
+                   <AbTextfield #URL_IMG_LOGO (next)="MOSTRAR_LISTA_APP.focus.emit()"
+                                 [AbLayoutGridItem]="{sm:12,md:5}"
+                                 [AbTextfield]="{fieldLabel:'Url Img Logo'}"
+                                 [AbRecord]="[record,'urlImgLogo']"
+                   >
+                   </AbTextfield>
+                   <AbCombo #MOSTRAR_LISTA_APP
+                             [AbLayoutGridItem]="{mm:12,sm:5,md:5}"
+                             #cb="AbCombo"
+                             [AbCombo]="{
+                               fieldLabel:'Mostrar Lista App',
+                               displayField:'nome',
+                               valueField:'codigo',
+                               localQuery:true
+                          }"
+                             (next)="MOSTRAR_NO_ICOMPRAS.focus.emit()"
+                             [AbStore]="{
+                              proxy:{
+                                   read:[{
+                                     nome:'Sim',
+                                     codigo:'S'
+                                  },{
+                                     nome:'Não',
+                                     codigo:'N'
+                                  }]
+                              }
+                         }"
+                             [AbRecord]="[record,'appMostraLista']"
+                   >
+                   </AbCombo>
+                   <AbCombo #MOSTRAR_NO_ICOMPRAS
+                             [AbLayoutGridItem]="{mm:12,sm:5,md:5}"
+                             #cb="AbCombo"
+                             [AbCombo]="{
+                               fieldLabel:'Mostrar No Icompras',
+                               displayField:'nome',
+                               valueField:'codigo',
+                               localQuery:true
+                          }"
+                             (next)="HAB_ENV_EMAIL_ENTREGA.focus.emit()"
+                             [AbStore]="{
+                              proxy:{
+                                   read:[{
+                                     nome:'Sim',
+                                     codigo:'S'
+                                  },{
+                                     nome:'Não',
+                                     codigo:'N'
+                                  }]
+                              }
+                         }"
+                             [AbRecord]="[record,'icomprasMostra']"
+                   >
+                   </AbCombo>
+   
+                   <AbCombo #HAB_ENV_EMAIL_ENTREGA
+                             [AbLayoutGridItem]="{mm:12,sm:5,md:5}"
+                             #cb="AbCombo"
+                             [AbCombo]="{
+                               fieldLabel:'Habilitar Envio Email Entrega',
+                               displayField:'nome',
+                               valueField:'codigo',
+                               localQuery:true
+                          }"
+                             (next)="HAB_FPAG_PEDIDO.focus.emit()"
+                             [AbStore]="{
+                              proxy:{
+                                   read:[{
+                                     nome:'Sim',
+                                     codigo:'S'
+                                  },{
+                                     nome:'Não',
+                                     codigo:'N'
+                                  }]
+                              }
+                         }"
+                             [AbRecord]="[record,'habEnvEmailEntrega']"
+                   >
+                   </AbCombo>
+                   <AbCombo #HAB_FPAG_PEDIDO
+                             [AbLayoutGridItem]="{mm:12,sm:5,md:5}"
+                             #cb="AbCombo"
+                             [AbCombo]="{
+                               fieldLabel:'Habilitar FPAG Pedido',
+                               displayField:'nome',
+                               valueField:'codigo',
+                               localQuery:true
+                          }"
+                             (next)="NO_USUARIO.focus.emit()"
+                             [AbStore]="{
+                              proxy:{
+                                   read:[{
+                                     nome:'Sim',
+                                     codigo:'S'
+                                  },{
+                                     nome:'Não',
+                                     codigo:'N'
+                                  }]
+                              }
+                         }"
+                             [AbRecord]="[record,'habFpagPedido']"
+                   >
+                   </AbCombo>
+               </AbPanel>
+           </AbContainer>
+   
+           <!--<AbTemplate AbModal #modal1="AbModal">-->
+               <!--<AbPanel-->
+                       <!--style="-->
+                           <!--height: calc( 100% - 200px );-->
+                           <!--width: calc( 100% - 200px );-->
+                           <!--margin-left: 100px;-->
+                           <!--margin-top: 100px;-->
+                       <!--"-->
+                       <!--[AbPanel]="{title:'Licença'}">-->
+                   <!--<AbViewport>-->
+                       <!--<AbToolbar-->
+                               <!--[AbToolbar]="{-->
+                                  <!--position:'top',-->
+                                  <!--ui:'dam-usuario'-->
+                               <!--}">-->
+                           <!--<div style="flex-grow: 1;"></div>-->
+                           <!--<AbButton [AbButton]="{text:'Salvar'}" (click)="salvarLicencaItem(licencaItemForm,modal1)">-->
+                               <!--<AbTemplate [AbTemplate]="{type:'icon'}">-->
+                                   <!--<i class="fa fa-file-o" aria-hidden="true"></i>-->
+                               <!--</AbTemplate>-->
+                           <!--</AbButton>-->
+                           <!--<AbButton [AbButton]="{text:'Cancelar'}" (click)="cancelarLicencaItem(modal1)">-->
+                               <!--<AbTemplate [AbTemplate]="{type:'icon'}">-->
+                                   <!--<i class="fa fa-sign-out" aria-hidden="true"></i>-->
+                               <!--</AbTemplate>-->
+                           <!--</AbButton>-->
+                       <!--</AbToolbar>-->
+                       <!--<form #licencaItemForm="ngForm" style="height: 100%; height: 100%">-->
+                           <!--<AbContainer-->
+                                   <!--[AbLayoutGrid]="{units:12}" style="width:100%;height:100%">-->
+                               <!--<AbTextfield #totalLicenca_1 AbMask_number (next)="validade_1.focus.emit()"-->
+                                             <!--[AbLayoutGridItem]="{sm:12,md:3}"-->
+                                             <!--[AbTextfield]="{fieldLabel:'Total Licenca'}"-->
+                                             <!--[AbRecord]="[licencaItemRecord,'totalLicenca']"-->
+                               <!--&gt;-->
+                               <!--</AbTextfield>-->
+                               <!--<AbDatefield-->
+                                       <!--#emissao_1-->
+                                       <!--(next)="validade_1.focus.emit()"-->
+                                       <!--[AbLayoutGridItem]="{sm:12,md:4}"-->
+                                       <!--[AbDatefield]="{fieldLabel:'Data Emissao',readonly:true}"-->
+                                       <!--[AbRecord]="[licencaItemRecord,'emissao']"-->
+                               <!--&gt;-->
+                               <!--</AbDatefield>-->
+                               <!--<AbDatefield-->
+                                       <!--#validade_1-->
+                                       <!--(next)="ComboSistema_1.focus.emit()"-->
+                                       <!--[AbLayoutGridItem]="{sm:12,md:4}"-->
+                                       <!--[AbDatefield]="{fieldLabel:'Data Validade'}"-->
+                                       <!--[AbRecord]="[licencaItemRecord,'validade']"-->
+                               <!--&gt;-->
+                               <!--</AbDatefield>-->
+   
+                               <!--<AbCombo AbValidationRequired-->
+                                         <!--#ComboSistema_1-->
+                                         <!--(next)="totalLicenca_1.focus.emit()"-->
+                                         <!--[AbLayoutGridItem]="{sm:12,md:4}"-->
+                                         <!--[AbCombo]="{-->
+                                           <!--fieldLabel:'Sistema' ,-->
+                                           <!--displayField:'nome',-->
+                                           <!--keyField:'sistemaId'-->
+                                         <!--}"-->
+                                         <!--[AbRecord]="[licencaItemRecord,'sistemaId']"-->
+                                         <!--[AbStore]="{-->
+                                               <!--service:sistemaService,-->
+                                               <!--proxy:{-->
+                                                  <!--read:{-->
+                                                       <!--method:'listQueryCombo'-->
+                                                  <!--}-->
+                                               <!--},-->
+                                               <!--columns:[{-->
+                                                   <!--dataIndex:'nome',-->
+                                                   <!--field:'nome'-->
+                                               <!--},{-->
+                                                   <!--dataIndex:'sistemaId',-->
+                                                   <!--field:'sistemaId'-->
+                                               <!--}]-->
+                                           <!--}-->
+                                       <!--"-->
+                               <!--&gt;-->
+                                   <!--<AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">-->
+                                       <!--{{r.get('nome')}}-->
+                                   <!--</AbTemplate>-->
+                               <!--</AbCombo>-->
+                           <!--</AbContainer>-->
+                       <!--</form>-->
+                   <!--</AbViewport>-->
+               <!--</AbPanel>-->
+           <!--</AbTemplate>-->
+       </form>
+   
+   </AbViewport>
+{% endexport %} 

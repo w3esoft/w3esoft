@@ -11,7 +11,7 @@ public class PawScan {
     private int position=0;
     LinkedList<Integer> cacheChar = new LinkedList();
     public PawScan(CharSequence charSequence) {
-        this(new ByteArrayInputStream(charSequence.toString().getBytes(StandardCharsets.UTF_8)));
+        this(new ByteArrayInputStream(String.valueOf(charSequence).getBytes()));
     }
     public PawScan(InputStream input) {
         this.input = input;

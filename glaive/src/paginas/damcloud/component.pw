@@ -1,4 +1,6 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% apply HtmlModule %>  
-<router-outlet>
-</router-outlet>
+{% import {HtmlModule} from "@paw/html" %}  
+{% export CldComponent %} 
+   {% apply HtmlModule %}  
+   <router-outlet>
+   </router-outlet>
+{% endexport %} 

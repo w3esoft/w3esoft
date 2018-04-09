@@ -1,96 +1,99 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {AbViewport} from "@atomicburst/viewport" %>  
-<% import {AbToolbar} from "@atomicburst/toolbar" %>  
-<% import {AbContainer} from "@atomicburst/container" %>  
-<% import {AbTextfield} from "@atomicburst/textfield" %>  
-<% apply HtmlModule %>  
-<AbViewport #viewport >
-  <AbToolbar
-              [AbToolbar]="{
-                   position:'top',
-                   ui:'TOOLS-TOP'
-                }">
-    <div style="flex-grow: 1;"></div>
-  </AbToolbar>
-  <div style="padding: 15px;">
-
-    <AbContainer [AbLayoutGrid]="{units:12}" >
-
-      <AbTextfield
-        #ResumoField="AbTextfield" AbMask_number
-        (next)="ResumoField.focus.emit();reload(ResumoField)"
-        [AbLayoutGridItem]="{sm:12}" [AbTextfield]="{fieldLabel:'Cpf/Cnpj'}"
-        style="width:250px" [AbRecord]="[record,'clienteId.cpfCnpj']"
-
-      >
-      </AbTextfield>
-
-      <AbTextfield
-        [AbLayoutGridItem]="{sm:12,md:12}" [AbTextfield]="{readonly:true,fieldLabel:'Nome'}"
-        style="width:250px" [AbRecord]="[record,'clienteId.nome']"
-
-      >
-      </AbTextfield>
-
-      <AbContainer [AbLayoutGridItem]="{sm:12,md:12}" [AbLayoutGrid]="{units:12}" >
-
-        <div
-          [AbLayoutGridItem]="{sm:12,md:12}"  ><strong style="color: #328ce8">LIMITES CARTÃO PRÓPRIO</strong></div>
-
-
-        <AbTextfield
-          [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{readonly:true,fieldLabel:'LIMITE'}"
-          style="width:250px" [AbRecord]="[record,'clienteId.limit']"
-
-        >
-        </AbTextfield>
-
-        <AbTextfield
-          [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{readonly:true,fieldLabel:'Utilizado'}"
-          style="width:250px" [AbRecord]="[record,'clienteId.limit']"
-
-        >
-        </AbTextfield>
-
-        <AbTextfield
-          [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{readonly:true,fieldLabel:'DISPONÍVEL'}"
-          style="width:250px" [AbRecord]="[record,'clienteId.limit']"
-
-        >
-        </AbTextfield>
-      </AbContainer>
-
-
-      <AbContainer [AbLayoutGridItem]="{sm:12,md:12}" [AbLayoutGrid]="{units:12}" >
-
-        <div
-          [AbLayoutGridItem]="{sm:12,md:12}"><strong style="color: #328ce8">LIMITES CHEQUE</strong></div>
-
-        <AbTextfield
-          [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{readonly:true,fieldLabel:'LIMITE'}"
-          style="width:250px" [AbRecord]="[record,'clienteId.limit']"
-
-        >
-        </AbTextfield>
-
-        <AbTextfield
-          [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{readonly:true,fieldLabel:'Utilizado'}"
-          style="width:250px" [AbRecord]="[record,'clienteId.limit']"
-
-        >
-        </AbTextfield>
-
-        <AbTextfield
-          [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{readonly:true,fieldLabel:'DISPONÍVEL'}"
-          style="width:250px" [AbRecord]="[record,'clienteId.limit']"
-        >
-        </AbTextfield>
-      </AbContainer>
-
-
-
-
-    </AbContainer>
-
-  </div>
-</AbViewport>
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {AbViewport} from "@atomicburst/viewport" %}  
+{% import {AbToolbar} from "@atomicburst/toolbar" %}  
+{% import {AbContainer} from "@atomicburst/container" %}  
+{% import {AbTextfield} from "@atomicburst/textfield" %}  
+{% export CldClienteComponent %} 
+   {% apply HtmlModule %}  
+   <AbViewport #viewport >
+     <AbToolbar
+                 [AbToolbar]="{
+                      position:'top',
+                      ui:'TOOLS-TOP'
+                   }">
+       <div style="flex-grow: 1;"></div>
+     </AbToolbar>
+     <div style="padding: 15px;">
+   
+       <AbContainer [AbLayoutGrid]="{units:12}" >
+   
+         <AbTextfield
+           #ResumoField="AbTextfield" AbMask_number
+           (next)="ResumoField.focus.emit();reload(ResumoField)"
+           [AbLayoutGridItem]="{sm:12}" [AbTextfield]="{fieldLabel:'Cpf/Cnpj'}"
+           style="width:250px" [AbRecord]="[record,'clienteId.cpfCnpj']"
+   
+         >
+         </AbTextfield>
+   
+         <AbTextfield
+           [AbLayoutGridItem]="{sm:12,md:12}" [AbTextfield]="{readonly:true,fieldLabel:'Nome'}"
+           style="width:250px" [AbRecord]="[record,'clienteId.nome']"
+   
+         >
+         </AbTextfield>
+   
+         <AbContainer [AbLayoutGridItem]="{sm:12,md:12}" [AbLayoutGrid]="{units:12}" >
+   
+           <div
+             [AbLayoutGridItem]="{sm:12,md:12}"  ><strong style="color: #328ce8">LIMITES CARTÃO PRÓPRIO</strong></div>
+   
+   
+           <AbTextfield
+             [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{readonly:true,fieldLabel:'LIMITE'}"
+             style="width:250px" [AbRecord]="[record,'clienteId.limit']"
+   
+           >
+           </AbTextfield>
+   
+           <AbTextfield
+             [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{readonly:true,fieldLabel:'Utilizado'}"
+             style="width:250px" [AbRecord]="[record,'clienteId.limit']"
+   
+           >
+           </AbTextfield>
+   
+           <AbTextfield
+             [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{readonly:true,fieldLabel:'DISPONÍVEL'}"
+             style="width:250px" [AbRecord]="[record,'clienteId.limit']"
+   
+           >
+           </AbTextfield>
+         </AbContainer>
+   
+   
+         <AbContainer [AbLayoutGridItem]="{sm:12,md:12}" [AbLayoutGrid]="{units:12}" >
+   
+           <div
+             [AbLayoutGridItem]="{sm:12,md:12}"><strong style="color: #328ce8">LIMITES CHEQUE</strong></div>
+   
+           <AbTextfield
+             [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{readonly:true,fieldLabel:'LIMITE'}"
+             style="width:250px" [AbRecord]="[record,'clienteId.limit']"
+   
+           >
+           </AbTextfield>
+   
+           <AbTextfield
+             [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{readonly:true,fieldLabel:'Utilizado'}"
+             style="width:250px" [AbRecord]="[record,'clienteId.limit']"
+   
+           >
+           </AbTextfield>
+   
+           <AbTextfield
+             [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{readonly:true,fieldLabel:'DISPONÍVEL'}"
+             style="width:250px" [AbRecord]="[record,'clienteId.limit']"
+           >
+           </AbTextfield>
+         </AbContainer>
+   
+   
+   
+   
+       </AbContainer>
+   
+     </div>
+   </AbViewport>
+   
+{% endexport %} 

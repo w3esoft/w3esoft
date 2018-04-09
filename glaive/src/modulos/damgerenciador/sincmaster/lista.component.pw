@@ -1,76 +1,79 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {AbViewport} from "@atomicburst/viewport" %>  
-<% import {AbToolbar} from "@atomicburst/toolbar" %>  
-<% import {AbButton} from "@atomicburst/button" %>  
-<% import {AbContainer} from "@atomicburst/container" %>  
-<% import {AbDatatable} from "@atomicburst/datatable" %>  
-<% import {AbDatatable_column} from "@atomicburst/datatable_column" %>  
-<% apply HtmlModule %>  
-<AbViewport>
-    <AbToolbar
-            [AbToolbar]="{
-                   position:'top',
-                   ui:'dam-sincmaster'
-                }">
-        <div style="flex-grow: 1;"></div>
-        <AbButton [AbButton]="{text:'Novo'}" (click)="novo()">
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-file-o" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-        <AbButton [AbButton]="{text:'Pesquisar'}" (click)="pesquisar()">
-            <AbTemplate [AbTemplate]="{type:'icon'}">
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </AbTemplate>
-        </AbButton>
-    </AbToolbar>
-    <!--<AbContainer  [AbLayoutGrid]="{units:24}">-->
-    <!--<AbTextfield  [AbLayoutGridItem]="{mm:24}" [AbTextfield]="{fieldLabel:'Caminho'}"-->
-    <!--style="width:250px" [AbRecord]="[pesquisa,'caminho']" >-->
-    <!--</AbTextfield>-->
-    <!--</AbContainer>-->
-    <AbContainer [AbLayout_flex]="{'orientation':'vertical'}" style="width:100%;height:100%" >
-    <AbDatatable
-            [AbLayout_flex_item]="{flex:1}"
-            #datatableStore="AbStore"
-            (AbStore-select)="edit($event)"
-
-            [AbStore]="{
-                service:sincmasterService,
-                proxy:{
-                  read:{
-                    method:'listQueryGrid',
-                    extraParams:{
-                      pesquisa:pesquisa
-                    }
-                  }
-                },
-                columns:[{
-                    field:'sincMasterId',
-                    dataIndex:'sincMasterId'
-                },{
-                    field:'caminho',
-                    dataIndex:'caminho'
-                },{
-                    field:'caminho',
-                    dataIndex:'data'
-                }]
-    }"
-    >
-        <AbDatatable_column [AbDatatable_column]="{
-            title:'Caminho',
-            dataIndex:'caminho',
-            width:'75%',
-            minWidth:'150px'
-          }">
-        </AbDatatable_column>
-        <AbDatatable_column [AbDatatable_column]="{
-            title:'Data',
-            dataIndex:'data',
-            width:'25%',
-            minWidth:'150px'
-          }">
-        </AbDatatable_column>
-    </AbDatatable>
-    </AbContainer>
-</AbViewport>
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {AbViewport} from "@atomicburst/viewport" %}  
+{% import {AbToolbar} from "@atomicburst/toolbar" %}  
+{% import {AbButton} from "@atomicburst/button" %}  
+{% import {AbContainer} from "@atomicburst/container" %}  
+{% import {AbDatatable} from "@atomicburst/datatable" %}  
+{% import {AbDatatable_column} from "@atomicburst/datatable_column" %}  
+{% export GdrSincMasterListaComponent %} 
+   {% apply HtmlModule %}  
+   <AbViewport>
+       <AbToolbar
+               [AbToolbar]="{
+                      position:'top',
+                      ui:'dam-sincmaster'
+                   }">
+           <div style="flex-grow: 1;"></div>
+           <AbButton [AbButton]="{text:'Novo'}" (click)="novo()">
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-file-o" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+           <AbButton [AbButton]="{text:'Pesquisar'}" (click)="pesquisar()">
+               <AbTemplate [AbTemplate]="{type:'icon'}">
+                   <i class="fa fa-search" aria-hidden="true"></i>
+               </AbTemplate>
+           </AbButton>
+       </AbToolbar>
+       <!--<AbContainer  [AbLayoutGrid]="{units:24}">-->
+       <!--<AbTextfield  [AbLayoutGridItem]="{mm:24}" [AbTextfield]="{fieldLabel:'Caminho'}"-->
+       <!--style="width:250px" [AbRecord]="[pesquisa,'caminho']" >-->
+       <!--</AbTextfield>-->
+       <!--</AbContainer>-->
+       <AbContainer [AbLayout_flex]="{'orientation':'vertical'}" style="width:100%;height:100%" >
+       <AbDatatable
+               [AbLayout_flex_item]="{flex:1}"
+               #datatableStore="AbStore"
+               (AbStore-select)="edit($event)"
+   
+               [AbStore]="{
+                   service:sincmasterService,
+                   proxy:{
+                     read:{
+                       method:'listQueryGrid',
+                       extraParams:{
+                         pesquisa:pesquisa
+                       }
+                     }
+                   },
+                   columns:[{
+                       field:'sincMasterId',
+                       dataIndex:'sincMasterId'
+                   },{
+                       field:'caminho',
+                       dataIndex:'caminho'
+                   },{
+                       field:'caminho',
+                       dataIndex:'data'
+                   }]
+       }"
+       >
+           <AbDatatable_column [AbDatatable_column]="{
+               title:'Caminho',
+               dataIndex:'caminho',
+               width:'75%',
+               minWidth:'150px'
+             }">
+           </AbDatatable_column>
+           <AbDatatable_column [AbDatatable_column]="{
+               title:'Data',
+               dataIndex:'data',
+               width:'25%',
+               minWidth:'150px'
+             }">
+           </AbDatatable_column>
+       </AbDatatable>
+       </AbContainer>
+   </AbViewport>
+   
+{% endexport %} 

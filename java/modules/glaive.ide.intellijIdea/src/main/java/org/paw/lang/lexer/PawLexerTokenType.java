@@ -1,0 +1,31 @@
+package org.paw.lang.lexer;
+
+public enum PawLexerTokenType {
+    ERROR,
+    STRING_ERROR ,
+    LINE,
+    IDENT,
+    HASH ,
+    BRACKET_OPEN,
+    BRACKET_CLOSE,
+    PERCENT_SIGN,
+    STRING,
+    WHITESPACE,
+    NUMERIC,
+    TOKEN_TEXT ,
+    TAG_END ,
+    TAG_START ,
+    TAG_START_END ,
+    TAG_ATTR_TEMPLATE ,
+    TAG_ATTR_INPUT ,
+    TAG_ATTR_OUTPUT ,
+    TAG_ATTR_INPUT_OUTPUT ,
+    META_TAG_END ,
+    META_TAG_START ,
+    EQUAL ,
+    BRACE_OPEN ,
+    BRACE_CLOSE ,
+    PARENTHESIS_OPEN ,
+    PARENTHESIS_CLOSE ,
+    DOT ;
+}

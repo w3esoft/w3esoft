@@ -1,23 +1,25 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% apply HtmlModule %>  
-<div id="{{id}}-inner" class="AbField-inner">
-  <label   class="AbField-label"  attr.for="{{id}}-input">{{config?.fieldLabel }}</label>
-  <div  class="AbField-input-group"  >
-    <textarea class="AbField-input-inner"
-              autocomplete="off"
-              autocorrect="off"
-              autocapitalize="off"
-              spellcheck="false"
-              [readonly]="readonly"
-              (focus)= "_onFocus()"
-              (keydown)="_onKeydown($event)"
-              (focusout)="_onFocusout()"
-              (blur)="_onBlur($event)"
-              (input)="_onInput($event)"
-              name="{{id}}-textarea"
-              id="{{id}}-textarea"
-    >
-    </textarea>
-    <div *ngIf="invalid" class="AbField-error">{{messageError}}</div>
-  </div>
-</div>
+{% import {HtmlModule} from "@paw/html" %}  
+{% export TextareafieldComponent %} 
+   {% apply HtmlModule %}  
+   <div id="{{id}}-inner" class="AbField-inner">
+     <label   class="AbField-label"  attr.for="{{id}}-input">{{config?.fieldLabel }}</label>
+     <div  class="AbField-input-group"  >
+       <textarea class="AbField-input-inner"
+                 autocomplete="off"
+                 autocorrect="off"
+                 autocapitalize="off"
+                 spellcheck="false"
+                 [readonly]="readonly"
+                 (focus)= "_onFocus()"
+                 (keydown)="_onKeydown($event)"
+                 (focusout)="_onFocusout()"
+                 (blur)="_onBlur($event)"
+                 (input)="_onInput($event)"
+                 name="{{id}}-textarea"
+                 id="{{id}}-textarea"
+       >
+       </textarea>
+       <div *ngIf="invalid" class="AbField-error">{{messageError}}</div>
+     </div>
+   </div>
+{% endexport %} 

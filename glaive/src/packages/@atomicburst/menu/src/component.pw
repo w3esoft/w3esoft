@@ -1,11 +1,14 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {AbButton} from "@atomicburst/button" %>  
-<% import {*ngif} from "@atomicburst/common" %> 
-<% apply HtmlModule %>  
-<AbButton  *ngIf="config.text"
-           [AbButton]="{ui:config.ui,'text':config.text,iconCls:config.iconCls}"
-           (click)="toggleCollapsed()">
-</AbButton>
-<div class="AbMenu-inner" [attr.ui]="config.ui"  >
-  <ng-content></ng-content>
-</div>
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {AbButton} from "@atomicburst/button" %}  
+{% import {*ngif} from "@atomicburst/common" %} 
+{% export MenuComponent %} 
+   {% apply HtmlModule %}  
+   <AbButton  *ngIf="config.text"
+              [AbButton]="{ui:config.ui,'text':config.text,iconCls:config.iconCls}"
+              (click)="toggleCollapsed()">
+   </AbButton>
+   <div class="AbMenu-inner" [attr.ui]="config.ui"  >
+     <ng-content></ng-content>
+   </div>
+   
+{% endexport %} 

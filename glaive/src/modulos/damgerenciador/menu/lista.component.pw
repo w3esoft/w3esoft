@@ -1,79 +1,82 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {AbViewport} from "@atomicburst/viewport" %>  
-<% import {AbToolbar} from "@atomicburst/toolbar" %>  
-<% import {AbButton} from "@atomicburst/button" %>  
-<% import {AbContainer} from "@atomicburst/container" %>  
-<% import {AbTextfield} from "@atomicburst/textfield" %>  
-<% import {AbDatatable} from "@atomicburst/datatable" %>  
-<% import {AbDatatable_column} from "@atomicburst/datatable_column" %>  
-<% apply HtmlModule %>  
-<AbViewport AbLayout_vbox>
-  <AbToolbar
-              [AbToolbar]="{
-                   position:'top',
-                   ui:'dam-menu'
-                }">
-    <div style="flex-grow: 1;"></div>
-    <AbButton [AbButton]="{text:'Novo'}" (click)="novo()">
-      <AbTemplate [AbTemplate]="{type:'icon'}">
-        <i class="fa fa-file-o" aria-hidden="true"></i>
-      </AbTemplate>
-    </AbButton>
-    <AbButton [AbButton]="{text:'Pesquisar'}" (click)="pesquisar()">
-      <AbTemplate [AbTemplate]="{type:'icon'}">
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </AbTemplate>
-    </AbButton>
-  </AbToolbar>
-  <AbContainer AbLayoutGrid style="padding:0px 5px 5px 5px">
-    <AbTextfield [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{fieldLabel:'Nome'}"
-                  style="width:250px" [AbRecord]="[pesquisa,'nome']" >
-    </AbTextfield>
-    <AbTextfield [AbLayoutGridItem]="{sm:12,md:4}"  [AbTextfield]="{fieldLabel:'Resumo'}"
-                  style="width:250px" [AbRecord]="[pesquisa,'resumo']" >
-    </AbTextfield>
-    <AbTextfield [AbLayoutGridItem]="{sm:12,md:4}"  [AbTextfield]="{fieldLabel:'Path'}"
-                  style="width:250px" [AbRecord]="[pesquisa,'path']" >
-    </AbTextfield>
-  </AbContainer>
-  <AbDatatable
-    #datatableStore="AbStore"
-    (AbStore-select)="edit($event)"
-
-    [AbStore]="{
-                service:menuService,
-                proxy:{
-                  read:{
-                    method:'listQueryGrid',
-                     extraParams:{
-                        pesquisa:pesquisa
-                     }
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {AbViewport} from "@atomicburst/viewport" %}  
+{% import {AbToolbar} from "@atomicburst/toolbar" %}  
+{% import {AbButton} from "@atomicburst/button" %}  
+{% import {AbContainer} from "@atomicburst/container" %}  
+{% import {AbTextfield} from "@atomicburst/textfield" %}  
+{% import {AbDatatable} from "@atomicburst/datatable" %}  
+{% import {AbDatatable_column} from "@atomicburst/datatable_column" %}  
+{% export GdrMenuListaComponent %} 
+   {% apply HtmlModule %}  
+   <AbViewport AbLayout_vbox>
+     <AbToolbar
+                 [AbToolbar]="{
+                      position:'top',
+                      ui:'dam-menu'
+                   }">
+       <div style="flex-grow: 1;"></div>
+       <AbButton [AbButton]="{text:'Novo'}" (click)="novo()">
+         <AbTemplate [AbTemplate]="{type:'icon'}">
+           <i class="fa fa-file-o" aria-hidden="true"></i>
+         </AbTemplate>
+       </AbButton>
+       <AbButton [AbButton]="{text:'Pesquisar'}" (click)="pesquisar()">
+         <AbTemplate [AbTemplate]="{type:'icon'}">
+           <i class="fa fa-search" aria-hidden="true"></i>
+         </AbTemplate>
+       </AbButton>
+     </AbToolbar>
+     <AbContainer AbLayoutGrid style="padding:0px 5px 5px 5px">
+       <AbTextfield [AbLayoutGridItem]="{sm:12,md:4}" [AbTextfield]="{fieldLabel:'Nome'}"
+                     style="width:250px" [AbRecord]="[pesquisa,'nome']" >
+       </AbTextfield>
+       <AbTextfield [AbLayoutGridItem]="{sm:12,md:4}"  [AbTextfield]="{fieldLabel:'Resumo'}"
+                     style="width:250px" [AbRecord]="[pesquisa,'resumo']" >
+       </AbTextfield>
+       <AbTextfield [AbLayoutGridItem]="{sm:12,md:4}"  [AbTextfield]="{fieldLabel:'Path'}"
+                     style="width:250px" [AbRecord]="[pesquisa,'path']" >
+       </AbTextfield>
+     </AbContainer>
+     <AbDatatable
+       #datatableStore="AbStore"
+       (AbStore-select)="edit($event)"
+   
+       [AbStore]="{
+                   service:menuService,
+                   proxy:{
+                     read:{
+                       method:'listQueryGrid',
+                        extraParams:{
+                           pesquisa:pesquisa
+                        }
+                      }
                    }
-                }
-    }"
-
-  >
-    <AbDatatable_column [AbDatatable_column]="{
-            title:'Nome',
-            dataIndex:'nome',
-            width:'50%',
-            minWidth:'150px'
-          }">
-    </AbDatatable_column>
-    <AbDatatable_column [AbDatatable_column]="{
-            title:'Resumo',
-            dataIndex:'resumo',
-            width:'25%',
-            minWidth:'150px'
-          }">
-    </AbDatatable_column>
-    <AbDatatable_column [AbDatatable_column]="{
-            title:'Path',
-            dataIndex:'path',
-            width:'25%',
-            minWidth:'150px'
-          }">
-    </AbDatatable_column>
-  </AbDatatable>
-
-</AbViewport>
+       }"
+   
+     >
+       <AbDatatable_column [AbDatatable_column]="{
+               title:'Nome',
+               dataIndex:'nome',
+               width:'50%',
+               minWidth:'150px'
+             }">
+       </AbDatatable_column>
+       <AbDatatable_column [AbDatatable_column]="{
+               title:'Resumo',
+               dataIndex:'resumo',
+               width:'25%',
+               minWidth:'150px'
+             }">
+       </AbDatatable_column>
+       <AbDatatable_column [AbDatatable_column]="{
+               title:'Path',
+               dataIndex:'path',
+               width:'25%',
+               minWidth:'150px'
+             }">
+       </AbDatatable_column>
+     </AbDatatable>
+   
+   </AbViewport>
+   
+{% endexport %} 

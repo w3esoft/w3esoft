@@ -1,25 +1,27 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% apply HtmlModule %>  
-<div  #headerEl class="header">
-  <div class="title">
-   {{config?.title}}
-  </div>
-</div>
-<body class="body-inner">
-    <div class="body"   #body>
-        <ng-content select="AbToolbar"></ng-content>
-        <div *ngFor="let modalDirective of modalContainerService.modalDirectives "
-             #target
-             style="width: 100%;height:100%;position: absolute ;z-index: 1000;background-color: rgba(0,0,0,0.8);"
-             [hidden]="modalDirective.hidden"
-             (click)="clickModal($event,target,modalDirective)"
-        >
-
-            <ng-container *ngTemplateOutlet="modalDirective.templateRef;">
-            </ng-container>
-        </div>
-        <div class="container" #container [ngStyle]="containerStyle()" >
-            <ng-content></ng-content>
-        </div>
-    </div>
-</body>
+{% import {HtmlModule} from "@paw/html" %}  
+{% export TabPanelComponent %} 
+   {% apply HtmlModule %}  
+   <div  #headerEl class="header">
+     <div class="title">
+      {{config?.title}}
+     </div>
+   </div>
+   <body class="body-inner">
+       <div class="body"   #body>
+           <ng-content select="AbToolbar"></ng-content>
+           <div *ngFor="let modalDirective of modalContainerService.modalDirectives "
+                #target
+                style="width: 100%;height:100%;position: absolute ;z-index: 1000;background-color: rgba(0,0,0,0.8);"
+                [hidden]="modalDirective.hidden"
+                (click)="clickModal($event,target,modalDirective)"
+           >
+   
+               <ng-container *ngTemplateOutlet="modalDirective.templateRef;">
+               </ng-container>
+           </div>
+           <div class="container" #container [ngStyle]="containerStyle()" >
+               <ng-content></ng-content>
+           </div>
+       </div>
+   </body>
+{% endexport %} 

@@ -1,36 +1,39 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {AbViewport} from "@atomicburst/viewport" %>  
-<% import {AbToolbar} from "@atomicburst/toolbar" %>  
-<% import {AbButton} from "@atomicburst/button" %>  
-<% import {AbTextfield} from "@atomicburst/textfield" %>  
-<% apply HtmlModule %>  
-<AbViewport>
-  <AbToolbar
-              [AbToolbar]="{
-                   position:'top',
-                   ui:'dam-permissao'
-                }">
-    <div style="flex-grow: 1;"></div>
-    <AbButton [AbButton]="{text:'Novo'}" (click)="novo()">
-      <AbTemplate [AbTemplate]="{type:'icon'}">
-        <i class="fa fa-file-o" aria-hidden="true"></i>
-      </AbTemplate>
-    </AbButton>
-    <AbButton [AbButton]="{text:'Pesquisar'}">
-      <AbTemplate [AbTemplate]="{type:'icon'}">
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </AbTemplate>
-    </AbButton>
-  </AbToolbar>
-  <div class="hBox" style="padding:0px 5px 5px 5px">
-    <AbTextfield [AbTextfield]="{fieldLabel:'Nome'}"
-                  style="width:250px" [AbRecord]="[pesquisa,'nome']" >
-    </AbTextfield>
-    <AbTextfield [AbTextfield]="{fieldLabel:'Resumo'}"
-                  style="width:250px" [AbRecord]="[pesquisa,'resumo']" >
-    </AbTextfield>
-    <AbTextfield [AbTextfield]="{fieldLabel:'Permissao'}"
-                  style="width:250px" [AbRecord]="[pesquisa,'permissao']" >
-    </AbTextfield>
-  </div>
-</AbViewport>
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {AbViewport} from "@atomicburst/viewport" %}  
+{% import {AbToolbar} from "@atomicburst/toolbar" %}  
+{% import {AbButton} from "@atomicburst/button" %}  
+{% import {AbTextfield} from "@atomicburst/textfield" %}  
+{% export GdrPermissaoListaComponent %} 
+   {% apply HtmlModule %}  
+   <AbViewport>
+     <AbToolbar
+                 [AbToolbar]="{
+                      position:'top',
+                      ui:'dam-permissao'
+                   }">
+       <div style="flex-grow: 1;"></div>
+       <AbButton [AbButton]="{text:'Novo'}" (click)="novo()">
+         <AbTemplate [AbTemplate]="{type:'icon'}">
+           <i class="fa fa-file-o" aria-hidden="true"></i>
+         </AbTemplate>
+       </AbButton>
+       <AbButton [AbButton]="{text:'Pesquisar'}">
+         <AbTemplate [AbTemplate]="{type:'icon'}">
+           <i class="fa fa-search" aria-hidden="true"></i>
+         </AbTemplate>
+       </AbButton>
+     </AbToolbar>
+     <div class="hBox" style="padding:0px 5px 5px 5px">
+       <AbTextfield [AbTextfield]="{fieldLabel:'Nome'}"
+                     style="width:250px" [AbRecord]="[pesquisa,'nome']" >
+       </AbTextfield>
+       <AbTextfield [AbTextfield]="{fieldLabel:'Resumo'}"
+                     style="width:250px" [AbRecord]="[pesquisa,'resumo']" >
+       </AbTextfield>
+       <AbTextfield [AbTextfield]="{fieldLabel:'Permissao'}"
+                     style="width:250px" [AbRecord]="[pesquisa,'permissao']" >
+       </AbTextfield>
+     </div>
+   </AbViewport>
+   
+{% endexport %} 

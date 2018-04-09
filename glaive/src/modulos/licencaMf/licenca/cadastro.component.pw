@@ -1,145 +1,148 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% import {FormModule} from "@paw/html" %>  
-<% import {AbViewport} from "@atomicburst/viewport" %>  
-<% import {AbToolbar} from "@atomicburst/toolbar" %>  
-<% import {AbButton} from "@atomicburst/button" %>  
-<% import {AbContainer} from "@atomicburst/container" %>  
-<% import {AbCombo} from "@atomicburst/combo" %>  
-<% import {AbTextfield} from "@atomicburst/textfield" %>  
-<% import {AbDatefield} from "@atomicburst/datefield" %>  
-<% apply HtmlModule %>  
-<% apply FormModule %>  
-<AbViewport>
-
-<AbToolbar
-            [AbToolbar]="{
-                   position:'top',
-                   ui:'dam-licenca'
-                }">
-  <div style="flex-grow: 1;"></div>
-  <AbButton [AbButton]="{text:'Salvar'}" (click)="salvar(form)">
-    <AbTemplate [AbTemplate]="{type:'icon'}">
-      <i class="fa fa-file-o" aria-hidden="true"></i>
-    </AbTemplate>
-  </AbButton>
-  <AbButton [AbButton]="{text:'Retornar'}" (click)="retornar()">
-    <AbTemplate [AbTemplate]="{type:'icon'}">
-      <i class="fa fa-sign-out" aria-hidden="true"></i>
-    </AbTemplate>
-  </AbButton>
-</AbToolbar>
-  <form #form="ngForm" style="height: 100%">
-    <AbContainer [AbLayoutGrid]="{units:24}" style="height: 100%">
-      <AbCombo AbValidationRequired
-                #ComboUsuario_1
-                (next)="totalLicenca_1.focus.emit()"
-                [AbLayoutGridItem]="{sm:12,md:8}"
-                [AbCombo]="{
-                                        fieldLabel:'Usuario' ,
-                                        displayField:'nome',
-                                        keyField:'usuarioId'
-                                      }"
-                [AbRecord]="[record,'usuarioId']"
-                [AbStore]="{
-                                            service:usuarioService,
-                                            proxy:{
-                                               read:{
-                                                    method:'listQueryCombo'
-                                               }
-                                            },
-                                            columns:[{
-                                                dataIndex:'nome',
-                                                field:'nome'
-                                            },{
-                                                dataIndex:'usuarioId',
-                                                field:'usuarioId'
-                                            }]
-                                        }
-                                    "
-      >
-        <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
-          {{r.get('nome')}}
-        </AbTemplate>
-      </AbCombo>
-      <AbTextfield #totalLicenca_1 AbMask_number (next)="validade_1.focus.emit()"
-                    [AbLayoutGridItem]="{sm:12,md:3}"
-                    [AbTextfield]="{fieldLabel:'Total Licenca'}"
-                    [AbRecord]="[record,'totalLicenca']"
-      >
-      </AbTextfield>
-      <AbDatefield
-              #emissao_1
-              [AbLayoutGridItem]="{sm:12,md:4}"
-              [AbDatefield]="{fieldLabel:'Data Emissao',readonly:true}"
-              [AbRecord]="[record,'emissao']"
-      >
-      </AbDatefield>
-      <AbDatefield
-              #validade_1
-              (next)="ComboSistema_1.focus.emit()"
-              [AbLayoutGridItem]="{sm:12,md:4}"
-              [AbDatefield]="{fieldLabel:'Data Validade'}"
-              [AbRecord]="[record,'validade']"
-      >
-      </AbDatefield>
-
-      <AbCombo AbValidationRequired
-                #ComboSistema_1
-                (next)="statuscombo.focus.emit()"
-                [AbLayoutGridItem]="{sm:12,md:4}"
-                [AbCombo]="{
-                                        fieldLabel:'Sistema' ,
-                                        displayField:'nome',
-                                        keyField:'sistemaId'
-                                      }"
-                [AbRecord]="[record,'sistemaId']"
-                [AbStore]="{
-                                            service:sistemaService,
-                                            proxy:{
-                                               read:{
-                                                    method:'listQueryCombo'
-                                               }
-                                            },
-                                            columns:[{
-                                                dataIndex:'nome',
-                                                field:'nome'
-                                            },{
-                                                dataIndex:'sistemaId',
-                                                field:'sistemaId'
-                                            }]
-                                        }
-                                    "
-      >
-        <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
-          {{r.get('nome')}}
-        </AbTemplate>
-      </AbCombo>
-
-      <AbCombo #statuscombo
-                [AbLayoutGridItem]="{mm:12,sm:4,md:4}"
-                #cb="AbCombo"
-                [AbCombo]="{
-                            fieldLabel:'Status',
-                            displayField:'nome',
-                            valueField:'codigo',
-                            localQuery:true
-                       }"
-                (next)="ComboUsuario_1.focus.emit()"
-                [AbStore]="{
-                           proxy:{
-                                read:[{
-                                  nome:'Ativo',
-                                  codigo:'A'
-                               },{
-                                  nome:'Cancelado',
-                                  codigo:'C'
-                               }]
-                           }
-                      }"
-                [AbRecord]="[record,'status']"
-      >
-      </AbCombo>
-
-    </AbContainer>
-  </form>
-</AbViewport>
+{% import {HtmlModule} from "@paw/html" %}  
+{% import {FormModule} from "@paw/html" %}  
+{% import {AbViewport} from "@atomicburst/viewport" %}  
+{% import {AbToolbar} from "@atomicburst/toolbar" %}  
+{% import {AbButton} from "@atomicburst/button" %}  
+{% import {AbContainer} from "@atomicburst/container" %}  
+{% import {AbCombo} from "@atomicburst/combo" %}  
+{% import {AbTextfield} from "@atomicburst/textfield" %}  
+{% import {AbDatefield} from "@atomicburst/datefield" %}  
+{% export LmfLicencaCadastroComponent %} 
+   {% apply FormModule %}  
+   {% apply HtmlModule %}  
+   <AbViewport>
+   
+   <AbToolbar
+               [AbToolbar]="{
+                      position:'top',
+                      ui:'dam-licenca'
+                   }">
+     <div style="flex-grow: 1;"></div>
+     <AbButton [AbButton]="{text:'Salvar'}" (click)="salvar(form)">
+       <AbTemplate [AbTemplate]="{type:'icon'}">
+         <i class="fa fa-file-o" aria-hidden="true"></i>
+       </AbTemplate>
+     </AbButton>
+     <AbButton [AbButton]="{text:'Retornar'}" (click)="retornar()">
+       <AbTemplate [AbTemplate]="{type:'icon'}">
+         <i class="fa fa-sign-out" aria-hidden="true"></i>
+       </AbTemplate>
+     </AbButton>
+   </AbToolbar>
+     <form #form="ngForm" style="height: 100%">
+       <AbContainer [AbLayoutGrid]="{units:24}" style="height: 100%">
+         <AbCombo AbValidationRequired
+                   #ComboUsuario_1
+                   (next)="totalLicenca_1.focus.emit()"
+                   [AbLayoutGridItem]="{sm:12,md:8}"
+                   [AbCombo]="{
+                                           fieldLabel:'Usuario' ,
+                                           displayField:'nome',
+                                           keyField:'usuarioId'
+                                         }"
+                   [AbRecord]="[record,'usuarioId']"
+                   [AbStore]="{
+                                               service:usuarioService,
+                                               proxy:{
+                                                  read:{
+                                                       method:'listQueryCombo'
+                                                  }
+                                               },
+                                               columns:[{
+                                                   dataIndex:'nome',
+                                                   field:'nome'
+                                               },{
+                                                   dataIndex:'usuarioId',
+                                                   field:'usuarioId'
+                                               }]
+                                           }
+                                       "
+         >
+           <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
+             {{r.get('nome')}}
+           </AbTemplate>
+         </AbCombo>
+         <AbTextfield #totalLicenca_1 AbMask_number (next)="validade_1.focus.emit()"
+                       [AbLayoutGridItem]="{sm:12,md:3}"
+                       [AbTextfield]="{fieldLabel:'Total Licenca'}"
+                       [AbRecord]="[record,'totalLicenca']"
+         >
+         </AbTextfield>
+         <AbDatefield
+                 #emissao_1
+                 [AbLayoutGridItem]="{sm:12,md:4}"
+                 [AbDatefield]="{fieldLabel:'Data Emissao',readonly:true}"
+                 [AbRecord]="[record,'emissao']"
+         >
+         </AbDatefield>
+         <AbDatefield
+                 #validade_1
+                 (next)="ComboSistema_1.focus.emit()"
+                 [AbLayoutGridItem]="{sm:12,md:4}"
+                 [AbDatefield]="{fieldLabel:'Data Validade'}"
+                 [AbRecord]="[record,'validade']"
+         >
+         </AbDatefield>
+   
+         <AbCombo AbValidationRequired
+                   #ComboSistema_1
+                   (next)="statuscombo.focus.emit()"
+                   [AbLayoutGridItem]="{sm:12,md:4}"
+                   [AbCombo]="{
+                                           fieldLabel:'Sistema' ,
+                                           displayField:'nome',
+                                           keyField:'sistemaId'
+                                         }"
+                   [AbRecord]="[record,'sistemaId']"
+                   [AbStore]="{
+                                               service:sistemaService,
+                                               proxy:{
+                                                  read:{
+                                                       method:'listQueryCombo'
+                                                  }
+                                               },
+                                               columns:[{
+                                                   dataIndex:'nome',
+                                                   field:'nome'
+                                               },{
+                                                   dataIndex:'sistemaId',
+                                                   field:'sistemaId'
+                                               }]
+                                           }
+                                       "
+         >
+           <AbTemplate [AbTemplate]="{type:'tplItem'}" let-r="record">
+             {{r.get('nome')}}
+           </AbTemplate>
+         </AbCombo>
+   
+         <AbCombo #statuscombo
+                   [AbLayoutGridItem]="{mm:12,sm:4,md:4}"
+                   #cb="AbCombo"
+                   [AbCombo]="{
+                               fieldLabel:'Status',
+                               displayField:'nome',
+                               valueField:'codigo',
+                               localQuery:true
+                          }"
+                   (next)="ComboUsuario_1.focus.emit()"
+                   [AbStore]="{
+                              proxy:{
+                                   read:[{
+                                     nome:'Ativo',
+                                     codigo:'A'
+                                  },{
+                                     nome:'Cancelado',
+                                     codigo:'C'
+                                  }]
+                              }
+                         }"
+                   [AbRecord]="[record,'status']"
+         >
+         </AbCombo>
+   
+       </AbContainer>
+     </form>
+   </AbViewport>
+   
+{% endexport %} 

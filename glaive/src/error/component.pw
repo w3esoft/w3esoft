@@ -1,30 +1,33 @@
-<% import {HtmlModule} from "@paw/html" %>  
-<% apply HtmlModule %>  
-
-<div class="loader-wrapper" id="loader-1" style="
-
-    position: absolute;
-    text-align: -webkit-center;
-    bottom: 80px;
-    display: grid;
-    width: 100%;
-    margin: 0px auto;
-      ">
-  <img  class="page-top-logo"  src="/assets/logo2.svg" >
-  <img  class="page-top-logo" style="padding-top: 25px"  src="/assets/500.svg" >
-
-  <p *ngIf="record.get('url')">
-
-    Você tentou acessar essa url  <a  href="{{record.get('url')}}">
-    {{record.get('url')}}
-     </a>
-
-    {{record.get('messagem')}}
-  </p>
-  <p *ngIf="record.get('messagem')" style="color: red">
-    Menssagem:  {{record.get('messagem')}}
-  </p>
-
-
-  <a href="/"> voltar ao Inicio Voltar</a>
-</div>
+{% import {HtmlModule} from "@paw/html" %}  
+{% export ErrorComponent %} 
+   {% apply HtmlModule %}  
+   
+   <div class="loader-wrapper" id="loader-1" style="
+   
+       position: absolute;
+       text-align: -webkit-center;
+       bottom: 80px;
+       display: grid;
+       width: 100%;
+       margin: 0px auto;
+         ">
+     <img  class="page-top-logo"  src="/assets/logo2.svg" >
+     <img  class="page-top-logo" style="padding-top: 25px"  src="/assets/500.svg" >
+   
+     <p *ngIf="record.get('url')">
+   
+       Você tentou acessar essa url  <a  href="{{record.get('url')}}">
+       {{record.get('url')}}
+        </a>
+   
+       {{record.get('messagem')}}
+     </p>
+     <p *ngIf="record.get('messagem')" style="color: red">
+       Menssagem:  {{record.get('messagem')}}
+     </p>
+   
+   
+     <a href="/"> voltar ao Inicio Voltar</a>
+   </div>
+   
+{% endexport %} 
