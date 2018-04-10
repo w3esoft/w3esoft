@@ -25,6 +25,21 @@ public class PawTokenType {
     public static IElementType STRING = new IElementType("TAG_TOP_VALUE_STRING", PawLanguage.INSTANCE);
     public static IElementType NUMERIC = new IElementType("TAG_TOP_VALUE_NUMERIC", PawLanguage.INSTANCE);
     public static IElementType COMMENT = new IElementType("COMMENT", PawLanguage.INSTANCE);
+    public static IElementType IDENT = new IElementType("IDENT", PawLanguage.INSTANCE);
+    public static IElementType HASH = new IElementType("HASH", PawLanguage.INSTANCE);
+    public static IElementType DOT = new IElementType("DOT", PawLanguage.INSTANCE);
+    public static IElementType META_TAG_END = new IElementType("META_TAG_END", PawLanguage.INSTANCE);
+    public static IElementType META_TAG_START = new IElementType("META_TAG_START", PawLanguage.INSTANCE);
+    public static IElementType BRACE_OPEN = new IElementType("BRACE_OPEN", PawLanguage.INSTANCE);
+    public static IElementType BRACE_CLOSE = new IElementType("BRACE_CLOSE", PawLanguage.INSTANCE);
+    public static IElementType EQUAL = new IElementType("EQUAL", PawLanguage.INSTANCE);
+    public static IElementType PARENTHESIS_CLOSE = new IElementType("PARENTHESIS_CLOSE", PawLanguage.INSTANCE);
+    public static IElementType PARENTHESIS_OPEN = new IElementType("PARENTHESIS_OPEN", PawLanguage.INSTANCE);
+    public static IElementType TEXT = new IElementType("TEXT", PawLanguage.INSTANCE);
+    public static IElementType WHITESPACE = new IElementType("WHITESPACE", PawLanguage.INSTANCE);
+    public static IElementType PERCENT_SIGN = new IElementType("PERCENT_SIGN", PawLanguage.INSTANCE);
+    public static IElementType BRACKET_CLOSE = new IElementType("BRACKET_CLOSE", PawLanguage.INSTANCE);
+    public static IElementType BRACKET_OPEN = new IElementType("BRACKET_OPEN", PawLanguage.INSTANCE);
     public static IElementType WHITE_SPACE = TokenType.WHITE_SPACE;
     public static IElementType BAD_CHARACTER = TokenType.BAD_CHARACTER;
     public static IElementType NEW_LINE_INDENT = TokenType.NEW_LINE_INDENT;
@@ -38,55 +53,57 @@ public class PawTokenType {
         } else if (PawLexerTokenType.STRING_ERROR.name().contentEquals(t.name())) {
             return  ERROR_ELEMENT;
         } else if (PawLexerTokenType.LINE.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  NEW_LINE_INDENT;
+        } else if (PawLexerTokenType.EOF.name().contentEquals(t.name())) {
+            return  EOF;
         } else if (PawLexerTokenType.IDENT.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  IDENT;
         } else if (PawLexerTokenType.HASH.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  HASH;
         } else if (PawLexerTokenType.BRACKET_OPEN.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  BRACKET_OPEN;
         } else if (PawLexerTokenType.BRACKET_CLOSE.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  BRACKET_CLOSE;
         } else if (PawLexerTokenType.PERCENT_SIGN.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  PERCENT_SIGN;
         } else if (PawLexerTokenType.STRING.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  STRING;
         } else if (PawLexerTokenType.WHITESPACE.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  WHITESPACE;
         } else if (PawLexerTokenType.NUMERIC.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
-        } else if (PawLexerTokenType.TOKEN_TEXT.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  NUMERIC;
+        } else if (PawLexerTokenType.TEXT.name().contentEquals(t.name())) {
+            return  TEXT;
         } else if (PawLexerTokenType.TAG_END.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  TAG_END;
         } else if (PawLexerTokenType.TAG_START.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  TAG_START;
         } else if (PawLexerTokenType.TAG_START_END.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  TAG_START_END;
         } else if (PawLexerTokenType.TAG_ATTR_TEMPLATE.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  TAG_ATTR_TEMPLATE;
         } else if (PawLexerTokenType.TAG_ATTR_INPUT.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  TAG_ATTR_INPUT;
         } else if (PawLexerTokenType.TAG_ATTR_OUTPUT.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  TAG_ATTR_OUTPUT;
         } else if (PawLexerTokenType.TAG_ATTR_INPUT_OUTPUT.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  TAG_ATTR_INPUT_OUTPUT;
         } else if (PawLexerTokenType.META_TAG_END.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  META_TAG_END;
         } else if (PawLexerTokenType.META_TAG_START.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  META_TAG_START;
         } else if (PawLexerTokenType.EQUAL.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  EQUAL;
         } else if (PawLexerTokenType.BRACE_OPEN.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  BRACE_OPEN;
         } else if (PawLexerTokenType.BRACE_CLOSE.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  BRACE_CLOSE;
         } else if (PawLexerTokenType.PARENTHESIS_OPEN.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  PARENTHESIS_OPEN;
         } else if (PawLexerTokenType.PARENTHESIS_CLOSE.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  PARENTHESIS_CLOSE;
         } else if (PawLexerTokenType.DOT.name().contentEquals(t.name())) {
-            return  ERROR_ELEMENT;
+            return  DOT;
         }
         return  ERROR_ELEMENT;
     }

@@ -13,7 +13,7 @@ public enum PawLexerTokenType {
     STRING,
     WHITESPACE,
     NUMERIC,
-    TOKEN_TEXT ,
+    TEXT,
     TAG_END ,
     TAG_START ,
     TAG_START_END ,

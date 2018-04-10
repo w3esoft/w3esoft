@@ -107,7 +107,7 @@ public class PawLexer {
 
             }
             int len =(scan.getPosition()+1) - offset ;
-            return new PawLexerToken(PawLexerTokenType.TOKEN_TEXT, text, offset, len    );
+            return new PawLexerToken(PawLexerTokenType.TEXT, text, offset, len    );
 
         }else if (this.mode == LEXER_MODE_STATEMENT|| this.mode == LEXER_MODE_MACRO ||  this.mode == LEXER_MODE_TAG){
             if (isWhitespace(c)){

@@ -7,22 +7,18 @@ public class PawLexerToken {
     private LexerPosition currentPosition;
     private String value;
     private int offset;
-    private int len;
+    private int length;
 
-    public PawLexerToken(PawLexerTokenType index, String value, int offset, int len) {
+    public PawLexerToken(PawLexerTokenType index, String value, int offset, int length) {
         this.index = index;
         this.value = value;
         this.offset = offset;
-        this.len = len;
+        this.length = length;
     }
 
-    public int getPositionStart() {
+    public int getOffset() {
         return offset;
 
-    }
-
-    public int getPositionEnd() {
-        return offset + len;
     }
 
     public PawLexerTokenType getIndex() {
@@ -76,4 +72,7 @@ public class PawLexerToken {
     }
 
 
+    public int getLength() {
+        return length;
+    }
 }

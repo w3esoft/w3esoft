@@ -18,21 +18,23 @@ public class PawLexer extends Lexer {
     private PawSyntaxHighlighter highlighter;
     PawLexerToken token;
     private org.paw.lang.lexer.PawLexer lexer;
-    private List tokens = new ArrayList();
+    CharSequence charSequence;
+
     public PawLexer(PawSyntaxHighlighter highlighter) {
         this.highlighter = highlighter;
     }
     @Override
-    public void start(@NotNull CharSequence charSequence, int i, int i1, int i2) {
+    public void start(@NotNull CharSequence charSequence, int s, int pEnd, int i2) {
+        this.charSequence=charSequence;
         lexer = new org.paw.lang.lexer.PawLexer(new PawScan(charSequence));
-        while (true){
-            PawLexerToken token = lexer.tokinize();
-            tokens.add(token);
-            if (token.is(PawLexerTokenType.EOF)){
-                break;
-            }
-        }
-        tokens.size();
+        token = lexer.tokinize();
+//        while (true){
+//            tokens.add(token);
+//            if (token.is(PawLexerTokenType.EOF)){
+//                break;
+//            }
+//        }
+//        tokens.size();
     }
     @Override
     public int getState() {
@@ -41,20 +43,28 @@ public class PawLexer extends Lexer {
     @Nullable
     @Override
     public IElementType getTokenType() {
-        return PawTokenType.getIElementTypeFromIndex(token.getIndex());
+
+        if (token.is(PawLexerTokenType.EOF)){
+
+            return null;
+        }else {
+            return PawTokenType.getIElementTypeFromIndex(token.getIndex());
+        }
     }
     @Override
     public int getTokenStart() {
-        return token.getPositionStart();
+        return token.getOffset()+1;
     }
 
     @Override
     public int getTokenEnd() {
-        return token.getPositionEnd();
+       return token.getOffset() + token.getLength()+1;
+
     }
 
     @Override
     public void advance() {
+        token = lexer.tokinize();
     }
 
     @NotNull
@@ -71,7 +81,7 @@ public class PawLexer extends Lexer {
     @NotNull
     @Override
     public CharSequence getBufferSequence() {
-        return null;
+        return charSequence;
     }
 
     @Override

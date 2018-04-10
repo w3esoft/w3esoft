@@ -404,7 +404,7 @@ public class PawLexerTest {
    @Test
    public void test1(){
        PawLexer lexer = new PawLexer(new PawScan(template));
-       List tokens = new ArrayList();
+       List<PawLexerToken> tokens = new ArrayList();
        while (true){
            PawLexerToken token = lexer.tokinize();
            tokens.add(token);
